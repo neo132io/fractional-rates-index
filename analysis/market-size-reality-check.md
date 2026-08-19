@@ -102,7 +102,7 @@ the number is doing marketing, not measurement.
 3. **Adoption-growth percentages in this market are marketing artifacts**
    until someone publishes a repeated-measure study. None exists today.
 4. **Published prices are the exception, not the rule.** In our verified
-   dataset, 7 of 34 providers (20.6%) publish a browser-verified price;
+   dataset, 7 of 34 providers (20.6%) publish a verified price (6 browser-confirmed, 1 first-party);
    among CPO-specific providers the rate is 3 of 9. A separate structured
    150-provider cross-role discovery pass found first-party published
    pricing for fewer than a third of providers, with CTO the most
@@ -115,9 +115,11 @@ the number is doing marketing, not measurement.
 Two independent deep-research passes (August 2026) traced each claim's
 citation genealogy: identifying downstream citers, attributed origins,
 and any disclosed methodology, then cross-compared. Where the passes
-disagreed on provenance, both findings are reported above. Full source
-trails are preserved in the research archive of this repository. This
-document will be updated if primary sources surface.
+disagreed on provenance, both findings are reported above. The provider
+candidate queue from the discovery passes ships in this repository under
+research/; the full citation-genealogy trails are held in the project
+archive and available on request. This document will be updated if
+primary sources surface.
 
 *Fractional Rates Index, saasfractionalcpo.com. License: CC BY 4.0,
 attribution required.*

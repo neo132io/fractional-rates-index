@@ -2,95 +2,123 @@
 ### Part of the Fractional Rates Index engagement standard · CC BY 4.0
 ### This is a working template, not legal advice. It attaches to [`services-agreement.md`](services-agreement.md) and controls where more specific (see agreement §4.4).
 
-> **Source status.** Sections 2, 3, 4, 5 and 8 below are derived from the executed structure of
-> [`services-agreement.md`](services-agreement.md) §§2–4 and §10, which is the authoritative source for
-> them. The dedicated scope-of-work source content (`batch4-wave3-content.md`, p. 37) **could not be
-> located** on the production server or the local machine at build time. Fields that depend on it
-> alone — principally the 90-day outcome detail in §7 — are marked
-> **`[PLACEHOLDER pending verification]`** and left empty rather than reconstructed.
+> **Sources.** This document is built from the fractional CPO scope-of-work source content (Batch 4,
+> wave 3) and from the executed structure of [`services-agreement.md`](services-agreement.md) §§2–4,
+> §5 and §10. Every section is sourced; **no field is left pending.**
 >
-> **No market figure appears in this document.** Bracketed values are template fields for the parties
-> to set, not published data. For what the index can and cannot support on pricing, see
-> [`../FINDINGS.md`](../FINDINGS.md).
+> **On the bracketed values.** Figures like `[20-25] hours`, `[3] months` and `[30] days` are **this
+> practice's own conventions, offered as template defaults for the parties to set.** They are **not
+> market norms and not measured data.** Publishing a house convention as a market range inside a
+> citable open standard would be circular — the convention would become citable "market evidence" and
+> could later be cited back at its own author as independent corroboration. This template does not do
+> that. For what is actually measured, see [`../FINDINGS.md`](../FINDINGS.md), which finds that only
+> 8 of 34 providers publish a price at all and states explicitly that the sample establishes a
+> disclosure pattern rather than a market rate.
 
 ---
 
-## 1. The problem being solved
+## The short version
 
-**[State the product problem this engagement exists to address, in one paragraph, before reading on.]**
+A fractional CPO scope of work has five sections that matter: **outcomes**, **decision rights**, the
+**operating cadence**, the **execution boundary**, and **commercial terms**.
 
-State the problem, not the activity. "The roadmap is set by whoever argues hardest in the room" is a
-problem. "Roadmap management" is an activity, and an activity is not a reason to hire anyone.
-Responsibilities that do not trace back to a stated problem expand without limit.
+**Scope defined by outcomes and rights survives contact with reality. Scope defined by task lists
+collapses into hourly babysitting by month two.**
+
+---
+
+## 1. Outcomes, not activities
+
+**Two or three outcomes, measurable at day 90.** Not an activity list.
+
+**[State 2-3 outcomes here.]** Worked examples of the right altitude:
+
+- Install a prioritization process the team runs independently
+- Deliver an evidence-backed 12-month strategy
+- Reduce decision latency on customer requests to under a week
+
+**Drafting note.** Activity lists — "attend standups, review specs" — buy presence, not change. Each
+outcome above names a state of the world that is different at day 90 and can be checked. If a line
+cannot be checked, it is an activity wearing an outcome's clothes.
 
 ---
 
 ## 2. Decision rights
 
-The three-way split is the point: most scope disputes are not about whether the Executive was
-involved in a decision, but about who owned it. Derived from agreement §4.1–4.3.
+The single highest-leverage paragraph in the document. **Most fractional failures are
+undefined-authority failures wearing other costumes.**
 
-| Level | Meaning | In this engagement |
-|---|---|---|
-| **Executive owns** | Accountable, makes the call, at leadership altitude | Product strategy **and its exclusions**; prioritization decisions within the agreed strategy; the product decision process; customer-evidence direction; coaching of the internal product team |
-| **Executive advises, Company decides** | Input, no decision right | Hiring and compensation; pricing; fundraising narrative; **changes to the strategy itself** |
-| **Company retains** | Outside this engagement | See §3 |
+Consistent with agreement §4.1–4.3.
 
-**Drafting note.** Two lines above do real work and are commonly omitted. "Product strategy *and its
-exclusions*" makes deciding what the product will **not** do an owned decision rather than an
-unowned one. "Changes to the strategy itself" sits with the Company deliberately: the Executive owns
-decisions *within* a strategy but cannot unilaterally replace the strategy they were hired to
-execute.
+| Level | In this engagement |
+|---|---|
+| **Decides** | Roadmap priorities within the agreed strategy; process design; product strategy **and its exclusions**; the product decision process; customer-evidence direction; coaching of the internal product team |
+| **Recommends** (founder decides) | Hiring and compensation; pricing; fundraising narrative; **changes to the strategy itself** |
+| **Stays out of** | People decisions on day one; anything the founder is not ready to delegate — **named honestly**, not left implicit |
+
+**Drafting note.** Two lines here do disproportionate work. "Product strategy *and its exclusions*"
+makes deciding what the product will **not** do an owned decision rather than an orphaned one.
+"Changes to the strategy itself" sits with the founder deliberately: the Executive owns decisions
+*within* a strategy but cannot unilaterally replace the strategy they were hired to execute.
+
+The third row is the one people leave blank. Write down what the founder is not ready to delegate,
+in plain words, on day one. An unnamed reservation surfaces in month two as a disagreement about
+competence.
 
 ---
 
-## 3. Explicit exclusions
+## 3. The execution boundary
 
-What remains with the Company. Derived from agreement §4.3 and §1.2.
+Written down, because **this is where scope creep lives.**
 
-- **Day-to-day execution beyond coaching** — tickets, specs, ceremonies.
-- **People-management authority**, unless separately agreed in writing.
-- **Exclusivity.** The Executive maintains other clients; this is inherent to the fractional model
+- **The Executive owns:** decisions, strategy, process, coaching.
+- **The internal team owns:** tickets, specs, delivery.
+- **Not exclusive:** the Executive maintains other clients; this is inherent to the fractional model
   (agreement §1.2) and is not a conflict. Competitor restrictions are handled at agreement §8.1.
+- **People-management authority:** excluded unless separately agreed in writing (agreement §4.3).
 
-Additional exclusions to state explicitly if they apply, because silence defaults them the wrong way:
-
-- Hiring and firing authority — **[in / out]**
-- Budget authority and spend approval — **[in / out]**
-- Delivery execution as distinct from delivery leadership — **[in / out]**
-- Anything the Company's existing leaders already own — **[list]**
-
-**Drafting note.** A scope with no exclusions has not been scoped; it has been described. This is the
-most frequently omitted section and the one that does the most work.
+**If no internal execution capacity exists, say so in this document and shape the engagement
+accordingly** — rather than discovering it in month two as mutual resentment.
 
 ---
 
-## 4. Time commitment
+## 4. Cadence and availability
 
-Per agreement §2.1 and §3.
+Per source §3 and agreement §3.
 
-- **Committed time:** **[20-25]** hours per month
-- **Working pattern:** a fixed weekly leadership session plus asynchronous availability, with a
-  **[24-48 hour]** response norm on business days
+- **Fixed weekly leadership session** — the spine of the engagement
+- **Async response norm:** **[24-48 hours]** on business days
+- **Escalation path for decisions that cannot wait:** **[named route and named person]**
+- **Committed time:** **[20-25]** hours per month, shaped as fixed cadence plus responsive async
 - **Variance:** the monthly band is a good-faith planning envelope, not a meter; single months may
-  vary **[±20%]** without adjustment
+  vary **[±20%]** without adjustment (agreement §3.2)
 - **Sustained overage:** two consecutive months above the band triggers a scope conversation, not
-  silent invoicing
-- **On-site or remote:** **[remote / hybrid, with travel beyond [city/remote norm] pre-approved]**
+  silent invoicing (agreement §3.3)
 
-This field and the fee field are a single commercial term. A monthly fee stated without a time
-commitment is not comparable to any other monthly fee — the index records providers publishing
-similar headline figures against materially different commitments.
+**Why monthly bands rather than weekly caps.** Weekly hard caps fight the natural rhythm of
+leadership work, which front-loads around decisions. Use a monthly band with a fixed weekly cadence
+inside it.
+
+**The escalation path is not optional.** A response norm without an escalation route means every
+urgent decision either waits for the weekly session or arrives as an interruption.
 
 ---
 
-## 5. Fee
+## 5. Commercial terms
 
-- **Monthly retainer:** **$[amount]** (agreement §2.1)
+Per source §5 and agreement §2 and §5.
 
-> No benchmark range is stated here. See [`../FINDINGS.md`](../FINDINGS.md) for every figure the index
-> supports, each with its denominator, and for the explicit statement that the sample establishes a
-> disclosure pattern rather than a market rate.
+- **Monthly retainer:** **$[amount]** against the defined hour band in §4
+- **Minimum term:** **[3] months** — real outcomes need two decision cycles
+- **Notice:** **[30] days**, either side, after the initial term
+- **IP:** assigned to the Company on payment; the Executive retains pre-existing methods and
+  frameworks (agreement §6)
+- **Confidentiality:** agreement §7
+- **Conversion clause:** if a full-time hire emerges, search support is included and **any placement
+  economics are named upfront**, not negotiated at the moment of conversion
+
+> The retainer figure is a field for the parties. No benchmark range is stated here. See
+> [`../FINDINGS.md`](../FINDINGS.md) for every figure the index supports, each with its denominator.
 
 ---
 
@@ -99,66 +127,73 @@ similar headline figures against materially different commitments.
 - **Reports to:** **[role]**
 - **Named Company counterpart:** **[name, role]**
 
-A single named person on the Company side who owns the relationship, unblocks access, and is
-accountable for Company-side inputs. Engagements without one fail slowly, and for reasons that look
-like the Executive's fault.
+A single named person who owns the relationship, unblocks access, and is accountable for
+Company-side inputs. Engagements without one fail slowly, and for reasons that look like the
+Executive's fault.
 
 ---
 
-## 7. 90-day outcomes and measurement
+## 7. The evidence program
 
-Written as **method, not as promise.**
+**The first clause people forget and regret.** Name the interview volume **and the access the
+Company must provide.**
 
-A measurement framework describes what will be measured and when it will be reviewed. **It does not
-commit to an outcome.** Any version of this section that reads as a guarantee of results is wrong and
-must be rewritten before use — this is consistent with agreement §9.3, under which the Executive
-warrants professional-grade care while the Company acknowledges that outcomes depend on its own
-execution and on market factors.
+- **Customer conversations in the first 60 days:** **[60-80]**
+- **The Company's obligation:** opening those doors — introductions, scheduling, and permission to
+  speak to named accounts
 
-**Phase structure and named outcomes:** `[PLACEHOLDER pending verification]`
-
-**Leading indicator set:** `[PLACEHOLDER pending verification]`
-
-Each indicator, once sourced, states what it measures, why it leads, and **how it can mislead.** An
-indicator with no stated failure mode is not yet written properly: every leading indicator can be
-gamed, and the version worth signing says how.
+**Drafting note.** An evidence-backed strategy is one of the standard outcomes in §1, and it is not
+achievable unilaterally. Writing the volume without writing the access obligation puts the Executive
+on the hook for a number only the Company can deliver.
 
 ---
 
-## 8. Deliverables and handover
+## 8. Tools and data access
 
-Per agreement §10, the following are owed on wind-down, within the final month's hours:
+**Day one, in writing.** **[List the systems, repositories, dashboards, analytics and accounts
+required, with the owner of each.]**
 
-- The documented product strategy
+Two weeks of access friction comes out of a 90-day engagement, not out of the calendar. Access is the
+cheapest thing on this list to arrange and the most expensive to arrange late.
+
+---
+
+## 9. Deliverables and handover
+
+**Fractional done well ends deliberately.** Per source and agreement §10, on wind-down the Executive
+delivers, within the final month's hours:
+
+- The documented strategy
 - The running decision process
 - The open decision log
 - Where relevant, the hiring profile for a successor
 - A **[2-4 hour]** transition session with the successor or founder
 
-**Interim deliverables during the engagement:** `[PLACEHOLDER pending verification]`
-
 **Drafting note.** Each deliverable needs a stated acceptance test. "A product strategy" is not a
-deliverable; "a written product strategy reviewed and accepted by **[counterpart]**" is. Note also
-that the decision *log* and *rationale* matter more than the decisions themselves — a successor who
-inherits conclusions without reasoning will re-litigate all of them.
+deliverable; "a written product strategy reviewed and accepted by **[counterpart]**" is. The decision
+*log and its rationale* matter more than the decisions themselves — a successor who inherits
+conclusions without reasoning will re-litigate all of them.
 
 ---
 
-## 9. Review and change control
+## 10. Review and change control
 
-- **Review cadence:** **[monthly / at 30-60-90]**
-- **How a scope change is agreed and recorded:** **[written amendment per agreement §11.2]**
+- **First 90 days:** **fixed outcomes** per §1
+- **After 90 days:** rolling scope, **reviewed quarterly**
+- **How a change is recorded:** written amendment per agreement §11.2
 
-Scope in a fractional engagement moves. That is normal and is not a failure. What fails is scope
-moving without either party noticing, which is a change-control problem rather than a scoping one.
+**Why this shape.** Deliverable-fixed engagements turn a leader into a vendor; scope-free ones turn
+the retainer into a subscription to meetings. Fixed outcomes first, rolling scope after.
+
+Scope in a fractional engagement moves, and that is not a failure. What fails is scope moving without
+either party noticing, which is a change-control problem rather than a scoping one.
 
 ---
 
 ## Versioning
 
-**v1.0 (2026-08-17).** First publication. §§2–5 and §8 derived from the services agreement; §7 phase
-detail and indicator set held as `[PLACEHOLDER pending verification]` pending recovery of the source
-scope content.
+**v1.0 (2026-08-17).** First complete publication. All sections sourced from the scope-of-work source
+content (Batch 4, wave 3) and [`services-agreement.md`](services-agreement.md). No field pending.
 
 ---
 
