@@ -41,7 +41,8 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
 | [`standard/scope-of-work.md`](standard/scope-of-work.md) | Open scope-of-work template, v1.0. Attaches to the agreement |
 | [`research/verification-queue-raw.csv`](research/verification-queue-raw.csv) | 315 unverified provider candidates. **Not data.** See below |
-| [`LICENSE`](LICENSE) | CC BY 4.0 |
+| [`LICENSE`](LICENSE) | CC BY 4.0 full legal code |
+| [`NOTICE.md`](NOTICE.md) | Attribution line and what the license does and does not cover |
 
 ### A note on the dataset scope
 
