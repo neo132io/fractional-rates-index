@@ -1,98 +1,92 @@
-# Fractional Executive Scope of Work — Structure
+# Fractional CPO Scope of Work · Open Template v1.0
+### Part of the Fractional Rates Index engagement standard · CC BY 4.0
+### This is a working template, not legal advice. It attaches to [`services-agreement.md`](services-agreement.md) and controls where more specific (see agreement §4.4).
 
-**The Fractional Engagement Standard · v1.0 · 2026-08-17 · CC BY 4.0**
-
-> **Source status.** The intended source for this document — the scope-of-work content held in
-> `batch4-wave3-content.md` (p. 37), with `fractional-cpo-services-agreement-template.md` as the
-> clause source — **could not be located** on the production server or the local machine at build
-> time. Neither file exists at any searched path.
+> **Source status.** Sections 2, 3, 4, 5 and 8 below are derived from the executed structure of
+> [`services-agreement.md`](services-agreement.md) §§2–4 and §10, which is the authoritative source for
+> them. The dedicated scope-of-work source content (`batch4-wave3-content.md`, p. 37) **could not be
+> located** on the production server or the local machine at build time. Fields that depend on it
+> alone — principally the 90-day outcome detail in §7 — are marked
+> **`[PLACEHOLDER pending verification]`** and left empty rather than reconstructed.
 >
-> This document is therefore published as **structure and drafting method**. Every field requiring
-> the missing source is marked **`[PLACEHOLDER pending verification]`** and left empty rather than
-> reconstructed from memory. **No figure appears anywhere in this document.**
-
-**This is not legal advice and is not a contract.**
-
----
-
-## How to use this document
-
-A scope of work has one job: make it possible for both parties to tell, later, whether the thing was
-done. Every section below exists to remove a specific ambiguity that otherwise surfaces at month
-three.
-
-The test for a completed scope document: **a reader who was not in the room can say what the
-fractional leader owns, what they do not, and what "done" looks like.** If they cannot, the document
-is not finished regardless of its length.
+> **No market figure appears in this document.** Bracketed values are template fields for the parties
+> to set, not published data. For what the index can and cannot support on pricing, see
+> [`../FINDINGS.md`](../FINDINGS.md).
 
 ---
 
 ## 1. The problem being solved
 
-A plain statement of the product or functional problem the engagement exists to address — written
-before responsibilities, because responsibilities that do not trace to a stated problem tend to
-expand without limit.
+**[State the product problem this engagement exists to address, in one paragraph, before reading on.]**
 
-`[PLACEHOLDER pending verification]` — worked examples from the source content.
-
-**Drafting note.** State the problem, not the activity. "The roadmap is set by whoever argues hardest
-in the room" is a problem. "Roadmap management" is an activity, and an activity is not a reason to
-hire anyone.
+State the problem, not the activity. "The roadmap is set by whoever argues hardest in the room" is a
+problem. "Roadmap management" is an activity, and an activity is not a reason to hire anyone.
+Responsibilities that do not trace back to a stated problem expand without limit.
 
 ---
 
-## 2. Responsibilities
+## 2. Decision rights
 
-Split three ways. The split is the point: most scope disputes are not about whether the leader was
-involved in a decision but about whether they owned it.
+The three-way split is the point: most scope disputes are not about whether the Executive was
+involved in a decision, but about who owned it. Derived from agreement §4.1–4.3.
 
 | Level | Meaning | In this engagement |
 |---|---|---|
-| **Owns** | Accountable for the outcome. Makes the call | `[PLACEHOLDER pending verification]` |
-| **Decides** | Holds the decision right, within a stated boundary | `[PLACEHOLDER pending verification]` |
-| **Advises** | Input, no decision right. The client owns the outcome | `[PLACEHOLDER pending verification]` |
+| **Executive owns** | Accountable, makes the call, at leadership altitude | Product strategy **and its exclusions**; prioritization decisions within the agreed strategy; the product decision process; customer-evidence direction; coaching of the internal product team |
+| **Executive advises, Company decides** | Input, no decision right | Hiring and compensation; pricing; fundraising narrative; **changes to the strategy itself** |
+| **Company retains** | Outside this engagement | See §3 |
 
-**Drafting note.** Anything that cannot be placed in one of these three rows is not yet a
-responsibility, it is a topic.
+**Drafting note.** Two lines above do real work and are commonly omitted. "Product strategy *and its
+exclusions*" makes deciding what the product will **not** do an owned decision rather than an
+unowned one. "Changes to the strategy itself" sits with the Company deliberately: the Executive owns
+decisions *within* a strategy but cannot unilaterally replace the strategy they were hired to
+execute.
 
 ---
 
 ## 3. Explicit exclusions
 
-What remains with the client.
+What remains with the Company. Derived from agreement §4.3 and §1.2.
 
-`[PLACEHOLDER pending verification]`
+- **Day-to-day execution beyond coaching** — tickets, specs, ceremonies.
+- **People-management authority**, unless separately agreed in writing.
+- **Exclusivity.** The Executive maintains other clients; this is inherent to the fractional model
+  (agreement §1.2) and is not a conflict. Competitor restrictions are handled at agreement §8.1.
 
-**Drafting note.** This is the section most often omitted and the one that does the most work. A
-scope with no exclusions has not been scoped; it has been described. Exclusions to state explicitly
-in fractional engagements, because silence defaults them the wrong way:
+Additional exclusions to state explicitly if they apply, because silence defaults them the wrong way:
 
-- Line management of client staff, where not intended
-- Hiring and firing authority
-- Budget authority and spend approval
-- Delivery execution as distinct from delivery leadership
-- Anything the client's existing leaders already own
+- Hiring and firing authority — **[in / out]**
+- Budget authority and spend approval — **[in / out]**
+- Delivery execution as distinct from delivery leadership — **[in / out]**
+- Anything the Company's existing leaders already own — **[list]**
+
+**Drafting note.** A scope with no exclusions has not been scoped; it has been described. This is the
+most frequently omitted section and the one that does the most work.
 
 ---
 
 ## 4. Time commitment
 
-- **Committed time:** `[hours or days per period]`
-- **Period:** `[per week | per month]`
-- **Working pattern:** `[PLACEHOLDER pending verification]`
-- **On-site or remote:** `[PLACEHOLDER pending verification]`
+Per agreement §2.1 and §3.
 
-This field and the fee field in [`services-agreement.md`](services-agreement.md) are a single
-commercial term. A monthly fee stated without a time commitment is not comparable to any other
-monthly fee, and the index records providers publishing similar headline figures against materially
-different commitments.
+- **Committed time:** **[20-25]** hours per month
+- **Working pattern:** a fixed weekly leadership session plus asynchronous availability, with a
+  **[24-48 hour]** response norm on business days
+- **Variance:** the monthly band is a good-faith planning envelope, not a meter; single months may
+  vary **[±20%]** without adjustment
+- **Sustained overage:** two consecutive months above the band triggers a scope conversation, not
+  silent invoicing
+- **On-site or remote:** **[remote / hybrid, with travel beyond [city/remote norm] pre-approved]**
+
+This field and the fee field are a single commercial term. A monthly fee stated without a time
+commitment is not comparable to any other monthly fee — the index records providers publishing
+similar headline figures against materially different commitments.
 
 ---
 
 ## 5. Fee
 
-- **Amount:** `[amount]`
-- **Unit:** `[per month | fixed fee | per day]`
+- **Monthly retainer:** **$[amount]** (agreement §2.1)
 
 > No benchmark range is stated here. See [`../FINDINGS.md`](../FINDINGS.md) for every figure the index
 > supports, each with its denominator, and for the explicit statement that the sample establishes a
@@ -100,60 +94,60 @@ different commitments.
 
 ---
 
-## 6. Reporting line and decision rights
+## 6. Reporting line and counterpart
 
-- **Reports to:** `[role]`
-- **Decision rights held:** `[PLACEHOLDER pending verification]`
-- **Decisions escalated:** `[PLACEHOLDER pending verification]`
-- **Board or investor-facing responsibilities:** `[PLACEHOLDER pending verification]`
+- **Reports to:** **[role]**
+- **Named Company counterpart:** **[name, role]**
 
-**Drafting note.** A fractional leader with executive responsibility and no stated decision rights is
-being asked to carry accountability without authority. Name the boundary.
-
----
-
-## 7. Named client-side counterpart
-
-- **Counterpart:** `[name, role]`
-
-A single named person on the client side who owns the relationship, unblocks access, and is
-accountable for client-side inputs. Engagements without one fail slowly and for reasons that look
-like the consultant's fault.
+A single named person on the Company side who owns the relationship, unblocks access, and is
+accountable for Company-side inputs. Engagements without one fail slowly, and for reasons that look
+like the Executive's fault.
 
 ---
 
-## 8. Deliverables
-
-`[PLACEHOLDER pending verification]` — deliverable list, format and acceptance criteria from the
-source content.
-
-**Drafting note.** Each deliverable needs a stated acceptance test. "A product strategy" is not a
-deliverable; "a written product strategy reviewed and accepted by `[counterpart]`" is.
-
----
-
-## 9. Measurement framework
+## 7. 90-day outcomes and measurement
 
 Written as **method, not as promise.**
 
 A measurement framework describes what will be measured and when it will be reviewed. **It does not
 commit to an outcome.** Any version of this section that reads as a guarantee of results is wrong and
-must be rewritten before use.
+must be rewritten before use — this is consistent with agreement §9.3, under which the Executive
+warrants professional-grade care while the Company acknowledges that outcomes depend on its own
+execution and on market factors.
 
-**Planned structure** — a phased structure across the opening period, with a small set of leading
-indicators chosen because they move earlier than revenue does. Each indicator states what it
-measures, why it leads, and **how it can mislead.**
+**Phase structure and named outcomes:** `[PLACEHOLDER pending verification]`
 
-`[PLACEHOLDER pending verification]` — the phase detail and the indicator set.
+**Leading indicator set:** `[PLACEHOLDER pending verification]`
 
-**Drafting note.** An indicator with no stated failure mode is not yet written properly. Every
-leading indicator can be gamed, and the version of this section worth signing says how.
+Each indicator, once sourced, states what it measures, why it leads, and **how it can mislead.** An
+indicator with no stated failure mode is not yet written properly: every leading indicator can be
+gamed, and the version worth signing says how.
 
 ---
 
-## 10. Review and change control
+## 8. Deliverables and handover
 
-`[PLACEHOLDER pending verification]` — review cadence, and how a scope change is agreed and recorded.
+Per agreement §10, the following are owed on wind-down, within the final month's hours:
+
+- The documented product strategy
+- The running decision process
+- The open decision log
+- Where relevant, the hiring profile for a successor
+- A **[2-4 hour]** transition session with the successor or founder
+
+**Interim deliverables during the engagement:** `[PLACEHOLDER pending verification]`
+
+**Drafting note.** Each deliverable needs a stated acceptance test. "A product strategy" is not a
+deliverable; "a written product strategy reviewed and accepted by **[counterpart]**" is. Note also
+that the decision *log* and *rationale* matter more than the decisions themselves — a successor who
+inherits conclusions without reasoning will re-litigate all of them.
+
+---
+
+## 9. Review and change control
+
+- **Review cadence:** **[monthly / at 30-60-90]**
+- **How a scope change is agreed and recorded:** **[written amendment per agreement §11.2]**
 
 Scope in a fractional engagement moves. That is normal and is not a failure. What fails is scope
 moving without either party noticing, which is a change-control problem rather than a scoping one.
@@ -162,12 +156,11 @@ moving without either party noticing, which is a change-control problem rather t
 
 ## Versioning
 
-**v1.0 (2026-08-17).** First publication. Structure and drafting method complete; every
-content field held as `[PLACEHOLDER pending verification]` pending recovery of the source content.
+**v1.0 (2026-08-17).** First publication. §§2–5 and §8 derived from the services agreement; §7 phase
+detail and indicator set held as `[PLACEHOLDER pending verification]` pending recovery of the source
+scope content.
 
 ---
 
-**License: CC BY 4.0.** Use, adapt, translate and redistribute, including commercially, with
-attribution. Variants for CFO, CMO, CTO and COO engagements are explicitly invited.
-
-Source: The Fractional Rates Index, maintained by Sivan Kadosh (saasfractionalcpo.com). License: CC BY 4.0.
+*Published as part of the Fractional Rates Index engagement standard.
+License CC BY 4.0: reuse freely with attribution to saasfractionalcpo.com.*

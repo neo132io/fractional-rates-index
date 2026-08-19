@@ -38,8 +38,8 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | The dataset. 43 rows, 34 providers, one capture date |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
-| [`standard/services-agreement.md`](standard/services-agreement.md) | Engagement agreement structure, v1.0 |
-| [`standard/scope-of-work.md`](standard/scope-of-work.md) | Scope-of-work structure, v1.0 |
+| [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
+| [`standard/scope-of-work.md`](standard/scope-of-work.md) | Open scope-of-work template, v1.0. Attaches to the agreement |
 | [`research/verification-queue-raw.csv`](research/verification-queue-raw.csv) | 315 unverified provider candidates. **Not data.** See below |
 | [`LICENSE`](LICENSE) | CC BY 4.0 |
 
@@ -57,6 +57,21 @@ verified**, and it contains raw research artifacts: markdown fragments, search-t
 and unparsed notes. No number in it may be cited. It is published for transparency about how the
 candidate pool was built, and it is the input queue for the v1.1 per-role editions, which require
 browser verification of each candidate before any of it becomes data.
+
+### A note on `standard/`
+
+`standard/` holds two reusable engagement documents under CC BY 4.0: a services agreement template
+and the scope of work that attaches to it. **They are working templates, not legal advice**, and
+§§7-11 of the agreement need adapting to your jurisdiction by a lawyer.
+
+Bracketed values in them — `[30] days`, `[20-25] hours` — are **template fields for the parties to
+set, not published market data.** No figure from the index appears in either document, and neither
+asserts a market norm. Where market practice genuinely varies, the templates say so instead of
+inventing a standard: there is no single standard notice period in this market, and any document
+claiming otherwise is asserting rather than measuring.
+
+Two fields in the scope of work remain `[PLACEHOLDER pending verification]` because their source
+content could not be located at build time. They are marked in place rather than filled.
 
 ---
 
