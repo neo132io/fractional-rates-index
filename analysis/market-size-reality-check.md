@@ -101,11 +101,14 @@ the number is doing marketing, not measurement.
    self-labeling, not full-time-equivalent supply.
 3. **Adoption-growth percentages in this market are marketing artifacts**
    until someone publishes a repeated-measure study. None exists today.
-4. **Published prices are the exception, not the rule.** Our own index
-   finds that only about 1 in 5 fractional CPO providers publishes a
-   price, and a 150-provider cross-role discovery sample found first-party
-   published pricing for fewer than a third of providers, with CTO the
-   most transparent role and CFO/CRO the least.
+4. **Published prices are the exception, not the rule.** In our verified
+   dataset, 7 of 34 providers (20.6%) publish a browser-verified price;
+   among CPO-specific providers the rate is 3 of 9. A separate structured
+   150-provider cross-role discovery pass found first-party published
+   pricing for fewer than a third of providers, with CTO the most
+   transparent role and CFO/CRO the least; our merged, unverified
+   candidate queue (315 providers) is published in this repository for
+   the verification runs ahead.
 
 ## Methodology of this analysis
 
