@@ -71,8 +71,10 @@ asserts a market norm. Where market practice genuinely varies, the templates say
 inventing a standard: there is no single standard notice period in this market, and any document
 claiming otherwise is asserting rather than measuring.
 
-Two fields in the scope of work remain `[PLACEHOLDER pending verification]` because their source
-content could not be located at build time. They are marked in place rather than filled.
+Both documents are **fully sourced — no field is left pending.** The scope of work is built from
+the scope-of-work source content and from the agreement it attaches to, and it carries the five
+sections that decide whether an engagement holds: outcomes, decision rights, cadence, the execution
+boundary, and commercial terms.
 
 ---
 
