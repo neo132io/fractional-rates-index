@@ -20,11 +20,11 @@ Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 
 **1.** Across **699 providers**, only **89 publish a price** — 12.7% — and just **46 of those have
 been confirmed in a browser**. The defensible rate is **46 of 699, or 6.6%**.
 
-**2.** Published monthly retainers run from **$500 to $30,000**, a 60-fold spread across 7 published
-tiers.
+**2.** Among confirmed USD monthly retainers, published figures run from **$397 to $30,000** — a
+75-fold spread across 44 tiers from 23 providers.
 
-**3.** The **median published monthly retainer floor is $8,000**, and it stays at $8,000 whether or
-not the one out-of-band support tier is excluded.
+**3.** The **median confirmed USD monthly retainer floor is $6,250**, and the median confirmed USD
+hourly rate is **$200**.
 
 Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 
@@ -35,13 +35,7 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | Path | What it is |
 |---|---|
 | [`FINDINGS.md`](FINDINGS.md) | Every finding v1.0 supports, each with its denominator |
-| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The canonical dataset.** 835 rows, 699 providers, 89 publishing a price, 46 confirmed in a browser |
-| [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | Source pass, superseded. CPO v1.0, captured 2026-08-17 |
-| [`data/rates-cpo-expansion-2026-08.csv`](data/rates-cpo-expansion-2026-08.csv) | Source pass, superseded |
-| [`data/rates-cto-2026-08.csv`](data/rates-cto-2026-08.csv) | Source pass, superseded |
-| [`data/rates-cmo-2026-08.csv`](data/rates-cmo-2026-08.csv) | Source pass, superseded |
-| [`data/rates-coo-2026-08.csv`](data/rates-coo-2026-08.csv) | Source pass, superseded |
-| [`data/rates-fractional-cohort-2026-08.csv`](data/rates-fractional-cohort-2026-08.csv) | Source pass, superseded. Apollo-derived, captured 2026-08-20 |
+| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 835 rows, 699 providers, 46 with a browser-confirmed published price |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
@@ -53,9 +47,10 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 
 ### A note on the dataset scope
 
-The dataset file is named for its anchor role (CPO) but is **cross-role**: it covers CFO, CMO, CTO,
-COO, CPO and multi-function marketplaces, because the disclosure pattern is only visible by
-comparison. Role-specific editions are on the roadmap below.
+One file, cross-role: CFO, CMO, CTO, COO, CPO and multi-function marketplaces. The disclosure
+pattern is only visible by comparison, and separate per-role files turned out to double-count
+providers who serve more than one role. The `role` and `source_pass` columns preserve everything
+those files carried.
 
 ### A note on `research/`
 
@@ -96,9 +91,14 @@ floor is off by a factor of two against that provider's own published figure.
 every price-bearing row against the browser-rendered page. **A summarizing fetch is not a capture.**
 In this run, 3 of 10 stage-one price reports failed stage-two verification and were dropped.
 
-**Nulls are results.** Providers publishing no price are included as rows, not omitted. 67.4% of the
+**Nulls are results.** Providers publishing no price are included as rows, not omitted. 77.5% of the
 rows in this index are a published absence of price, and that is the index's main finding rather than
 a gap in it.
+
+**Verification depth is published, not assumed.** The `verification` column separates rows confirmed
+against a browser-rendered page from rows that rest on an automated fetch. 89 providers appear to
+publish a price; only 46 are confirmed. Both numbers are stated everywhere, and the confirmed one is
+the headline.
 
 Full protocol, inclusion criteria and limitations: **[methodology.md](methodology.md)**.
 
@@ -115,8 +115,8 @@ Source: The Fractional Rates Index, maintained by Sivan Kadosh (saasfractionalcp
 For a specific finding, cite the figure with its denominator and the index version:
 
 ```
-Only 8 of 34 fractional executive providers publish a price (23.5%).
-The Fractional Rates Index v1.0, captured 2026-08-17. saasfractionalcpo.com. CC BY 4.0.
+46 of 699 fractional executive providers have a browser-confirmed published price (6.6%).
+The Fractional Rates Index, captured 2026-08-17 to 2026-08-20. saasfractionalcpo.com. CC BY 4.0.
 ```
 
 BibTeX:
@@ -140,12 +140,13 @@ the problem this index was built to address.
 
 ## Roadmap
 
-**v1.1 — per-role editions.** CTO, CFO, CMO and COO editions, built by browser-verifying the 315
-candidates in `research/verification-queue-raw.csv`. COO is the thinnest role in v1.0 (1 provider
-checked, 0 publishing) and is the priority.
+**Next: clear the verification backlog.** 43 providers carry a `fetch_only` price that has not been
+confirmed in a browser. Confirming them is the single highest-value work item, and it is what would
+move the headline rate from 6.6% toward 12.7% on evidence rather than on assumption. Fractional CTO
+is the largest block: 48 providers appear to publish, 4 are confirmed.
 
-Also planned for v1.1: browser verification of the providers screened but not confirmed before the
-v1.0 cutoff, and a second capture pass to establish which published prices are stable over time.
+Also planned: browser verification of the remaining candidates in `research/`, and a second capture
+pass to establish which published prices are stable over time.
 
 ---
 

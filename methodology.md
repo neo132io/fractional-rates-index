@@ -39,7 +39,7 @@ price distribution and conceal the disclosure rate, which is the actual finding.
 providers are the majority of the file by design.
 
 **Row granularity: one row per provider-offering.** A provider publishing three tiers produces three
-rows. 34 providers produce 43 rows.
+rows. 699 providers produce 835 rows.
 
 **Excluded from the dataset:**
 
@@ -131,27 +131,30 @@ maintainer's pricing is subject to the index rather than exempt from it.
 
 ## 5. How the numbers in FINDINGS.md are computed
 
-- **Provider counts** are of distinct `provider` values, not of rows. 34 providers, 43 rows.
+- **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
+  same provider is named differently across collection passes. 699 providers, 835 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
-  is non-null. Providers with only null rows do not count.
-- **Percentages** are over the 34 providers checked unless the line states otherwise. Where a rate
-  over the 33 reachable providers differs materially, both are given.
-- **The retainer band and median** are computed over rows where `offering_type = retainer` and
-  `unit = per_month` and a figure is present — 7 rows. The **median floor** is the median of the
-  non-null `price_low` values. Both the median floor and the median of all endpoints are $8,000, and
-  the median floor stays $8,000 when the one tier its provider states is not executive-level
-  leadership is excluded. The figure is reported because it is stable under that exclusion, not
-  despite it.
+  is non-null. Providers with only null rows do not count. This yields 89 providers.
+- **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
+  This yields 46 providers, and it is the number used in every headline. `fetch_only` rows are
+  excluded from every verified count.
+- **Percentages** are over the 699 providers in the dataset unless the line states otherwise.
+- **The retainer band and median** are computed over rows that are confirmed, priced,
+  `unit = per_month` and `currency = USD` — 44 rows from 23 providers. The **median floor** is the
+  median of the non-null `price_low` values: $6,250. The band $397–$30,000 is the minimum and maximum
+  across all endpoints of those rows.
+- **Currencies are never pooled and never converted.** Every band and median is computed within a
+  single currency, and the currency is named in the finding.
 - **Role and offering-type rates** count distinct providers per group. A provider appearing under two
   roles is counted in each.
 
-Anyone can reproduce every figure from `data/rates-cpo-2026-08.csv` alone.
+Anyone can reproduce every figure from `data/rates-2026-08.csv` alone.
 
 ---
 
 ## 5b. Cohort B — the Apollo-derived cohort (2026-08-20)
 
-`data/rates-fractional-cohort-2026-08.csv` is a **separate cohort**, collected differently from v1.0.
+`data/rates-2026-08.csv` is a **separate cohort**, collected differently from v1.0.
 It is published as its own file, and its figures are reported separately in `FINDINGS.md`, because
 pooling the two would silently mix sampling frames and capture dates.
 
@@ -195,9 +198,11 @@ provider's own page.
 
 ## 5c. The merged dataset
 
-`data/rates-2026-08.csv` is the **canonical dataset**. It merges every collection pass into one file
-so that provider counts are correct. The per-pass files remain in `data/` as the inputs they came
-from; they are superseded and should not be summed.
+`data/rates-2026-08.csv` is the **dataset**. It merges every collection pass into one file so that
+provider counts are correct. The per-pass files have been **deleted**: they double-counted 79
+providers and published 8 providers in contradictory states, so keeping them alongside the merged
+file invited exactly the error the merge fixed. They remain in git history, and the `source_pass`
+column records which pass produced every row.
 
 **Why merging was necessary.** 57 providers appeared in more than one pass. Adding the per-file
 counts together produced 778 providers where there are 699, and 99 price-publishers where there are
@@ -245,19 +250,22 @@ must not be pooled into a single band.
 
 ## 6. Known limitations
 
-- **Small sample.** 34 providers is enough to establish a disclosure pattern and **not enough to
-  state market rates.** No row in this dataset should be read as a market range.
-- **Point-in-time, single capture.** Provider pages change; Go Fractional described "over 1,200
-  fractional executives" on 2026-08-16 and "15,000 operators" on 2026-08-17. Capture dates matter,
-  and one capture date cannot show stability.
-- **Roles are unevenly covered.** COO is the thinnest: 1 provider checked, none publishing.
+- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 46 have a
+  confirmed published price. That is **not enough to state market rates** for any role. No row in
+  this dataset should be read as a market range.
+- **Point-in-time.** Three capture dates across four days. Provider pages change: Go Fractional
+  described "over 1,200 fractional executives" on 2026-08-16 and "15,000 operators" on 2026-08-17.
+  Four days cannot show stability.
+- **Verification is unevenly distributed.** 43 of the 89 apparent price-publishers are unconfirmed,
+  and the backlog is concentrated in CTO (48 apparent, 4 confirmed). Cross-role comparisons of the
+  confirmed rate partly measure where verification effort has gone.
 - **A published price is not a transacted price.** This records what providers publish, not what
   clients pay, and the gap between the two is unmeasured here.
 - **Monthly figures are not comparable without hours.** `hours_included` is frequently null because
   providers frequently omit it.
 - **Selection is not random.** The candidate pool came from discovery research, not from a sampling
   frame, so the disclosure rate describes the providers checked and is not a population estimate.
-- **US and UK-centric, English-language, USD only.**
+- **English-language sources, US and UK-weighted.** Eight currencies appear; USD dominates.
 
 ---
 
