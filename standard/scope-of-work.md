@@ -1,6 +1,6 @@
-# Fractional CPO Scope of Work · Open Template v1.0
+# Fractional CPO Scope of Work · Open Template v1.1
 ### Part of the Fractional Rates Index engagement standard · CC BY 4.0
-### This is a working template, not legal advice. It attaches to [`services-agreement.md`](services-agreement.md) and controls where more specific (see agreement §4.4).
+### This is a working template, not legal advice. It attaches to [`services-agreement.md`](services-agreement.md). Under agreement §4.5 **this document governs the description of services and deliverables, and the agreement governs all legal and commercial terms and controls in the event of conflict.** Outcomes and targets stated here are good-faith objectives, not guarantees or conditions of payment.
 
 > **Sources.** This document is built from the fractional CPO scope-of-work source content (Batch 4,
 > wave 3) and from the executed structure of [`services-agreement.md`](services-agreement.md) §§2–4,
@@ -167,7 +167,8 @@ delivers, within the final month's hours:
 - The running decision process
 - The open decision log
 - Where relevant, the hiring profile for a successor
-- A **[2-4 hour]** transition session with the successor or founder
+- A **[range]** hour transition session with the successor or founder. Handover work beyond the final
+  month's band is chargeable under agreement §3.4
 
 **Drafting note.** Each deliverable needs a stated acceptance test. "A product strategy" is not a
 deliverable; "a written product strategy reviewed and accepted by **[counterpart]**" is. The decision
@@ -180,7 +181,8 @@ conclusions without reasoning will re-litigate all of them.
 
 - **First 90 days:** **fixed outcomes** per §1
 - **After 90 days:** rolling scope, **reviewed quarterly**
-- **How a change is recorded:** written amendment per agreement §11.2
+- **How a change is recorded:** written amendment signed by both parties, per agreement §11.3. The
+  Scope of Work may be amended only in writing signed by both parties, per agreement §4.5.
 
 **Why this shape.** Deliverable-fixed engagements turn a leader into a vendor; scope-free ones turn
 the retainer into a subscription to meetings. Fixed outcomes first, rolling scope after.
@@ -191,6 +193,10 @@ either party noticing, which is a change-control problem rather than a scoping o
 ---
 
 ## Versioning
+
+**v1.1 (2026-08-20).** Realigned to services agreement v1.1: precedence inverted so the agreement
+controls legal and commercial terms, amendment reference moved to §11.3, and handover overrun made
+chargeable under §3.4.
 
 **v1.0 (2026-08-17).** First complete publication. All sections sourced from the scope-of-work source
 content (Batch 4, wave 3) and [`services-agreement.md`](services-agreement.md). No field pending.
