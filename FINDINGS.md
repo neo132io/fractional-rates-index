@@ -67,6 +67,33 @@ percentage over 3,400 and the reader is entitled to know which one they are hold
 
 ---
 
+## The merged dataset — `data/rates-2026-08.csv`
+
+All collection passes deduplicated into one canonical file. **These figures supersede any per-file
+count**: 57 providers appeared in more than one pass, so adding the source files together
+double-counts 79 providers.
+
+> Across 699 distinct fractional executive providers, 89 publish a price — 12.7%. Of those, only 46 have been confirmed against the browser-rendered page; the other 43 rest on an automated fetch alone. (Fractional Rates Index, Aug 2026)
+
+> The defensible published-price rate is 46 of 699 — 6.6%. Anything above that figure is currently claimed rather than confirmed. (Fractional Rates Index, Aug 2026)
+
+> 835 provider-offering rows across 699 providers, captured on three dates. 188 rows carry a figure; 647 record a published absence of price. (Fractional Rates Index, Aug 2026)
+
+> Stage-two confirmation is uneven by role: CMO 13.8% (22 of 159), COO 11.2% (16 of 143), multi 4.8% (2 of 42), CTO 2.8% (4 of 145), CPO 1.9% (2 of 106), CFO 0.7% (1 of 136). (Fractional Rates Index, Aug 2026)
+
+> Published fractional pricing is not a USD-only phenomenon: priced rows span 8 currencies — USD, GBP, EUR, AUD, SGD, NZD, DKK and CHF. (Fractional Rates Index, Aug 2026)
+
+**Read the `verification` column before quoting any row.** `browser_verified` and `first_party` rows
+meet the v1.0 stage-two standard. **`fetch_only` rows do not**: their price was reported by an
+automated fetch and has not been confirmed in a browser, and under this repository's own protocol,
+a summarizing fetch is not a capture. They are published labelled rather than deleted, because they
+are leads worth verifying, not findings.
+
+The v1.0 measured stage-one error rate was 30%, and the Apollo cohort measured 25%. **Expect roughly
+a quarter of the 43 `fetch_only` providers to fail browser confirmation.**
+
+---
+
 ## Cohort B — Apollo-derived discovery, captured 2026-08-20
 
 A second cohort, collected and screened separately from the v1.0 dataset. **Its figures are not

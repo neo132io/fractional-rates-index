@@ -1,0 +1,26 @@
+provider,role,offering_type,price_low,price_high,currency,unit,hours_included,source_url,capture_date,notes
+Preferred CFO,CFO,retainer,,,,,,https://www.preferredcfo.com/,2026-08-19,No published price. Site directs to contact for pricing.
+NOW CFO,CFO,retainer,,,,,,https://nowcfo.com/,2026-08-19,"No published price. Site advertises ""Hourly Rates"" and ""No Hidden Fees"" and ""No Long-Term Requirements"" as features without publishing a figure."
+Burkland,CFO,retainer,,,,,,https://www.burklandassociates.com/,2026-08-19,"No published price. No pricing page exists on the site. v1.0 note: a summarizing fetch reported figures that did not appear in the browser-rendered page; rejected under verbatim-capture rule."
+Paro,CFO,marketplace_match,,,,,,https://paro.ai/,2026-08-19,No published price. Marketplace matching finance talent; directs to consultation.
+The CFO Centre,CFO,retainer,,,,,,https://www.thecfocentre.com/,2026-08-19,Not reachable. DNS resolution failed (ENOTFOUND) at capture on 2026-08-17 and again on 2026-08-19. Recorded as unreachable.
+CRI CFO Hub,CFO,retainer,,,,,,https://www.cricfohub.com/,2026-08-19,"No published price. cfohub.com 301-redirects to cricfohub.com."
+Escalon,CFO,retainer,,,,,,https://escalon.services/pricing/,2026-08-19,"No published CFO price. Pro tier carrying controller and CFO services is published as ""Custom pricing"". Bookkeeping and HR tiers are out of scope."
+Graphite Financial,CFO,retainer,,,,,,https://www.graphitefinancial.com/pricing/,2026-08-19,No dedicated CFO price. Fractional CFO support is bundled inside a Finance tier rather than priced as a standalone CFO service.
+FocusCFO,CFO,retainer,,,,,,https://focuscfo.com/,2026-08-19,"No published price. Site emphasizes ""expert financial guidance without the full-time cost"" and directs to discovery call and complimentary half-day assessment."
+B2B CFO,CFO,retainer,,,,,,https://www.b2bcfo.com/,2026-08-19,No published price. Independent CFO-partner network; directs to consultation.
+CFO Selections,CFO,retainer,,,,,,https://www.cfoselections.com/,2026-08-19,No published price. Fractional and interim finance leadership; directs to contact.
+LiftBridge CFO,CFO,retainer,,,,,,https://liftbridgecfo.com/,2026-08-19,No published price. Consultation-based pricing model.
+Goldman Wolfe,CFO,retainer,,,,,,https://www.goldmanwolfe.com/,2026-08-19,"No published price. SaaS and software focused fractional CFO boutique; directs to contact."
+OGS Capital,CFO,retainer,,,,,,https://ogscapital.com/,2026-08-19,No published price. Business-planning and CFO consultancy; directs to consultation.
+Standard Ledger,CFO,retainer,,,,,,https://www.standardledger.co/,2026-08-19,No published price. Startup accounting and fractional CFO; directs to consultation.
+Unison Direct,CFO,retainer,,,,,,https://unisondirect.com/,2026-08-19,"No published price. Virtual/fractional CFO services; ""Book a Discovery Call"" model."
+Dolfinn,CFO,retainer,,,,,,https://dolfinn.in/,2026-08-19,No published price. Finance outsourcing / fractional CFO; directs to free consultation.
+Kruze Consulting,CFO,retainer,,,,,,https://kruzeconsulting.com/,2026-08-19,No published price. Startup accounting and fractional CFO; directs to free consultation.
+Crown CFO,CFO,retainer,,,,,,https://crowncfo.com/,2026-08-19,No published price. Custom strategic pricing; contact required.
+A Fractional CFO,CFO,retainer,,,,,,https://afractionalcfo.com/,2026-08-19,"No published price. States ""tailor our approach to each engagement so that you only pay for exactly what you want and need"". Custom pricing."
+Valuefinex,CFO,retainer,,,,,,https://valuefinex.com/,2026-08-19,"No published price. Mentions ""FIXED MONTHLY RATES"" as a feature without disclosing amounts. Interim FD/SaaS CFO; directs to quote page."
+The CFO Agency,CFO,retainer,,,,,,https://thecfoagency.com.au/,2026-08-19,No published price. Boutique fractional CFO and accounting; Melbourne / Australia; directs to consultation.
+CFO On Call,CFO,retainer,,,,,,https://cfooncall.com.au/,2026-08-19,"No published price. References ""Fixed Price Offer"" without disclosing the amount. Australia and New Zealand; directs to consultation."
+McCracken Alliance,CFO,retainer,,,,,,https://www.mccrackenalliance.com/,2026-08-19,"No published price. Blog post discusses general market rates ($175-$350/hr, $5,000-$12,000/mo) but these are market commentary, not McCracken Alliance's own rates."
+CFO Advisors,CFO,retainer,,,,,,https://cfoadvisors.com/,2026-08-19,"No published price. Blog discusses market rates ($150-$500/hr) as industry data, not own pricing. Directs to ""Connect with CFO Advisors"" for custom quote."
