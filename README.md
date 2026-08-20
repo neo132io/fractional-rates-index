@@ -38,8 +38,8 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 893 rows, 738 providers, 95 with a browser-confirmed published price |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
-| [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
-| [`standard/scope-of-work.md`](standard/scope-of-work.md) | Open scope-of-work template, v1.0. Attaches to the agreement |
+| [`standard/services-agreement.md`](standard/services-agreement.md) | The Fractional CPO Engagement Standard, open template v1.1 |
+| [`standard/scope-of-work.md`](standard/scope-of-work.md) | Open scope-of-work template, v1.1. Attaches to the agreement |
 | [`research/verification-queue-raw.csv`](research/verification-queue-raw.csv) | 315 unverified provider candidates. **Not data.** See below |
 | [`LICENSE`](LICENSE) | CC BY 4.0 full legal code |
 | [`NOTICE.md`](NOTICE.md) | Attribution line and what the license does and does not cover |
@@ -62,20 +62,28 @@ browser verification of each candidate before any of it becomes data.
 
 ### A note on `standard/`
 
-`standard/` holds two reusable engagement documents under CC BY 4.0: a services agreement template
-and the scope of work that attaches to it. **They are working templates, not legal advice**, and
-§§7-11 of the agreement need adapting to your jurisdiction by a lawyer.
+`standard/` holds two reusable engagement documents under CC BY 4.0: the Fractional CPO Engagement
+Standard and the scope of work that attaches to it. **They are working templates, not legal advice.**
+Have a lawyer review **the whole agreement**, not selected sections: employment status, data
+protection, restraint of trade and limitation of liability all vary sharply by country, and a clause
+that is standard in one jurisdiction is void in another.
 
-Bracketed values in them — `[30] days`, `[20-25] hours` — are **template fields for the parties to
-set, not published market data.** No figure from the index appears in either document, and neither
-asserts a market norm. Where market practice genuinely varies, the templates say so instead of
-inventing a standard: there is no single standard notice period in this market, and any document
-claiming otherwise is asserting rather than measuring.
+The agreement exists because fractional engagements keep failing on the same four points: undefined
+decision rights, hours treated as a meter, scope documents that quietly become performance
+guarantees, and no plan for how the engagement ends. Its **Commentary** blocks explain the reasoning
+and are expressly not part of the agreement.
 
-Both documents are **fully sourced — no field is left pending.** The scope of work is built from
-the scope-of-work source content and from the agreement it attaches to, and it carries the five
+Bracketed values in them are **template fields for the parties to set, not published market data.**
+The agreement states no rates, bands or market figures at all — commercial terms are for the parties.
+No figure from the index appears in either document, and neither asserts a market norm. Where market
+practice genuinely varies, the templates say so instead of inventing a standard: there is no single
+standard notice period in this market, and any document claiming otherwise is asserting rather than
+measuring.
+
+Both documents are **fully sourced — no field is left pending.** The scope of work carries the five
 sections that decide whether an engagement holds: outcomes, decision rights, cadence, the execution
-boundary, and commercial terms.
+boundary, and commercial terms. Precedence between them is explicit: **the scope of work governs
+what is delivered, the agreement governs everything legal, and the agreement wins any conflict.**
 
 ---
 
