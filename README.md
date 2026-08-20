@@ -161,11 +161,32 @@ with both dates. Beyond that, the index needs new discovery rather than more ver
 
 ---
 
+## What a row does and does not say
+
+Every row records **one observation of one page on one date**. It says what was on that page at
+capture, and nothing else.
+
+A row that records no published price is **not** a statement that the provider has no price, hides
+its pricing, or behaves badly. Most providers price on enquiry, which is a normal commercial choice
+and the majority behaviour in this market. Where an automated screening pass flagged a figure that a
+browser capture did not find, the note says so and attributes the discrepancy to **our screening
+tool**, not to the provider.
+
+Nothing here is a statement about the conduct, quality or good faith of any provider or any person.
+
 ## Corrections
 
-If a figure here is wrong, or a provider's page has changed, open an issue with the URL and what it
-says now. Corrections are published with the version that carries them. A dataset that is never
-contradicted is usually one nobody checked.
+**If you are a provider named here and something is wrong, we will fix it.** Open an issue with the
+URL and what the page says now, or write to us. That includes:
+
+- a price we recorded that is wrong, out of date, or was never yours
+- a page we read incorrectly
+- a "no published price" row where you do publish one
+- a request to be removed from the dataset entirely
+
+Corrections are published with the version that carries them, and the changelog records what changed.
+**Removal requests are honoured without argument** — the dataset's value does not depend on any single
+provider being in it. A dataset that is never contradicted is usually one nobody checked.
 
 ---
 

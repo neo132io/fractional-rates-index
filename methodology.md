@@ -231,11 +231,23 @@ recorded as having no published price in another.
    duplicates were removed.
 6. **One provider name per domain**, taken from the best-verified priced row.
 
+**On the retired `rejected` label.** Earlier versions of this dataset marked a row `rejected` when a
+figure reported by automated screening was not found in the browser. That label described the wrong
+party. The reported figure came from **our screening tool**, not from the provider, so a row saying
+"reported figure rejected" read as a finding against a named business when it was in fact a finding
+about our own tooling. Those rows now record the observation plainly — no published price was found
+on the rendered page at capture — and, where relevant, note that the earlier flag was a screening
+artifact. No factual content was removed in that rewording.
+
+`out_of_scope` marks a provider that publishes a real, browser-confirmed price for something this
+index does not cover, such as fractional sales roles below C-suite level. The price is not recorded
+because of the inclusion criteria in section 2, not because anything is wrong with it.
+
 **Two columns were added, and the first matters more than anything else in this file:**
 
 | Column | Values |
 |---|---|
-| `verification` | `browser_verified`, `first_party`, `screened_only`, `blocked`, `unreachable`, `rejected`. `fetch_only` is retired: no row carries it since the 2026-08-20 pass |
+| `verification` | `browser_verified`, `first_party`, `screened_only`, `blocked`, `unreachable`, `out_of_scope`. `fetch_only` and `rejected` are retired: see below |
 | `source_pass` | Which collection pass produced the row |
 
 **`fetch_only` was the label for a problem this merge exposed, and it has since been cleared.** The

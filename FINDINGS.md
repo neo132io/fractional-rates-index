@@ -71,24 +71,29 @@ and read; 41 of them did not survive and were removed rather than softened.
 
 > Across five independent passes, automated screening produced a wrong or unusable price between a quarter and two-thirds of the time. No pricing dataset built on automated fetching alone should be trusted without a second pass. (Fractional Rates Index, Aug 2026)
 
-### How the rejected figures failed
+### How automated screening gets prices wrong
 
 Documented because a dataset that only shows what survived tells you nothing about its own error rate.
+
+**These are failure modes of our screening tool, not of the providers.** Every example below is a page
+doing something perfectly normal — publishing an article, a comparison, a calculator, a case study —
+which an automated pass misread as a price. No provider is named in this table, and none of these
+is a finding about a provider's conduct.
 
 | Failure mode | What it looked like |
 |---|---|
 | **A market estimate, not a rate** | Pricing articles stating national bands — "a fractional CTO typically costs A$1,000–A$22,000 per month" — with no first-party figure anywhere on the page |
 | **A client revenue band** | "Financial leadership for $2M to $50M operators" read by screening as a price |
 | **A case-study result** | EBITDA turnarounds, "$500M+ revenue scaled", founder career histories |
-| **A claim about competitors** | One provider's "$1,500/hr" was its complaint that *other* fractional CMOs charge that much |
-| **A rival's column in a comparison table** | One provider's "$9,000/month" was the internal-hire column of its own chart; its actual price is $1,400/month |
+| **A figure describing other firms** | A "$1,500/hr" that the page attributed to *other* fractional CMOs, not to itself |
+| **The wrong column of a comparison table** | A "$9,000/month" that was the internal-hire column of a cost comparison; the provider's own published price on the same page is $1,400/month |
 | **A calculator output** | Two figures were results of visitor-operated estimators — a "£9,600/month" from market day-rate bands, and a "$9,000/mo" returned as "YOUR ESTIMATE" after selecting a revenue band |
 | **A price for a different service** | App-development rates, website subscriptions, marketing packages, and directory memberships sold to executives rather than rates charged to clients |
 | **An unresolved JavaScript counter** | "$ 0 Billion in M&A deals negotiated" — animated statistics that never rendered |
 | **A dashboard mockup** | Sample client figures in a "Live Dashboard" graphic — revenue, runway, net cash flow — read as prices |
 | **A figure that simply is not there** | Twelve providers' reported prices do not occur anywhere in the rendered page |
 
-> The most common failure is a provider quoting the market in order to sell against it. A pricing article is not a price list, and at scale the two are easy to confuse. (Fractional Rates Index, Aug 2026)
+> The most common way automated screening goes wrong is on pages that quote the market rather than state a price. A pricing article is not a price list, and at scale the two are easy to confuse. (Fractional Rates Index, Aug 2026)
 
 ---
 
