@@ -132,16 +132,18 @@ maintainer's pricing is subject to the index rather than exempt from it.
 ## 5. How the numbers in FINDINGS.md are computed
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
-  same provider is named differently across collection passes. 699 providers, 828 rows.
+  same provider is named differently across collection passes. 699 providers, 849 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
-  is non-null. Providers with only null rows do not count. This yields 75 providers.
+  is non-null. Providers with only null rows do not count. This yields 90 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
-  Since the 2026-08-20 verification pass the two counts coincide: all 75 are confirmed.
+  Since the 2026-08-20 verification pass the two counts coincide: all 90 are confirmed.
 - **Percentages** are over the 699 providers in the dataset unless the line states otherwise.
 - **The retainer band and median** are computed over rows that are confirmed, priced,
-  `unit = per_month` and `currency = USD` — 63 rows from 34 providers. The **median floor** is the
-  median of the non-null `price_low` values: $6,750. The band $397–$30,000 is the minimum and maximum
-  across all endpoints of those rows.
+  `unit = per_month` and `currency = USD`, **excluding four rows whose own notes state they are not
+  executive rates** (bookkeeping, monitoring-only support, developer hours and a non-executive
+  specialist rate). That leaves 82 rows from 44 providers, a median floor of $5,499 and a band of
+  $397–$30,000. Including the excluded rows moves the floor to $375 and the median to $5,350; both
+  figures are reported here so the exclusion is visible rather than silent.
 - **Currencies are never pooled and never converted.** Every band and median is computed within a
   single currency, and the currency is named in the finding.
 - **Role and offering-type rates** count distinct providers per group. A provider appearing under two
@@ -240,11 +242,15 @@ merge found that 43 of the 89 apparent price-publishers rested on an automated f
 saying "WebFetch-verified" in their own notes. Under section 3.1 a summarizing fetch is not a
 capture, so none of those figures could be asserted.
 
-**All 49 affected providers were then checked in a browser on 2026-08-20.** 33 were confirmed and
-their figures recorded verbatim; 16 did not survive and their prices were removed. That is a 32.7%
-rejection rate, in line with the 30% and 25% measured in earlier passes. **No `fetch_only` row
-remains in the dataset**, and the confirmed rate settled at 75 of 699 (10.7%) rather than the 89 of
-699 (12.7%) that the unverified figures implied.
+**All affected providers were then checked in a browser on 2026-08-20**, in two batches: 49 surfaced
+by targeted pricing-page discovery, and 31 surfaced from the contact export. 48 were confirmed and
+their figures recorded verbatim; 32 did not survive and their prices were removed.
+
+**The rejection rate depends on how the candidate was found.** 16 of 49 failed (32.7%) in the
+discovery batch, but 16 of 31 failed (51.6%) in the contact-export batch, because a contact export
+surfaces companies whose pages talk about revenue bands and client outcomes rather than prices.
+Across all four passes the range is 25% to 52%. **No unconfirmed price remains in the dataset**, and
+the confirmed rate settled at 90 of 699 (12.9%).
 
 Two classification errors were found and fixed during that pass, both worth recording. A regular
 expression written to catch HTTP status 999 also matched any price ending in ",999", which wrongly
@@ -264,14 +270,14 @@ must not be pooled into a single band.
 
 ## 6. Known limitations
 
-- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 75 publish a
+- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 90 publish a
   price. That is **not enough to state market rates** for any role. No row in this dataset should be
   read as a market range.
 - **Point-in-time.** Three capture dates across four days. Provider pages change: Go Fractional
   described "over 1,200 fractional executives" on 2026-08-16 and "15,000 operators" on 2026-08-17.
   Four days cannot show stability.
-- **Role coverage is uneven.** CFO is the thinnest at 2 confirmed publishers out of 137 providers,
-  so the CFO figure rests on almost nothing and should not be compared confidently against CTO.
+- **Role coverage is uneven.** CPO is the thinnest at 5 confirmed publishers out of 106 providers,
+  so the CPO figure rests on very little and should not be compared confidently against CTO.
 - **A published price is not a transacted price.** This records what providers publish, not what
   clients pay, and the gap between the two is unmeasured here.
 - **Monthly figures are not comparable without hours.** `hours_included` is frequently null because
