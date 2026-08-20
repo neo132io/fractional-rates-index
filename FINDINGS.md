@@ -35,9 +35,9 @@ and read; 32 of them did not survive and were removed rather than softened.
 
 ### Coverage
 
-> The index covers 699 distinct fractional executive providers across 849 provider-offering rows, captured between 2026-08-17 and 2026-08-20. (Fractional Rates Index, Aug 2026)
+> The index covers 699 distinct fractional executive providers across 846 provider-offering rows, captured between 2026-08-17 and 2026-08-20. (Fractional Rates Index, Aug 2026)
 
-> 647 of 849 rows — 76.2% — record a published absence of price rather than a figure. The nulls are the dataset's main result, not a gap in it. (Fractional Rates Index, Aug 2026)
+> 647 of 846 rows — 76.5% — record a published absence of price rather than a figure. The nulls are the dataset's main result, not a gap in it. (Fractional Rates Index, Aug 2026)
 
 ### Disclosure by role
 

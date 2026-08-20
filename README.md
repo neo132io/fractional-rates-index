@@ -35,7 +35,7 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | Path | What it is |
 |---|---|
 | [`FINDINGS.md`](FINDINGS.md) | Every finding v1.0 supports, each with its denominator |
-| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 849 rows, 699 providers, 90 with a browser-confirmed published price |
+| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 846 rows, 699 providers, 90 with a browser-confirmed published price |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
@@ -90,7 +90,7 @@ floor is off by a factor of two against that provider's own published figure.
 every price-bearing row against the browser-rendered page. **A summarizing fetch is not a capture.**
 In this run, 3 of 10 stage-one price reports failed stage-two verification and were dropped.
 
-**Nulls are results.** Providers publishing no price are included as rows, not omitted. 76.2% of the
+**Nulls are results.** Providers publishing no price are included as rows, not omitted. 76.5% of the
 rows in this index are a published absence of price, and that is the index's main finding rather than
 a gap in it.
 
