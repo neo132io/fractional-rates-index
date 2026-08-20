@@ -149,6 +149,50 @@ Anyone can reproduce every figure from `data/rates-cpo-2026-08.csv` alone.
 
 ---
 
+## 5b. Cohort B — the Apollo-derived cohort (2026-08-20)
+
+`data/rates-fractional-cohort-2026-08.csv` is a **separate cohort**, collected differently from v1.0.
+It is published as its own file, and its figures are reported separately in `FINDINGS.md`, because
+pooling the two would silently mix sampling frames and capture dates.
+
+**Provenance.** A commercial contact-database export of 1,003 records of individuals whose job title
+contains "fractional". **All personal data was discarded before anything entered this repository**:
+no names, no email addresses, no personal LinkedIn URLs, no cities. Only the company name and company
+domain were retained, and only those appear in `research/apollo-company-queue.csv`. The source export
+is not published, and will not be — publishing it would distribute roughly a thousand individuals'
+contact details under an open licence, which the licence in this repository has no right to grant and
+which the rule in §4 forbids.
+
+**A contact export is not a provider list.** The export names people with fractional titles; the
+company column is frequently their *employer*, not a fractional services business. Screening the 967
+distinct companies for whether they offer fractional executive services at all produced:
+
+| Scope verdict | Companies | Test |
+|---|---|---|
+| **In scope** | 330 (34.1%) | Offers a named fractional/interim executive role, or mentions "fractional" three or more times |
+| Weak | 21 (2.2%) | One or two passing mentions, no role offered |
+| **Out of scope** | 616 (63.7%) | Zero mentions of "fractional" anywhere on the site |
+
+Out-of-scope companies included a mattress retailer, a pet-portrait shop, a coffee roaster, a chess
+subscription and a physiotherapy clinic. Of those 330, **one was dropped because its only web presence was a personal LinkedIn profile rather
+than a first-party business site, leaving 329 in `data/`.** Including
+the rest would corrupt the denominator of every disclosure rate in this repository. All 967 remain in
+`research/apollo-company-queue.csv` with their `scope_verdict`, so the exclusion is auditable.
+
+**Verification status is the honest limitation of this cohort.** Stage one screened all 329. Stage two
+— browser confirmation — was completed for 8 providers, of which **6 were confirmed and 2 rejected.**
+The remaining 35 price candidates are marked pending in `notes` and carry **no asserted price.**
+The cohort's measured disclosure rate is therefore **1.8% verified, with a ceiling of 12.5%** if every
+pending candidate later confirms. Both numbers are stated in `FINDINGS.md`; neither is presented alone.
+
+**Rights.** Only company names and domains were retained, which are bare facts rather than a
+protectable compilation, and the source export itself is not republished. This is a narrower position
+than the DataForSEO exclusion in §2, which concerned publishing *derived figures* under an open
+licence. No figure in this cohort comes from the contact database: every price was read off the
+provider's own page.
+
+---
+
 ## 6. Known limitations
 
 - **Small sample.** 34 providers is enough to establish a disclosure pattern and **not enough to

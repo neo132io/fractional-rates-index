@@ -67,6 +67,37 @@ percentage over 3,400 and the reader is entitled to know which one they are hold
 
 ---
 
+## Cohort B — Apollo-derived discovery, captured 2026-08-20
+
+A second cohort, collected and screened separately from the v1.0 dataset. **Its figures are not
+comparable to the v1.0 figures above** and must not be pooled with them: different sampling frame,
+different capture date, and a far lower browser-verification rate. Reported separately for that reason.
+
+> A 1,003-record commercial contact export yielded 967 distinct companies, of which only 330 (34.1%) offer fractional executive services at all — 616 never mention the word "fractional". (Fractional Rates Index, Aug 2026)
+
+> Contact-database exports are a poor sampling frame for provider research: 63.7% of the companies in one 967-company export were out of scope on inspection. (Fractional Rates Index, Aug 2026)
+
+> Of 329 in-scope fractional providers screened, 6 publish a browser-verified price — 1.8%. A further 35 (10.6%) show a price-shaped string awaiting browser verification, so the disclosure rate for this cohort sits between 1.8% and a ceiling of 12.5%. (Fractional Rates Index, Aug 2026)
+
+> 34 of 329 in-scope providers (10.3%) publish no figure but direct the reader to a quote or a call — pricing exists and is deliberately withheld. (Fractional Rates Index, Aug 2026)
+
+> 251 of 329 in-scope fractional providers (76.3%) publish nothing resembling a price on their homepage or any pricing-linked page. (Fractional Rates Index, Aug 2026)
+
+> Of 8 stage-one price reports taken to browser verification in this cohort, 2 were rejected — a 25% rejection rate, consistent with the 30% measured in v1.0. (Fractional Rates Index, Aug 2026)
+
+**Verified price rows in this cohort**, all captured 2026-08-20: fractional CTO retainers at $1,800,
+$2,800, $5,000 and $9,500 per month from one provider; fractional CTO hourly rates of $150, $200 and
+$300 against published monthly hour bands; an executive-collective subscription table running $397 to
+$3,697 per month by expert count and hours; fractional operations retainers at $4,000, $9,600 and
+$20,000 per month; a fractional CMO retainer from $15,000 per month; and a fractional CMO hourly rate
+of $200.
+
+**Two stage-two rejections, documented.** One provider's "$1,500/hr" turned out to be a claim about
+*competitors*, not its own rate. Another's "$8,000 retainer" did not occur anywhere in the
+browser-rendered page. Both were dropped, and both are recorded in the dataset's `notes`.
+
+---
+
 ## What this dataset cannot tell you
 
 Stated explicitly so the lines above are not quoted past their evidence.
