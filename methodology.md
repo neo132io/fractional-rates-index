@@ -132,7 +132,7 @@ maintainer's pricing is subject to the index rather than exempt from it.
 ## 5. How the numbers in FINDINGS.md are computed
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
-  same provider is named differently across collection passes. 699 providers, 849 rows.
+  same provider is named differently across collection passes. 699 providers, 846 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
   is non-null. Providers with only null rows do not count. This yields 90 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
