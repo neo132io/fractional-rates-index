@@ -102,8 +102,9 @@ the number is doing marketing, not measurement.
 3. **Adoption-growth percentages in this market are marketing artifacts**
    until someone publishes a repeated-measure study. None exists today.
 4. **Published prices are the exception, not the rule.** In our verified
-   dataset, 7 of 34 providers (20.6%) publish a verified price (6 browser-confirmed, 1 first-party);
-   among CPO-specific providers the rate is 3 of 9. A separate structured
+   dataset, 46 of 699 providers (6.6%) have a browser-confirmed published price; a further 43
+   appear to publish one on evidence not yet confirmed. Among CPO providers the confirmed rate is
+   2 of 106. A separate structured
    150-provider cross-role discovery pass found first-party published
    pricing for fewer than a third of providers, with CTO the most
    transparent role and CFO/CRO the least; our merged, unverified
