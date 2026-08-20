@@ -39,7 +39,7 @@ price distribution and conceal the disclosure rate, which is the actual finding.
 providers are the majority of the file by design.
 
 **Row granularity: one row per provider-offering.** A provider publishing three tiers produces three
-rows. 699 providers produce 835 rows.
+rows. 699 providers produce 828 rows.
 
 **Excluded from the dataset:**
 
@@ -132,16 +132,15 @@ maintainer's pricing is subject to the index rather than exempt from it.
 ## 5. How the numbers in FINDINGS.md are computed
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
-  same provider is named differently across collection passes. 699 providers, 835 rows.
+  same provider is named differently across collection passes. 699 providers, 828 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
-  is non-null. Providers with only null rows do not count. This yields 89 providers.
+  is non-null. Providers with only null rows do not count. This yields 75 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
-  This yields 46 providers, and it is the number used in every headline. `fetch_only` rows are
-  excluded from every verified count.
+  Since the 2026-08-20 verification pass the two counts coincide: all 75 are confirmed.
 - **Percentages** are over the 699 providers in the dataset unless the line states otherwise.
 - **The retainer band and median** are computed over rows that are confirmed, priced,
-  `unit = per_month` and `currency = USD` — 44 rows from 23 providers. The **median floor** is the
-  median of the non-null `price_low` values: $6,250. The band $397–$30,000 is the minimum and maximum
+  `unit = per_month` and `currency = USD` — 63 rows from 34 providers. The **median floor** is the
+  median of the non-null `price_low` values: $6,750. The band $397–$30,000 is the minimum and maximum
   across all endpoints of those rows.
 - **Currencies are never pooled and never converted.** Every band and median is computed within a
   single currency, and the currency is named in the finding.
@@ -233,18 +232,28 @@ recorded as having no published price in another.
 
 | Column | Values |
 |---|---|
-| `verification` | `browser_verified`, `first_party`, `fetch_only`, `screened_only`, `blocked`, `unreachable`, `rejected` |
+| `verification` | `browser_verified`, `first_party`, `screened_only`, `blocked`, `unreachable`, `rejected`. `fetch_only` is retired: no row carries it since the 2026-08-20 pass |
 | `source_pass` | Which collection pass produced the row |
 
-**`fetch_only` is the honest label for a problem this merge exposed.** 43 of the 89 providers that
-appear to publish a price were confirmed by an automated fetch only, and 21 of them say
-"WebFetch-verified" in their own notes. Under section 3.1 of this methodology a summarizing fetch is
-not a capture, so those figures cannot be asserted as verified. They are retained, labelled, and
-excluded from every verified count in `FINDINGS.md`. Promoting them would have inflated the headline
-rate from 6.6% to 12.7% on evidence this repository does not accept.
+**`fetch_only` was the label for a problem this merge exposed, and it has since been cleared.** The
+merge found that 43 of the 89 apparent price-publishers rested on an automated fetch, 21 of them
+saying "WebFetch-verified" in their own notes. Under section 3.1 a summarizing fetch is not a
+capture, so none of those figures could be asserted.
 
-**Correction to earlier scope statements.** v1.0 recorded USD only. The merged dataset contains
-published prices in **8 currencies**: USD, GBP, EUR, AUD, SGD, NZD, DKK and CHF. The "USD only"
+**All 49 affected providers were then checked in a browser on 2026-08-20.** 33 were confirmed and
+their figures recorded verbatim; 16 did not survive and their prices were removed. That is a 32.7%
+rejection rate, in line with the 30% and 25% measured in earlier passes. **No `fetch_only` row
+remains in the dataset**, and the confirmed rate settled at 75 of 699 (10.7%) rather than the 89 of
+699 (12.7%) that the unverified figures implied.
+
+Two classification errors were found and fixed during that pass, both worth recording. A regular
+expression written to catch HTTP status 999 also matched any price ending in ",999", which wrongly
+marked two confirmed prices as bot-blocked. And one provider's pre-existing rows survived a
+supersession sweep because they carried a different label, briefly duplicating that provider until
+the overlap was resolved by capture date.
+
+**Correction to earlier scope statements.** v1.0 recorded USD only. The dataset now contains
+confirmed published prices in **7 currencies**: USD, GBP, EUR, AUD, SGD, NZD and CHF. The "USD only"
 limitation stated for v1.0 no longer describes the dataset. `currency` carries the code per row and
 **prices are not converted**: no exchange rate is applied anywhere, and rows in different currencies
 must not be pooled into a single band.
@@ -255,22 +264,21 @@ must not be pooled into a single band.
 
 ## 6. Known limitations
 
-- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 46 have a
-  confirmed published price. That is **not enough to state market rates** for any role. No row in
-  this dataset should be read as a market range.
+- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 75 publish a
+  price. That is **not enough to state market rates** for any role. No row in this dataset should be
+  read as a market range.
 - **Point-in-time.** Three capture dates across four days. Provider pages change: Go Fractional
   described "over 1,200 fractional executives" on 2026-08-16 and "15,000 operators" on 2026-08-17.
   Four days cannot show stability.
-- **Verification is unevenly distributed.** 43 of the 89 apparent price-publishers are unconfirmed,
-  and the backlog is concentrated in CTO (48 apparent, 4 confirmed). Cross-role comparisons of the
-  confirmed rate partly measure where verification effort has gone.
+- **Role coverage is uneven.** CFO is the thinnest at 2 confirmed publishers out of 137 providers,
+  so the CFO figure rests on almost nothing and should not be compared confidently against CTO.
 - **A published price is not a transacted price.** This records what providers publish, not what
   clients pay, and the gap between the two is unmeasured here.
 - **Monthly figures are not comparable without hours.** `hours_included` is frequently null because
   providers frequently omit it.
 - **Selection is not random.** The candidate pool came from discovery research, not from a sampling
   frame, so the disclosure rate describes the providers checked and is not a population estimate.
-- **English-language sources, US and UK-weighted.** Eight currencies appear; USD dominates.
+- **English-language sources, US and UK-weighted.** Seven currencies appear; USD dominates.
 
 ---
 

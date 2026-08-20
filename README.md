@@ -17,14 +17,14 @@ Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 
 
 ## The three headline findings
 
-**1.** Across **699 providers**, only **89 publish a price** — 12.7% — and just **46 of those have
-been confirmed in a browser**. The defensible rate is **46 of 699, or 6.6%**.
+**1.** Across **699 providers**, only **75 publish a price** — **10.7%**, about one in nine. Every one
+of those 75 was confirmed against the provider's own rendered page.
 
-**2.** Among confirmed USD monthly retainers, published figures run from **$397 to $30,000** — a
-75-fold spread across 44 tiers from 23 providers.
+**2.** Confirmed USD monthly retainers run from **$397 to $30,000** — a 75-fold spread across 63
+tiers from 34 providers.
 
-**3.** The **median confirmed USD monthly retainer floor is $6,250**, and the median confirmed USD
-hourly rate is **$200**.
+**3.** The **median confirmed USD monthly retainer floor is $6,750**, and the median confirmed USD
+hourly rate is **$175**.
 
 Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 
@@ -35,7 +35,7 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | Path | What it is |
 |---|---|
 | [`FINDINGS.md`](FINDINGS.md) | Every finding v1.0 supports, each with its denominator |
-| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 835 rows, 699 providers, 46 with a browser-confirmed published price |
+| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The dataset.** 828 rows, 699 providers, 75 with a browser-confirmed published price |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
@@ -90,14 +90,14 @@ floor is off by a factor of two against that provider's own published figure.
 every price-bearing row against the browser-rendered page. **A summarizing fetch is not a capture.**
 In this run, 3 of 10 stage-one price reports failed stage-two verification and were dropped.
 
-**Nulls are results.** Providers publishing no price are included as rows, not omitted. 77.5% of the
+**Nulls are results.** Providers publishing no price are included as rows, not omitted. 80.1% of the
 rows in this index are a published absence of price, and that is the index's main finding rather than
 a gap in it.
 
-**Verification depth is published, not assumed.** The `verification` column separates rows confirmed
-against a browser-rendered page from rows that rest on an automated fetch. 89 providers appear to
-publish a price; only 46 are confirmed. Both numbers are stated everywhere, and the confirmed one is
-the headline.
+**Every price here is confirmed.** The `verification` column records how each row was established.
+As of 2026-08-20 there are no unconfirmed prices left in the dataset: 49 provider prices reported by
+automated screening were each checked in a browser, and the 16 that did not survive were removed
+rather than softened.
 
 Full protocol, inclusion criteria and limitations: **[methodology.md](methodology.md)**.
 
@@ -114,7 +114,7 @@ Source: The Fractional Rates Index, maintained by Sivan Kadosh (saasfractionalcp
 For a specific finding, cite the figure with its denominator and the index version:
 
 ```
-46 of 699 fractional executive providers have a browser-confirmed published price (6.6%).
+75 of 699 fractional executive providers have a browser-confirmed published price (10.7%).
 The Fractional Rates Index, captured 2026-08-17 to 2026-08-20. saasfractionalcpo.com. CC BY 4.0.
 ```
 
@@ -139,13 +139,13 @@ the problem this index was built to address.
 
 ## Roadmap
 
-**Next: clear the verification backlog.** 43 providers carry a `fetch_only` price that has not been
-confirmed in a browser. Confirming them is the single highest-value work item, and it is what would
-move the headline rate from 6.6% toward 12.7% on evidence rather than on assumption. Fractional CTO
-is the largest block: 48 providers appear to publish, 4 are confirmed.
+**The verification backlog is cleared.** Every price in the dataset has been confirmed in a browser.
+Clearing it moved the confirmed rate from 6.6% to 10.7% and changed one finding outright: fractional
+CTO went from apparently the least-verified role to the most price-transparent one at 21.7%.
 
-Also planned: browser verification of the remaining candidates in `research/`, and a second capture
-pass to establish which published prices are stable over time.
+**Next:** browser verification of the remaining candidates in `research/`, and a second capture pass
+to establish which published prices are stable over time. One provider already changed a published
+figure inside the four-day capture window, which is recorded with both dates.
 
 ---
 
