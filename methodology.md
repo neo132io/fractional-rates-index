@@ -132,18 +132,19 @@ maintainer's pricing is subject to the index rather than exempt from it.
 ## 5. How the numbers in FINDINGS.md are computed
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
-  same provider is named differently across collection passes. 699 providers, 846 rows.
+  same provider is named differently across collection passes. 738 providers, 893 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
-  is non-null. Providers with only null rows do not count. This yields 90 providers.
+  is non-null. Providers with only null rows do not count. This yields 95 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
-  Since the 2026-08-20 verification pass the two counts coincide: all 90 are confirmed.
+  Since the 2026-08-20 verification passes the two counts coincide: all 95 are confirmed.
 - **Percentages** are over the 699 providers in the dataset unless the line states otherwise.
 - **The retainer band and median** are computed over rows that are confirmed, priced,
   `unit = per_month` and `currency = USD`, **excluding four rows whose own notes state they are not
   executive rates** (bookkeeping, monitoring-only support, developer hours and a non-executive
-  specialist rate). That leaves 82 rows from 44 providers, a median floor of $5,499 and a band of
-  $397–$30,000. Including the excluded rows moves the floor to $375 and the median to $5,350; both
-  figures are reported here so the exclusion is visible rather than silent.
+  specialist rate). That leaves 87 rows from 46 providers, a median floor of $5,000 and a band of
+  $299–$30,000. Including the excluded rows moves the floor to $375; both figures are reported here
+  so the exclusion is visible rather than silent. Sterling is computed the same way and reported
+  separately: 18 rows from 9 providers, median floor £3,750, band £699–£12,000.
 - **Currencies are never pooled and never converted.** Every band and median is computed within a
   single currency, and the currency is named in the finding.
 - **Role and offering-type rates** count distinct providers per group. A provider appearing under two
@@ -270,7 +271,7 @@ must not be pooled into a single band.
 
 ## 6. Known limitations
 
-- **Small confirmed sample.** 699 providers establish a disclosure pattern, but only 90 publish a
+- **Small confirmed sample.** 738 providers establish a disclosure pattern, but only 95 publish a
   price. That is **not enough to state market rates** for any role. No row in this dataset should be
   read as a market range.
 - **Point-in-time.** Three capture dates across four days. Provider pages change: Go Fractional
