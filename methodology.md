@@ -161,7 +161,7 @@ pooling the two would silently mix sampling frames and capture dates.
 **Provenance.** A commercial contact-database export of 1,003 records of individuals whose job title
 contains "fractional". **All personal data was discarded before anything entered this repository**:
 no names, no email addresses, no personal LinkedIn URLs, no cities. Only the company name and company
-domain were retained, and only those appear in `research/apollo-company-queue.csv`. The source export
+domain were retained, and only in-scope providers were carried forward into `data/`. The source export
 is not published, and will not be — publishing it would distribute roughly a thousand individuals'
 contact details under an open licence, which the licence in this repository has no right to grant and
 which the rule in §4 forbids.
@@ -177,10 +177,15 @@ distinct companies for whether they offer fractional executive services at all p
 | **Out of scope** | 616 (63.7%) | Zero mentions of "fractional" anywhere on the site |
 
 Out-of-scope companies included a mattress retailer, a pet-portrait shop, a coffee roaster, a chess
-subscription and a physiotherapy clinic. Of those 330, **one was dropped because its only web presence was a personal LinkedIn profile rather
-than a first-party business site, leaving 329 in `data/`.** Including
-the rest would corrupt the denominator of every disclosure rate in this repository. All 967 remain in
-`research/apollo-company-queue.csv` with their `scope_verdict`, so the exclusion is auditable.
+subscription and a physiotherapy clinic. Of the 330 in scope, **one was dropped because its only web
+presence was a personal LinkedIn profile rather than a first-party business site, leaving 329 in
+`data/`.** Carrying the out-of-scope companies through would have corrupted the denominator of every
+disclosure rate in this repository.
+
+**The screening list itself is not published.** It recorded 616 companies that turned out to have
+nothing to do with fractional services, which is a fact about a contact export rather than a fact
+about this market, and it named those businesses without telling a reader anything they could use.
+The test applied to each is stated above and is reproducible against any provider's live site.
 
 **Verification status is the honest limitation of this cohort.** Stage one screened all 329. Stage two
 — browser confirmation — was completed for 8 providers, of which **6 were confirmed and 2 rejected.**

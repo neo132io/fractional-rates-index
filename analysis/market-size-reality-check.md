@@ -118,8 +118,9 @@ citation genealogy: identifying downstream citers, attributed origins,
 and any disclosed methodology, then cross-compared. Where the passes
 disagreed on provenance, both findings are reported above. The provider
 candidate queue from the discovery passes ships in this repository under
-research/; the full citation-genealogy trails are held in the project
-archive and available on request. This document will be updated if
+research/; the screening list from the contact-export pass and the full
+citation-genealogy trails are held in the project archive and available
+on request. This document will be updated if
 primary sources surface.
 
 *Fractional Rates Index, saasfractionalcpo.com. License: CC BY 4.0,
