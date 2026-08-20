@@ -17,8 +17,8 @@ Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 
 
 ## The three headline findings
 
-**1.** Only 8 of 34 fractional executive providers publish a price at all — **23.5%**, fewer than one
-in four.
+**1.** Across **699 providers**, only **89 publish a price** — 12.7% — and just **46 of those have
+been confirmed in a browser**. The defensible rate is **46 of 699, or 6.6%**.
 
 **2.** Published monthly retainers run from **$500 to $30,000**, a 60-fold spread across 7 published
 tiers.
@@ -35,12 +35,13 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | Path | What it is |
 |---|---|
 | [`FINDINGS.md`](FINDINGS.md) | Every finding v1.0 supports, each with its denominator |
-| [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | CPO v1.0. 43 rows, 34 providers, 8 publishing. Captured 2026-08-17 |
-| [`data/rates-cpo-expansion-2026-08.csv`](data/rates-cpo-expansion-2026-08.csv) | CPO expansion. 104 rows, 100 providers, 4 publishing |
-| [`data/rates-cto-2026-08.csv`](data/rates-cto-2026-08.csv) | CTO. 142 rows, 100 providers, 46 publishing |
-| [`data/rates-cmo-2026-08.csv`](data/rates-cmo-2026-08.csv) | CMO. 131 rows, 100 providers, 20 publishing |
-| [`data/rates-coo-2026-08.csv`](data/rates-coo-2026-08.csv) | COO. 101 rows, 90 providers, 15 publishing |
-| [`data/rates-fractional-cohort-2026-08.csv`](data/rates-fractional-cohort-2026-08.csv) | Apollo-derived cohort. 338 rows, 329 providers, 6 browser-verified. Captured 2026-08-20 |
+| **[`data/rates-2026-08.csv`](data/rates-2026-08.csv)** | **The canonical dataset.** 835 rows, 699 providers, 89 publishing a price, 46 confirmed in a browser |
+| [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | Source pass, superseded. CPO v1.0, captured 2026-08-17 |
+| [`data/rates-cpo-expansion-2026-08.csv`](data/rates-cpo-expansion-2026-08.csv) | Source pass, superseded |
+| [`data/rates-cto-2026-08.csv`](data/rates-cto-2026-08.csv) | Source pass, superseded |
+| [`data/rates-cmo-2026-08.csv`](data/rates-cmo-2026-08.csv) | Source pass, superseded |
+| [`data/rates-coo-2026-08.csv`](data/rates-coo-2026-08.csv) | Source pass, superseded |
+| [`data/rates-fractional-cohort-2026-08.csv`](data/rates-fractional-cohort-2026-08.csv) | Source pass, superseded. Apollo-derived, captured 2026-08-20 |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |

@@ -193,6 +193,56 @@ provider's own page.
 
 ---
 
+## 5c. The merged dataset
+
+`data/rates-2026-08.csv` is the **canonical dataset**. It merges every collection pass into one file
+so that provider counts are correct. The per-pass files remain in `data/` as the inputs they came
+from; they are superseded and should not be summed.
+
+**Why merging was necessary.** 57 providers appeared in more than one pass. Adding the per-file
+counts together produced 778 providers where there are 699, and 99 price-publishers where there are
+89. Worse, 8 providers were published in two contradictory states at once, priced in one file and
+recorded as having no published price in another.
+
+**Merge rules, applied mechanically and logged:**
+
+1. **Identity is the normalised domain of `source_url`**, not the provider name. The same provider is
+   named differently across passes; the domain is stable.
+2. **Every priced row is kept.** A provider with four published tiers keeps four rows.
+3. **A null row is dropped when another pass found a price for that provider** and the null came from
+   a pass that found none. 10 such stale nulls were removed. This resolves all 8 contradictions in
+   favour of the pass that found a figure.
+4. **A null row is kept when it sits beside prices from the same pass**, because it documents a
+   genuinely unpriced tier. A provider publishing three figures and one "Custom Pricing" tier is
+   correctly recorded as four rows. 11 such rows were kept.
+5. **Exact-duplicate offerings collapse**, keeping the row with the strongest verification. 39
+   duplicates were removed.
+6. **One provider name per domain**, taken from the best-verified priced row.
+
+**Two columns were added, and the first matters more than anything else in this file:**
+
+| Column | Values |
+|---|---|
+| `verification` | `browser_verified`, `first_party`, `fetch_only`, `screened_only`, `blocked`, `unreachable`, `rejected` |
+| `source_pass` | Which collection pass produced the row |
+
+**`fetch_only` is the honest label for a problem this merge exposed.** 43 of the 89 providers that
+appear to publish a price were confirmed by an automated fetch only, and 21 of them say
+"WebFetch-verified" in their own notes. Under section 3.1 of this methodology a summarizing fetch is
+not a capture, so those figures cannot be asserted as verified. They are retained, labelled, and
+excluded from every verified count in `FINDINGS.md`. Promoting them would have inflated the headline
+rate from 6.6% to 12.7% on evidence this repository does not accept.
+
+**Correction to earlier scope statements.** v1.0 recorded USD only. The merged dataset contains
+published prices in **8 currencies**: USD, GBP, EUR, AUD, SGD, NZD, DKK and CHF. The "USD only"
+limitation stated for v1.0 no longer describes the dataset. `currency` carries the code per row and
+**prices are not converted**: no exchange rate is applied anywhere, and rows in different currencies
+must not be pooled into a single band.
+
+**Three capture dates** are present (2026-08-17, 2026-08-19, 2026-08-20). `capture_date` is per row.
+
+---
+
 ## 6. Known limitations
 
 - **Small sample.** 34 providers is enough to establish a disclosure pattern and **not enough to
