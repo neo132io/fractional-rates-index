@@ -35,12 +35,18 @@ Full set with denominators: **[FINDINGS.md](FINDINGS.md)**.
 | Path | What it is |
 |---|---|
 | [`FINDINGS.md`](FINDINGS.md) | Every finding v1.0 supports, each with its denominator |
-| [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | The dataset. 43 rows, 34 providers, one capture date |
+| [`data/rates-cpo-2026-08.csv`](data/rates-cpo-2026-08.csv) | CPO v1.0. 43 rows, 34 providers, 8 publishing. Captured 2026-08-17 |
+| [`data/rates-cpo-expansion-2026-08.csv`](data/rates-cpo-expansion-2026-08.csv) | CPO expansion. 104 rows, 100 providers, 4 publishing |
+| [`data/rates-cto-2026-08.csv`](data/rates-cto-2026-08.csv) | CTO. 142 rows, 100 providers, 46 publishing |
+| [`data/rates-cmo-2026-08.csv`](data/rates-cmo-2026-08.csv) | CMO. 131 rows, 100 providers, 20 publishing |
+| [`data/rates-coo-2026-08.csv`](data/rates-coo-2026-08.csv) | COO. 101 rows, 90 providers, 15 publishing |
+| [`data/rates-fractional-cohort-2026-08.csv`](data/rates-fractional-cohort-2026-08.csv) | Apollo-derived cohort. 338 rows, 329 providers, 6 browser-verified. Captured 2026-08-20 |
 | [`methodology.md`](methodology.md) | Inclusion criteria, collection protocol, limitations |
 | [`analysis/market-size-reality-check.md`](analysis/market-size-reality-check.md) | Citation-genealogy audit of the market's four most-cited statistics |
 | [`standard/services-agreement.md`](standard/services-agreement.md) | Open services agreement template, v1.0 |
 | [`standard/scope-of-work.md`](standard/scope-of-work.md) | Open scope-of-work template, v1.0. Attaches to the agreement |
 | [`research/verification-queue-raw.csv`](research/verification-queue-raw.csv) | 315 unverified provider candidates. **Not data.** See below |
+| [`research/apollo-company-queue.csv`](research/apollo-company-queue.csv) | 967 screened companies with scope verdicts. **Not data.** See below |
 | [`LICENSE`](LICENSE) | CC BY 4.0 full legal code |
 | [`NOTICE.md`](NOTICE.md) | Attribution line and what the license does and does not cover |
 
