@@ -1,5 +1,5 @@
 # The Fractional Market's Favorite Numbers: A Reality Check
-### Fractional Rates Index · Analysis · August 2026 · v1.0
+### Fractional Rates Index · Analysis · August 2026 · revised 2026-08-21
 
 Every article about the fractional executive market cites the same handful
 of statistics. We traced each one to its origin using two independent
@@ -105,13 +105,23 @@ source.
    could find.** Measuring growth in adoption requires a repeated-measure
    study, and we located none. Treat such percentages as unsourced.
 4. **Published prices are the exception, not the rule.** In our verified
-   dataset, 95 of 738 providers (12.9%) have a browser-confirmed published price, and no
-   unconfirmed price remains in the dataset. Among CPO providers the confirmed rate is 5 of 106. A separate structured
+   dataset, 129 of 736 providers (17.5%) have a browser-confirmed published
+   price, and no unconfirmed price remains in the dataset. Among CPO
+   providers the confirmed rate is 14 of 104 (13.5%). A separate structured
    150-provider cross-role discovery pass found first-party published
    pricing for fewer than a third of providers, with CTO the most
-   transparent role and CFO/CRO the least; our merged, unverified
-   candidate queue (315 providers) is published in this repository for
-   the verification runs ahead.
+   transparent role; on the completed dataset CTO is still the most
+   transparent at 24.3% and CFO the least at 12.5%. The merged candidate
+   queue (315 rows) remains published in this repository as a record of how
+   the pool was built; it has since been worked through in full.
+
+   **This paragraph previously read "95 of 738 (12.9%)" and put the CPO rate
+   at 5 of 106 (4.7%).** Both figures were superseded on 2026-08-21 when
+   every provider in the index was opened in a browser and 34 published
+   prices were found that automated screening had missed. The correction is
+   recorded here rather than quietly overwritten, for the same reason this
+   document exists: a statistic whose revisions are invisible cannot be
+   audited. See `../methodology.md` section 5e.
 
 ## Methodology of this analysis
 
