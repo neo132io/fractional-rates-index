@@ -154,8 +154,15 @@ maintainer's pricing is subject to the index rather than exempt from it.
   They are not assumed monthly.
 - **Currencies are never pooled and never converted.** Every band and median is computed within a
   single currency, and the currency is named in the finding.
-- **Role and offering-type rates** count distinct providers per group. A provider appearing under two
-  roles is counted in each.
+- **Role and offering-type rates** count distinct providers per group, and the two sides of the
+  fraction use the same rule stated two different ways, so it is worth being exact. The
+  **denominator** for role X is every distinct provider with any row carrying role X; a provider
+  appearing under two roles is counted in both denominators. The **numerator** is every distinct
+  provider with a *priced* row carrying role X — not merely a provider that publishes a price
+  somewhere and happens also to appear under X. The distinction matters for three multi-role
+  marketplaces whose published price sits under one role while they also appear under others;
+  crediting them to every role they touch would inflate CTO from 35 to 37 and CPO from 14 to 15.
+  Because providers can appear under several roles, the role numerators sum to 131 rather than 129.
 
 Anyone can reproduce every figure from `data/rates-2026-08.csv` alone.
 
