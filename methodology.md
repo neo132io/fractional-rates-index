@@ -254,7 +254,7 @@ because of the inclusion criteria in section 2, not because anything is wrong wi
 
 | Column | Values |
 |---|---|
-| `verification` | `browser_verified`, `first_party`, `screened_only`, `blocked`, `unreachable`, `out_of_scope`. `fetch_only` and `rejected` are retired: see below |
+| `verification` | `browser_verified`, `first_party`, `blocked`, `unreachable`, `out_of_scope`. `fetch_only`, `rejected` and `screened_only` are retired: see below and section 5e |
 | `source_pass` | Which collection pass produced the row |
 
 **`fetch_only` was the label for a problem this merge exposed, and it has since been cleared.** The
@@ -294,11 +294,25 @@ is per row.
 Every pass described above verified prices that screening had *reported*. None of them tested the
 opposite failure: a provider recorded as publishing nothing, that in fact publishes something.
 
-**All 736 providers were opened in a browser and read**, in risk order — providers never previously
-opened first, then providers whose earlier check returned nothing, then providers already carrying a
+**All 736 providers were opened in a browser**, in risk order — providers never previously opened
+first, then providers whose earlier check returned nothing, then providers already carrying a
 confirmed price. Each was navigated, given three seconds to render, and read with a detector that
 strips known non-price contexts (revenue, funding, savings, salary, portfolio, valuation) before
 reporting a figure. Where the page exposed a pricing link, that link was followed.
+
+**700 of the 736 rendered and were read. 36 did not** — a bot check or consent wall stood in front
+of the page, the body came back empty after retry, or the domain no longer serves content. Those 36
+are recorded as `blocked` or `unreachable`, **not** as publishing no price. They remain in the
+denominator and carry no observation in either direction. This is the conservative treatment of the
+disclosure rate: if every one of them published a price the rate would be 22.4% rather than 17.5%,
+so 17.5% should be read as the floor of that interval.
+
+**The `verification` column was rewritten to match what the pass actually established.** Before this
+pass 616 rows carried `screened_only`, meaning no browser had confirmed them. That value no longer
+appears in the dataset. 898 of 938 rows are now `browser_verified`; the other 40 are `blocked` (16),
+`unreachable` (23) or `out_of_scope` (1). No row in the published file rests on automated screening
+alone, and the claim that every provider was opened is now checkable against the file rather than
+resting on this document.
 
 **Result: 34 providers publish a price the dataset had recorded as absent** — a 5.3% false-negative
 rate against the 643 providers previously recorded as unpriced. The disclosure rate moved from
