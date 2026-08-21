@@ -28,7 +28,7 @@ sitting on a `/pricing` page nobody had opened.
 
 > Of 736 fractional executive providers, 129 publish a price — 17.5%, about one in six. Every one was confirmed against the provider's own rendered page. (Fractional Rates Index, Aug 2026)
 
-> Every row in this index now carries a browser observation or an explicit failure to obtain one. 898 of 938 rows are browser-verified; the remaining 40 are recorded as blocked, unreachable or out of scope. No row rests on automated screening alone. (Fractional Rates Index, Aug 2026)
+> Every row in this index now carries a browser observation or an explicit failure to obtain one. 899 of 938 rows are browser-verified; the remaining 39 are recorded as blocked, unreachable or out of scope. No row rests on automated screening alone. (Fractional Rates Index, Aug 2026)
 
 **2. Spread**
 
