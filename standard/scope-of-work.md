@@ -12,8 +12,8 @@
 > citable open standard would be circular — the convention would become citable "market evidence" and
 > could later be cited back at its own author as independent corroboration. This template does not do
 > that. For what is actually measured, see [`../FINDINGS.md`](../FINDINGS.md), which finds that only
-> 95 of 738 providers have a confirmed published price and states explicitly that the sample establishes a
-> disclosure pattern rather than a market rate.
+> 129 of 736 providers have a confirmed published price and states explicitly that the sample
+> establishes a disclosure pattern rather than a market rate.
 
 ---
 
