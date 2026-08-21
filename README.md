@@ -19,7 +19,8 @@ Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 
 
 **1.** Across **736 providers**, only **129 publish a price** — **17.5%**, about one in six. Every one
 was confirmed against the provider's own rendered page, and every provider in the index was opened
-in a browser — not a sample, all 736.
+in a browser — not a sample, all 736. 700 rendered and were read; 36 could not be read and are
+recorded as such rather than counted as publishing nothing.
 
 **2.** Confirmed USD monthly executive retainers run from **$299 to $50,000** — a 167-fold spread
 across 122 tiers from 61 providers. Sterling runs **£699 to £18,000** across 23 tiers; the euro band is
@@ -105,15 +106,21 @@ rows in this index are a published absence of price, and that is the index's mai
 a gap in it.
 
 **Every price here is confirmed, and every provider has been opened.** The `verification` column
-records how each row was established. There are no unconfirmed prices left in the dataset: 94
-provider prices reported by automated screening were each opened in a browser and read, and the 41
-that did not survive were removed rather than softened — a 43.6% rejection rate.
+records how each row was established, and **no row in the dataset rests on automated screening
+alone** — 898 of 938 rows are browser-verified and the other 40 carry an explicit `blocked`,
+`unreachable` or `out_of_scope` label. There are no unconfirmed prices: 94 provider prices reported
+by automated screening were each opened in a browser and read, and the 41 that did not survive were
+removed rather than softened — a 43.6% rejection rate.
 
 **Then the other direction was checked too.** A full browser pass over all 736 providers, completed
 2026-08-21, found a published price on 34 providers the dataset had recorded as publishing none — a
 5.3% false-negative rate. On 14 of those 34 the price was on a `/pricing` page no earlier pass had
 opened. Screening errs both ways, and only opening the page distinguishes "publishes nothing" from
 "publishes elsewhere".
+
+**The maintainer is in the dataset.** saasfractionalcpo.com publishes a price and is recorded as a
+row like any other, checked in the same browser pass, so the maintainer's own pricing is subject to
+this index rather than exempt from it. Readers should discount that row accordingly.
 
 Full protocol, inclusion criteria and limitations: **[methodology.md](methodology.md)**.
 

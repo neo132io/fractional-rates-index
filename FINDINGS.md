@@ -9,10 +9,12 @@ Where the data cannot support a claim, the claim is absent rather than softened.
 Denominators are stated inline, because a percentage over 736 providers is a different object from a
 percentage over 69,000 and the reader is entitled to know which one they are holding.
 
-**Every provider in this index has been opened in a browser and read.** Not a sample — all 736.
-Nothing here rests on an automated fetch. That full pass is also what produced the most useful
-finding in this file: screening had missed a published price on 34 providers, and on 14 of those the
-price was sitting on a `/pricing` page nobody had opened.
+**Every provider in this index was opened in a browser.** Not a sample — all 736. 700 of them
+rendered and were read; the remaining 36 returned a bot check, an empty body or a dead domain, and
+carry no observation in either direction rather than being recorded as publishing no price. Nothing
+here rests on an automated fetch. That full pass is also what produced the most useful finding in
+this file: screening had missed a published price on 34 providers, and on 14 of those the price was
+sitting on a `/pricing` page nobody had opened.
 
 ---
 
@@ -21,6 +23,8 @@ price was sitting on a `/pricing` page nobody had opened.
 **1. Disclosure**
 
 > Of 736 fractional executive providers, 129 publish a price — 17.5%, about one in six. Every one was confirmed against the provider's own rendered page. (Fractional Rates Index, Aug 2026)
+
+> Every row in this index now carries a browser observation or an explicit failure to obtain one. 898 of 938 rows are browser-verified; the remaining 40 are recorded as blocked, unreachable or out of scope. No row rests on automated screening alone. (Fractional Rates Index, Aug 2026)
 
 **2. Spread**
 
@@ -166,8 +170,11 @@ Stated explicitly so the lines above are not quoted past their evidence.
   executive bands above.
 - **Point-in-time.** Four capture dates across five days. One provider already changed a published
   figure inside that window, which is recorded with both capture dates.
-- **The maintainer is in the dataset.** saasfractionalcpo.com publishes a price and is recorded on
-  the same basis as every other provider. Readers should discount it accordingly.
+- **The maintainer is in the dataset.** saasfractionalcpo.com is the practice of the person who
+  maintains this index. It publishes a price, and is recorded on the same basis as every other
+  provider and read in the same browser pass, so the maintainer's pricing is subject to the index
+  rather than exempt from it. It is one row of 938 and moves no figure in this file, but readers
+  should discount it accordingly.
 - **English-language sources, US and UK-weighted.**
 
 ---

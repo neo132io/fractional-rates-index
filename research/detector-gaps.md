@@ -89,10 +89,12 @@ is a page with no price on it.
 homepage sits behind a Cloudflare interstitial, it had been recorded as blocked, and its
 `/fractional-cfo-pricing/` page carries three tiers.
 
-**Residual risk.** 12 rows remain `blocked` and 10 `unreachable`. Those providers are
-counted in the denominator and carry no observation in either direction, which is the
-honest treatment but does mean the disclosure rate is computed over some providers whose
-pages were never read.
+**Residual risk.** 16 rows remain `blocked` and 23 `unreachable`, covering 36 providers
+whose pages could not be read at all. Those providers are counted in the denominator and
+carry no observation in either direction, which is the honest treatment but does mean the
+disclosure rate is computed over some providers whose pages were never read. If every one
+of them published a price, the disclosure rate would be 22.4% rather than 17.5%; the true
+figure is somewhere in that interval.
 
 ---
 
