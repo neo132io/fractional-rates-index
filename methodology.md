@@ -132,19 +132,26 @@ maintainer's pricing is subject to the index rather than exempt from it.
 ## 5. How the numbers in FINDINGS.md are computed
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
-  same provider is named differently across collection passes. 738 providers, 893 rows.
+  same provider is named differently across collection passes. 736 providers, 938 rows.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
-  is non-null. Providers with only null rows do not count. This yields 95 providers.
+  is non-null. Providers with only null rows do not count. This yields 129 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`.
-  Since the 2026-08-20 verification passes the two counts coincide: all 95 are confirmed.
-- **Percentages** are over the 699 providers in the dataset unless the line states otherwise.
+  The two counts coincide: all 129 are confirmed, and no priced row carries any other verification
+  value. That invariant is checkable in one pass over the file.
+- **Percentages** are over the 736 providers in the dataset unless the line states otherwise.
 - **The retainer band and median** are computed over rows that are confirmed, priced,
-  `unit = per_month` and `currency = USD`, **excluding four rows whose own notes state they are not
-  executive rates** (bookkeeping, monitoring-only support, developer hours and a non-executive
-  specialist rate). That leaves 87 rows from 46 providers, a median floor of $5,000 and a band of
-  $299–$30,000. Including the excluded rows moves the floor to $375; both figures are reported here
-  so the exclusion is visible rather than silent. Sterling is computed the same way and reported
-  separately: 18 rows from 9 providers, median floor £3,750, band £699–£12,000.
+  `unit = per_month`, `currency = USD` and `offering_type = retainer`. The `offering_type` filter is
+  what excludes marketplace and platform rows, whose own notes state they are not executive rates.
+  That leaves 122 rows from 61 providers, a median floor of $5,000 and a band of $299–$50,000.
+  Sterling is computed the same way and reported separately: 23 rows from 12 providers, median floor
+  £4,000, band £699–£18,000. The euro band is now large enough to report on the same basis: 12 rows
+  from 7 providers, median floor €5,450, band €1,200–€25,000.
+- **Band endpoints use both columns.** The low end is the minimum `price_low`; the high end is the
+  maximum of `price_high` where set and `price_low` where it is not. A provider publishing only a
+  floor therefore contributes to the low end and cannot inflate the high end.
+- **Rows with no stated period are excluded from every per-period band.** Three rows carry a
+  currency and an amount but no unit, because the provider's page attaches no period to the figure.
+  They are not assumed monthly.
 - **Currencies are never pooled and never converted.** Every band and median is computed within a
   single currency, and the currency is named in the finding.
 - **Role and offering-type rates** count distinct providers per group. A provider appearing under two
@@ -263,7 +270,7 @@ their figures recorded verbatim; 32 did not survive and their prices were remove
 discovery batch, but 16 of 31 failed (51.6%) in the contact-export batch, because a contact export
 surfaces companies whose pages talk about revenue bands and client outcomes rather than prices.
 Across all four passes the range is 25% to 52%. **No unconfirmed price remains in the dataset**, and
-the confirmed rate settled at 90 of 699 (12.9%).
+the confirmed rate settled at 90 of 699 (12.9%) at the close of that pass.
 
 Two classification errors were found and fixed during that pass, both worth recording. A regular
 expression written to catch HTTP status 999 also matched any price ending in ",999", which wrongly
@@ -277,20 +284,64 @@ limitation stated for v1.0 no longer describes the dataset. `currency` carries t
 **prices are not converted**: no exchange rate is applied anywhere, and rows in different currencies
 must not be pooled into a single band.
 
-**Three capture dates** are present (2026-08-17, 2026-08-19, 2026-08-20). `capture_date` is per row.
+**Four capture dates** are present (2026-08-17, 2026-08-19, 2026-08-20, 2026-08-21). `capture_date`
+is per row.
+
+---
+
+## 5e. The full-coverage pass (2026-08-21)
+
+Every pass described above verified prices that screening had *reported*. None of them tested the
+opposite failure: a provider recorded as publishing nothing, that in fact publishes something.
+
+**All 736 providers were opened in a browser and read**, in risk order — providers never previously
+opened first, then providers whose earlier check returned nothing, then providers already carrying a
+confirmed price. Each was navigated, given three seconds to render, and read with a detector that
+strips known non-price contexts (revenue, funding, savings, salary, portfolio, valuation) before
+reporting a figure. Where the page exposed a pricing link, that link was followed.
+
+**Result: 34 providers publish a price the dataset had recorded as absent** — a 5.3% false-negative
+rate against the 643 providers previously recorded as unpriced. The disclosure rate moved from
+95 of 738 (12.9%) to 129 of 736 (17.5%).
+
+**14 of the 34 were on a page nobody had opened** — a `/pricing`, `/packages` or
+`/fractional-cfo-pricing` path linked from a homepage that itself states no figure. That is the
+single largest source of error found in this project, and it is a sampling error rather than a
+parsing one: the tool read the page it was given, correctly, and the price was on a different page.
+
+**Two providers were removed as defunct.** `coalescemanagement.com` now serves a domain-for-sale
+listing and `k2p.com` a hosting placeholder. Neither carries site content, so neither can support an
+observation in either direction. Provider count fell from 738 to 736 accordingly.
+
+**Detector defects found and recorded during the pass**, in `research/detector-gaps.md`: a
+currency-after-number form (`USD 10,000`) invisible to a symbol-anchored pattern; captures taken
+before client-side render returning an empty body; and a Swiss apostrophe separator (`CHF 2'900`)
+that truncates under a comma-and-period number class. The last was checked for damage rather than
+assumed harmless — all three Swiss and Liechtenstein domains in the dataset were re-read, and the
+one CHF price in the file is correct.
+
+**Two judgment calls were deliberately not made by the maintainer alone.** Three providers publish
+figures hedged with "typically" on their own service pages. Treating one as first-party and another
+as market would make the rule arbitrary, so all three are recorded as publishing no price, and the
+figures are quoted in `notes` so a reader can disagree with the call on the evidence.
 
 ---
 
 ## 6. Known limitations
 
-- **Small confirmed sample.** 738 providers establish a disclosure pattern, but only 95 publish a
+- **Small confirmed sample.** 736 providers establish a disclosure pattern, but only 129 publish a
   price. That is **not enough to state market rates** for any role. No row in this dataset should be
   read as a market range.
-- **Point-in-time.** Three capture dates across four days. Provider pages change: Go Fractional
+- **Point-in-time.** Four capture dates across five days. Provider pages change: Go Fractional
   described "over 1,200 fractional executives" on 2026-08-16 and "15,000 operators" on 2026-08-17.
   Four days cannot show stability.
-- **Role coverage is uneven.** CPO is the thinnest at 5 confirmed publishers out of 106 providers,
-  so the CPO figure rests on very little and should not be compared confidently against CTO.
+- **Role coverage is uneven.** CRO (5 providers) and CEO (2) are too thin to report a rate for and
+  are omitted from the role table rather than quoted. Among the six reportable roles the thinnest is
+  CPO at 14 confirmed publishers out of 104 providers.
+- **The role table was wrong in v1.0 and is corrected here.** CPO was reported as the least
+  transparent role at 4.7%; the full-coverage pass puts it at 13.5%. The original figure was an
+  artifact of unopened pricing pages. Any downstream work quoting the 4.7% figure, or the claim that
+  CTO is roughly five times more transparent than CPO, should be corrected.
 - **A published price is not a transacted price.** This records what providers publish, not what
   clients pay, and the gap between the two is unmeasured here.
 - **Monthly figures are not comparable without hours.** `hours_included` is frequently null because
