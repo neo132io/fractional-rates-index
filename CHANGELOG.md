@@ -27,7 +27,7 @@ was tested against itself rather than because more data arrived.**
 | USD monthly band $299–$27,200, n=86 | **$299–$50,000, 122 tiers from 61 providers** | Update |
 | Stage-one error rate 30% (3 of 10) | **43.6% (41 of 94)**, measured on a far larger sample | Use the new figure |
 | "All USD" | **7 currencies:** USD, GBP, EUR, AUD, SGD, NZD, CHF | The USD-only limitation no longer describes the dataset |
-| 218 rows browser-verified | **898 of 938**, and no row rests on screening alone | Update |
+| 218 rows browser-verified | **899 of 938**, and no row rests on screening alone | Update |
 
 ### Why it changed
 
@@ -68,6 +68,33 @@ that were there on **5.3%** of what it cleared.
   `standard/scope-of-work.md` still asserted 95 of 738 (12.9%) as current, and the analysis file still
   carried the CPO rate at 5 of 106 — the exact claim the pass overturned, inside the document whose
   purpose is auditing other people's unsourced statistics.
+
+### Found by a deep QA pass, after the v1.1 documents were written
+
+A structural audit of the dataset — invariants the reproduction check does not test — found two
+defects. Both were fixed, and the checks that would have caught them earlier are now part of the
+suite.
+
+- **One row was labelled `blocked` and was not blocked.** toptal.com rendered normally in the
+  full-coverage pass (13,063 characters); what returned HTTP 404 was a role-specific path that does
+  not exist. A missing page is evidence that a rate is not published, not a failure to observe the
+  site — and the sibling row on the same URL was already `browser_verified`. Corrected to
+  `browser_verified`, which moves `browser_verified` from 898 to 899 and `blocked` from 16 to 15.
+- **Five rows carried no price yet asserted a currency**, two of them a unit as well. A currency is
+  an observation about a price; where there is no price there is nothing for it to describe, and the
+  published wording was already preserved verbatim in `notes`. The schema documents `currency` as
+  "null on unpriced rows", which those five rows made false. Cleared. `USD` moves from 210 to 205 and
+  `per_month` from 173 to 172 in the schema table.
+
+Neither defect touched a headline figure: rows, providers, priced providers, the disclosure rate, the
+read/unread split and all six currency bands are unchanged.
+
+**Four other QA flags were examined and are correct as they stand**, recorded here so they are not
+re-raised: three priced rows carry no unit because the provider attaches no period to the figure
+(documented in methodology §5); two pairs of rows share a price because one provider sells four
+distinct fixed-fee products at two price points; one marketplace publishes a $15/hour floor, which is
+real and is excluded from the executive hourly band by the `offering_type` filter; and two domains
+hold both readable and unreadable rows because different pages of the same site had different fates.
 
 ### Added
 

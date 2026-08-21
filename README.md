@@ -103,7 +103,7 @@ the rows in this index are a published absence of price**, and that is the index
 rather than a gap in it.
 
 **No row rests on automated screening alone.** The `verification` column records how each row was
-established: 898 of 938 rows are `browser_verified`, and the other 40 carry an explicit `blocked`,
+established: 899 of 938 rows are `browser_verified`, and the other 39 carry an explicit `blocked`,
 `unreachable` or `out_of_scope` label. A summarizing fetch is not a capture.
 
 **Both error rates are published, not just the flattering one.** Automated screening was tested in

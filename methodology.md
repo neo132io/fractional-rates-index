@@ -88,12 +88,12 @@ about the market.
 | `offering_type` | `retainer` 747, `marketplace_match` 109, `project` 73, `day_rate` 9 |
 | `price_low` | Null where nothing is published. A lone `price_low` is a published floor with no ceiling |
 | `price_high` | Null where the provider publishes a floor only. Two rows carry a high with no low: a published ceiling |
-| `currency` | ISO code, null on unpriced rows. `USD` 210, `GBP` 46, `EUR` 29, `AUD` 6, `SGD` 3, `NZD` 3, `CHF` 1 |
-| `unit` | Null on unpriced rows. `per_month` 173, `fixed_fee_per_project` 64, `per_hour` 22, `per_day` 9, and nine long-tail units |
+| `currency` | ISO code, null on unpriced rows. `USD` 205, `GBP` 46, `EUR` 29, `AUD` 6, `SGD` 3, `NZD` 3, `CHF` 1 |
+| `unit` | Null on unpriced rows. `per_month` 172, `fixed_fee_per_project` 64, `per_hour` 22, `per_day` 9, and eight long-tail units |
 | `hours_included` | Nullable. Published hours or days per week where the provider states them |
 | `source_url` | The provider's own page. Never a third party |
 | `capture_date` | ISO date of capture, per row: 2026-08-17, -19, -20 or -21 |
-| `verification` | `browser_verified` 898, `unreachable` 23, `blocked` 16, `out_of_scope` 1 |
+| `verification` | `browser_verified` 899, `unreachable` 23, `blocked` 15, `out_of_scope` 1 |
 | `source_pass` | Which collection pass produced the row |
 | `notes` | Verbatim published wording, verification status, and any exclusion reason |
 
