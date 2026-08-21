@@ -1,6 +1,6 @@
 # Findings
 
-**The Fractional Rates Index · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
+**The Fractional Rates Index · v1.1 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
 
 Every line below is computed from [`data/rates-2026-08.csv`](data/rates-2026-08.csv) and from
 nothing else. No figure here is estimated, modelled, projected or carried over from another source.
@@ -8,6 +8,10 @@ Where the data cannot support a claim, the claim is absent rather than softened.
 
 Denominators are stated inline, because a percentage over 736 providers is a different object from a
 percentage over 69,000 and the reader is entitled to know which one they are holding.
+
+**v1.1 corrected several figures published in v1.0**, including the headline disclosure rate and the
+role table. If you cited an earlier version, [`CHANGELOG.md`](CHANGELOG.md) states what changed and
+what to do about it.
 
 **Every provider in this index was opened in a browser.** Not a sample — all 736. 700 of them
 rendered and were read; the remaining 36 returned a bot check, an empty body or a dead domain, and

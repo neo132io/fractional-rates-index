@@ -115,13 +115,12 @@ source.
    queue (315 rows) remains published in this repository as a record of how
    the pool was built; it has since been worked through in full.
 
-   **This paragraph previously read "95 of 738 (12.9%)" and put the CPO rate
-   at 5 of 106 (4.7%).** Both figures were superseded on 2026-08-21 when
-   every provider in the index was opened in a browser and 34 published
-   prices were found that automated screening had missed. The correction is
-   recorded here rather than quietly overwritten, for the same reason this
-   document exists: a statistic whose revisions are invisible cannot be
-   audited. See `../methodology.md` section 5e.
+   **Both figures in this paragraph were corrected in v1.1**, including the
+   CPO rate, which this document had previously put at 4.7%. See
+   [`../CHANGELOG.md`](../CHANGELOG.md) for what changed and why. The
+   correction is flagged rather than quietly overwritten for the same reason
+   this document exists: a statistic whose revisions are invisible cannot be
+   audited.
 
 ## Methodology of this analysis
 
