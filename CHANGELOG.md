@@ -10,6 +10,54 @@ quoted still holds.
 
 ---
 
+## v1.2 — 2026-08-24
+
+**No figure in this release changed. v1.2 corrects how one figure was worded, removes a stray contact
+detail, and writes down the counting rule that an audit of this release got wrong.**
+
+Every number published in v1.1 was recomputed from the shipped file during this pass and every one
+reproduced exactly: 736 providers, 938 rows, 129 publishing a price, 17.5%, the 17.5–22.4% interval,
+and the full role table down to CFO at 12.5% (19 of 152). **Anyone who cited v1.1 needs to change
+nothing.**
+
+### What changed
+
+| Was | Is now | If you cited it |
+|---|---|---|
+| "Of 736 providers, 129 publish a price — 17.5%" | **"At least 17.5% publish a price (129 of 736) — the floor of a 17.5–22.4% interval"** | No figure changed. The floor framing was already in `README.md` and `methodology.md`; `FINDINGS.md` stated the rate bare and now matches |
+| A provider row carried a business phone number | **Removed** | Nothing depended on it |
+| Counting rule stated once, in passing | **Stated with the failure mode named** | See below |
+
+### The denominator that looks wrong and is not
+
+An audit of the live release counted **734** distinct providers against the **736** the documents
+claim, and reported the documents as stale. The documents were right and the audit's counting rule was
+wrong.
+
+Provider identity in this index is the **normalised domain of `source_url`**, not the `provider`
+string. Two providers run two domains each — `aspirecfo.com`/`aspirecfo.net` and
+`cfocentre.com`/`thecfocentre.com` — so 734 names span 736 identities. Counting names yields 734,
+17.6%, and CFO 12.6% (19 of 151); **none of those reproduce a published figure.**
+
+The rule was already in `methodology.md`. It is now stated with the specific way it gets missed, the
+two providers that cause it, and the normalisation needed to reproduce the file, because a counting
+rule that a careful reader can trip on is not documented well enough.
+
+### The CPO flip
+
+Unchanged in this release and still documented in the **v1.1** entry below: CPO moved from 4.7%
+(5 of 106) to **13.5% (14 of 104)** when every provider was opened in a browser, and CFO became the
+least transparent role at 12.5%. The 4.7% was an artifact of unopened pricing pages.
+
+### Bidirectional screening error
+
+Also unchanged and carried forward from v1.1: screening reported prices that were not there on
+**43.6%** of what it flagged (41 of 94) and missed prices that were there on **5.3%** of what it
+cleared (34 of 643). Both directions remain published in `FINDINGS.md`, `README.md`, `methodology.md`
+and `research/detector-gaps.md`. Neither is knowable without opening the page.
+
+---
+
 ## v1.1 — 2026-08-21
 
 **Headline: the confirmed disclosure rate moved from 12.9% to 17.5%, and it moved because the method

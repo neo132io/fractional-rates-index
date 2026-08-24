@@ -1,6 +1,6 @@
 # The Fractional Rates Index
 
-**v1.1 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
+**v1.2 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
 
 An open dataset of **publicly published pricing for fractional executive services**. Every figure in
 this repository carries the provider's own URL and the date it was captured. Nothing is estimated,
@@ -139,7 +139,7 @@ For a specific finding, cite the figure with its denominator and the index versi
 
 ```
 129 of 736 fractional executive providers have a browser-confirmed published price (17.5%).
-The Fractional Rates Index v1.1, captured 2026-08-17 to 2026-08-21. saasfractionalcpo.com. CC BY 4.0.
+The Fractional Rates Index v1.2, captured 2026-08-17 to 2026-08-21. saasfractionalcpo.com. CC BY 4.0.
 ```
 
 BibTeX:

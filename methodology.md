@@ -1,6 +1,6 @@
 # Methodology
 
-**The Fractional Rates Index · v1.1 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
+**The Fractional Rates Index · v1.2 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
 
 This document describes the dataset as it stands. Where a figure in it superseded an earlier
 published figure, [`CHANGELOG.md`](CHANGELOG.md) records what changed and why. Nothing here is a
@@ -169,6 +169,10 @@ that interval, not as a point estimate.
 
 - **Provider identity is the normalised domain of `source_url`**, not the provider name, because the
   same provider is named differently across collection passes. 736 providers, 938 rows.
+  **Counting distinct `provider` strings instead returns 734 and will not reproduce any percentage in
+  this release.** Two providers operate on two domains each — `aspirecfo.com`/`aspirecfo.net` and
+  `cfocentre.com`/`thecfocentre.com` — and each is one name over two identities. Normalise the
+  `source_url` host, strip a leading `www.`, and every figure here recomputes exactly.
 - **"Publishes a price"** means the provider has at least one row where `price_low` or `price_high`
   is non-null. Providers with only null rows do not count. This yields 129 providers.
 - **"Confirmed"** additionally requires `verification` to be `browser_verified` or `first_party`. The

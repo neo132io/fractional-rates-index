@@ -1,6 +1,6 @@
 # Findings
 
-**The Fractional Rates Index · v1.1 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
+**The Fractional Rates Index · v1.2 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
 
 Every line below is computed from [`data/rates-2026-08.csv`](data/rates-2026-08.csv) and from
 nothing else. No figure here is estimated, modelled, projected or carried over from another source.
@@ -26,7 +26,7 @@ sitting on a `/pricing` page nobody had opened.
 
 **1. Disclosure**
 
-> Of 736 fractional executive providers, 129 publish a price — 17.5%, about one in six. Every one was confirmed against the provider's own rendered page. (Fractional Rates Index, Aug 2026)
+> At least 17.5% of fractional executive providers publish a price (129 of 736). This is the floor of a 17.5%–22.4% interval: 36 providers could not be read at all and are counted as non-publishing. Every confirmed price was verified against the provider's own rendered page. (Fractional Rates Index, Aug 2026)
 
 > Every row in this index now carries a browser observation or an explicit failure to obtain one. 899 of 938 rows are browser-verified; the remaining 39 are recorded as blocked, unreachable or out of scope. No row rests on automated screening alone. (Fractional Rates Index, Aug 2026)
 
