@@ -1,0 +1,20 @@
+{
+ "generated": "2026-09-02T15:09:07Z",
+ "snapshot_md5": "48c3c52bad99c644e0e6d60fb90e3180",
+ "basis": "dedup per (host, role, region, model); quarantined hosts excluded",
+ "tracked": 1127,
+ "published": 211,
+ "share_pct": 18.7,
+ "us_monthly_median": 5000,
+ "us_monthly_p25": 2000,
+ "us_monthly_p75": 10000,
+ "us_monthly_providers": 84,
+ "uk_day_median": 1000,
+ "uk_day_providers": 9,
+ "uk_providers": 15,
+ "uk_monthly_providers": 12,
+ "roles_tracked": 7,
+ "roles_priced": 6,
+ "date_first_capture": "2026-08-31",
+ "date_last_capture": "2026-09-02"
+}

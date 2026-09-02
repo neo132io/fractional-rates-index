@@ -1,6 +1,6 @@
 # The Fractional Rates Index
 
-**v1.2 · captured 2026-08-17 to 2026-08-21 · CC BY 4.0**
+**v2.0-live · collection in progress · CC BY 4.0** (v1.2, captured 2026-08-17 to 2026-08-21, remains the last fully browser-audited release below)
 
 An open dataset of **publicly published pricing for fractional executive services**. Every figure in
 this repository carries the provider's own URL and the date it was captured. Nothing is estimated,
@@ -13,9 +13,34 @@ cannot support a claim, this repository says so rather than filling the gap.
 
 Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 August 2026**.
 
+
 ---
 
-## The three headline findings
+## v2.0 — the live index (collection in progress)
+
+As of 2 September 2026 the index is collected by a calibrated extraction pipeline rather than a
+one-off browser audit. The live snapshot in this repository is the same one that renders
+**https://saasfractionalcpo.com/data** — the site and this repository update together.
+
+Current snapshot: **1,127 providers tracked · 211 publish a price (18.7%) · median published US
+monthly retainer $5,000 · middle half $2,000 to $10,000** · 7 roles · USD, GBP, EUR.
+
+Files:
+
+| File | What it is |
+|---|---|
+| [`data/portal-rates-v2.csv`](data/portal-rates-v2.csv) | Aggregates by role x region x pricing model: median, p25/p75, n, publish share. Deduplicated per (host, role); groups below n=8 are shown but flagged low-n |
+| [`data/portal-distribution-v2.csv`](data/portal-distribution-v2.csv) | Histogram of published US monthly retainers |
+| [`data/portal-metrics-v2.json`](data/portal-metrics-v2.json) | The pooled scalars the site renders, with the snapshot md5 and generation time |
+
+Honesty notes: collection is in progress toward a 10,000-provider target, so n grows continuously;
+records extracted on any uncalibrated model rung are quarantined and excluded until re-extracted;
+the extraction gate (zero phantom values, silent-wrong rate under 0.5%) passed on 2026-09-01 and
+every record carries an evidence quote from the provider's own page.
+
+---
+
+## The three headline findings (v1.2, 2026-08)
 
 **1.** Across **736 providers**, only **129 publish a price** — **17.5%**, about one in six. Every
 provider in the index was opened in a browser: not a sample, all 736. 700 rendered and were read; 36

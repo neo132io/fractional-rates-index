@@ -10,6 +10,22 @@ quoted still holds.
 
 ---
 
+## v2.0 — 2026-09-02
+
+**The index moved from a one-off browser audit to continuous, calibrated machine collection, and the
+public site at saasfractionalcpo.com/data now renders this repository's snapshot directly.**
+
+What changed: coverage expanded from CPO-centric to 7 executive roles (COO, CRO and Chief of Staff
+added); providers tracked 736 -> 1,127 and growing; day-rate normalisation revised; per-group
+aggregates are deduplicated per (host, role) and groups below n=8 are flagged low-n; records from any
+uncalibrated extraction run are quarantined and excluded until re-extracted. The v1.2 files are
+unchanged and remain in `data/` for anyone who cited them.
+
+No previously published v1.2 figure is corrected by this release; v2.0 is a new, larger snapshot on a
+new collection basis, not a restatement of the old one.
+
+---
+
 ## v1.2 — 2026-08-24
 
 **No figure in this release changed. v1.2 corrects how one figure was worded, removes a stray contact
