@@ -59,6 +59,11 @@ BASIS_FACTOR = {
     "hours_per_month": Decimal(1),
     "hours_per_week": WEEKS_PER_MONTH,
     "days_per_month": HOURS_PER_DAY,
+    # a days-per-week commitment goes through both declared conversions:
+    # 8 hours a day, 52/12 weeks a month. Added in v2.1.1, when the evidence
+    # scan (hours_evidence.py) found that "2 days a week" is the single most
+    # common way a retainer states its size and v2.1 had no way to read it.
+    "days_per_week": HOURS_PER_DAY * WEEKS_PER_MONTH,
 }
 
 
@@ -184,9 +189,17 @@ AUDIT: list[HoursRow] = [
              ACCEPT, "hours_per_month", 16, 20),
     HoursRow("contineofy.com", 0, 20.0, "20 hours per month",
              ACCEPT, "hours_per_month", 20),
-    HoursRow("saasfractionalcpo.com", 0, 20.0, "20 to 25 hours a month",
-             ACCEPT, "hours_per_month", 20, 25,
-             note="our own listing; kept in, and declared as self-inclusion"),
+    # Corrected in v2.1.1. v2.1 read "20 to 25 hours a month" from a capture
+    # that the live page contradicts: saasfractionalcpo.com/ says "Offer one
+    # Fractional CPO Partner $8,000 /mo 25 hours a month", and /standard/ says
+    # "$8,000 for 25 hours a month". Re-fetched 2026-09-03; a regex for
+    # r"\d+\s*(to|-)\s*\d+\s*hours" returns nothing on the live home page.
+    # This is the one row in the index with an absolute ground truth, and it
+    # was 11% wrong.
+    HoursRow("saasfractionalcpo.com", 0, 25.0, "25 hours a month",
+             ACCEPT, "hours_per_month", 25,
+             note="our own listing, re-read against the live page on "
+                  "2026-09-03; kept in, and declared as self-inclusion"),
     HoursRow("trailmarktech.com", 2, 20.0, "20+ hrs/month",
              ACCEPT, "hours_per_month", 20, open_ended=True,
              note="open-ended; read at the floor"),
@@ -348,6 +361,19 @@ def _quantile(sorted_values: list[float], q: float) -> float:
     lo = int(pos)
     hi = min(lo + 1, len(sorted_values) - 1)
     return sorted_values[lo] + (sorted_values[hi] - sorted_values[lo]) * (pos - lo)
+
+
+def host_level_hours() -> list[Decimal]:
+    """The sample the default divisor is the median of: one figure per host.
+
+    Exposed so the bootstrap can resample it. An interval that holds this
+    estimate fixed measures the smaller of the two unknowns in the hourly axis.
+    """
+    rows = accepted_rows()
+    by_host: dict[str, list[Decimal]] = {}
+    for r in rows:
+        by_host.setdefault(r.host, []).append(r.hours_per_month)
+    return sorted(_median(v) for v in by_host.values())
 
 
 def default_hours_per_month() -> Decimal:

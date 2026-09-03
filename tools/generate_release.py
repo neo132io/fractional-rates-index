@@ -38,11 +38,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import group_stats as gs  # noqa: E402
+import hours_evidence as he  # noqa: E402
 import retainer_hours as rh  # noqa: E402
 from fx_rates import load_lock  # noqa: E402
 from normalize_rates import value_and_label  # noqa: E402
 from verify_evidence import (  # noqa: E402
-    PASS, confidence_tier, evidence_quotes, gate_pass, is_priced, verify_row,
+    CONFIDENCE_REASONS, clean_pass, confidence_tier, evidence_quotes, gate_pass,
+    is_priced, verify_row,
 )
 
 csv.field_size_limit(2 ** 31 - 1)
@@ -94,13 +96,14 @@ def money(currency: str, value) -> str:
 # v2.0 baseline, read off the shipped release files
 # --------------------------------------------------------------------------
 
-def load_v2(repo_data: Path) -> tuple[dict, dict]:
-    rates_path = repo_data / "portal-rates-v2.csv"
-    metrics_path = repo_data / "portal-metrics-v2.json"
+def load_v2(repo_data: Path, version: str = "v2") -> tuple[dict, dict]:
+    """The group table and metrics of an already-shipped release."""
+    rates_path = repo_data / f"portal-rates-{version}.csv"
+    metrics_path = repo_data / f"portal-metrics-{version}.json"
     rates: dict[tuple[str, str, str], dict] = {}
     reverse_role = {v: k for k, v in ROLE_LABEL.items()}
     reverse_model = {v: k for k, v in MODEL_LABEL.items()}
-    with rates_path.open(newline="", encoding="utf-8") as fh:
+    with rates_path.open(newline="", encoding="utf-8-sig") as fh:
         for row in csv.DictReader(fh):
             key = (reverse_role.get(row["role"], row["role"]),
                    row["region"],
@@ -109,10 +112,10 @@ def load_v2(repo_data: Path) -> tuple[dict, dict]:
                 "median": _demoney(row["median"]),
                 "p25": _demoney(row["p25"]),
                 "p75": _demoney(row["p75"]),
-                "n": int(row["n"]),
-                "publish": row["publish"],
+                "n": int(row.get("n") or row.get("n_hosts") or 0),
+                "publish": row.get("publish", ""),
             }
-    metrics = json.loads(metrics_path.read_text(encoding="utf-8"))
+    metrics = json.loads(metrics_path.read_text(encoding="utf-8-sig"))
     return rates, metrics
 
 
@@ -133,7 +136,7 @@ PORTAL_FIELDS = [
     "median", "p25", "p75",
     "median_hourly_usd", "p25_hourly_usd", "p75_hourly_usd",
     "n_hosts", "n_offers",
-    "confidence_high", "confidence_medium", "confidence_low",
+    "confidence_high", "confidence_medium", "confidence_low", "confidence_flag",
     "bar_left", "bar_right", "bar_median",
 ]
 
@@ -148,8 +151,9 @@ RECORD_FIELDS = [
     "value_basis", "value_published",
     "rate_hourly_usd", "normalization_basis",
     "hours_per_month_used", "hours_source",
+    "hours_evidence_quote", "hours_evidence_basis",
     "confidence_tier", "strict_pass", "dual_agreement",
-    "verify_verdict", "verify_reasons",
+    "evidence_verdict", "evidence_reasons", "confidence_reasons",
     "scope_verdict", "country", "country_source",
     "evidence_quote", "evidence_page", "source_url", "capture_date",
 ]
@@ -199,6 +203,13 @@ def build_portal(groups: dict) -> list[dict]:
             "confidence_high": g["confidence"].get("high", 0),
             "confidence_medium": g["confidence"].get("medium", 0),
             "confidence_low": g["confidence"].get("low", 0),
+            # One column the template can read without arithmetic. A group with
+            # no corroborated record at all is the case the confidence tier was
+            # kept for, so it is flagged in the artifact and not left to the
+            # theme to notice.
+            "confidence_flag": ("no_high_confidence_record"
+                                if not int(g["confidence"].get("high", 0))
+                                else ""),
             "_p25": native["p25"], "_median": native["median"],
             "_p75": native["p75"],
         })
@@ -223,6 +234,7 @@ def add_bar_geometry(rows: list[dict]) -> list[dict]:
 
 
 def build_records(rows: list[dict]) -> list[dict]:
+    verdicts = {id(r): verify_row(r) for r in rows}
     out = []
     for r in rows:
         _, label = value_and_label(r)
@@ -241,11 +253,22 @@ def build_records(rows: list[dict]) -> list[dict]:
             "normalization_basis": r.get("normalization_basis", ""),
             "hours_per_month_used": r.get("hours_per_month_used", ""),
             "hours_source": r.get("hours_source", ""),
+            "hours_evidence_quote": r.get("hours_evidence_quote", ""),
+            "hours_evidence_basis": r.get("hours_evidence_basis", ""),
             "confidence_tier": confidence_tier(r),
             "strict_pass": r.get("strict_pass", ""),
             "dual_agreement": r.get("dual_agreement", ""),
-            "verify_verdict": r.get("verify_verdict", ""),
-            "verify_reasons": r.get("verify_reasons", ""),
+            # Recomputed here, never copied from the snapshot. The snapshot's
+            # own verify_verdict column was written by an earlier pass that
+            # still treated the two confidence checks as a veto, and it labels
+            # 215 of these 362 records REJECT / not_own_price when every one of
+            # them is context_verdict=own. A published label has to be produced
+            # by the rules that were actually applied.
+            "evidence_verdict": verdicts[id(r)].status,
+            "evidence_reasons": ";".join(
+                x for x in verdicts[id(r)].reasons if x not in CONFIDENCE_REASONS),
+            "confidence_reasons": ";".join(
+                x for x in verdicts[id(r)].reasons if x in CONFIDENCE_REASONS),
             "scope_verdict": r.get("scope_verdict", ""),
             "country": r.get("country", ""),
             "country_source": r.get("country_source", ""),
@@ -343,10 +366,17 @@ def build_portal_contract(all_rows, published, groups, distribution,
         "share_pct": round(100.0 * hosts_published / hosts_tracked, 1)
                      if hosts_tracked else 0.0,
 
-        # the continuity headline, in the currency providers quote
+        # the continuity headline, in the currency providers quote.
+        # The *_exact keys carry the unrounded value: v2.1 published
+        # us_monthly_p25 as 2562 for a p25 of 2562.50, which is a truncation
+        # presented as a price. The integer keys stay for template
+        # compatibility; a template that wants to be right reads the exact one.
         "us_monthly_median": int(round(us_month.get("median") or 0)),
         "us_monthly_p25": int(round(us_month.get("p25") or 0)),
         "us_monthly_p75": int(round(us_month.get("p75") or 0)),
+        "us_monthly_median_exact": round(us_month.get("median") or 0, 2),
+        "us_monthly_p25_exact": round(us_month.get("p25") or 0, 2),
+        "us_monthly_p75_exact": round(us_month.get("p75") or 0, 2),
         "us_monthly_providers": int(us_month.get("n_hosts") or 0),
         "us_monthly_ci_low": int(round(us_month.get("ci95_low") or 0)),
         "us_monthly_ci_high": int(round(us_month.get("ci95_high") or 0)),
@@ -355,8 +385,19 @@ def build_portal_contract(all_rows, published, groups, distribution,
         "hourly_usd_median": round(hourly.get("median") or 0, 2),
         "hourly_usd_p25": round(hourly.get("p25") or 0, 2),
         "hourly_usd_p75": round(hourly.get("p75") or 0, 2),
+        # The interval that carries the divisor's uncertainty as well as the
+        # sample's. v2.1 published the sampling-only pair as if it were the
+        # whole answer; both are here now, and the wide one is the default so
+        # that a template cannot quietly pick the flattering one.
         "hourly_usd_ci_low": round(hourly.get("ci95_low") or 0, 2),
         "hourly_usd_ci_high": round(hourly.get("ci95_high") or 0, 2),
+        "hourly_usd_ci_sampling_only_low": round(
+            hourly.get("ci95_sampling_only_low") or 0, 2),
+        "hourly_usd_ci_sampling_only_high": round(
+            hourly.get("ci95_sampling_only_high") or 0, 2),
+        "hourly_usd_divisor": (hourly.get("divisor") or {}).get("divisor_point"),
+        "hourly_usd_divisor_ci_low": (hourly.get("divisor") or {}).get("divisor_ci95_low"),
+        "hourly_usd_divisor_ci_high": (hourly.get("divisor") or {}).get("divisor_ci95_high"),
         "hourly_usd_providers": int(hourly.get("n_hosts") or 0),
 
         # GBP frame: counts only. No UK group clears the floor in v2.1, so no
@@ -377,6 +418,22 @@ def build_portal_contract(all_rows, published, groups, distribution,
         "groups_total": len(groups),
         "groups_below_floor": len(groups) - len(at_floor),
         "regions": len({k[1] for k in at_floor}),
+        # `table_records` sums n_hosts across groups, so a host that appears in
+        # two groups is counted twice. v2.1 rendered that sum under the label
+        # "PROVIDERS", which the caption itself defines as counting sites, and
+        # overstated the count by 6.2%. Both numbers are published; the label
+        # decides which one it means.
+        "table_hosts_unique": len({r.get("host") for r in published
+                                   if gs.group_key(r) in at_floor}),
+        "table_group_entries": sum(g["n_hosts"] for g in at_floor.values()),
+        # v2.1 rendered "1 currencies (USD, GBP, EUR)" by binding the caption
+        # to `regions`. The currency list is its own fact and now has its own
+        # keys.
+        "currencies": sorted({r.get("currency") for r in published
+                              if r.get("currency")}),
+        "currencies_count": len({r.get("currency") for r in published
+                                 if r.get("currency")}),
+        "regions_all": sorted({k[1] for k in groups}),
 
         # distribution chart
         "dist_n": dist_n,
@@ -416,18 +473,26 @@ def build_delta(groups: dict, v2_rates: dict) -> list[dict]:
             note = "new group in v2.1"
         else:
             note = ""
+        # The reporting floor has to hold in every file of the release, not
+        # just in the one the page renders. v2.1 shipped this table with
+        # v21_median_native and v21_median_hourly_usd filled in for all 31
+        # sub-floor groups, including nine that are a single provider, while
+        # the page said those groups "carry no figure anywhere, here or in the
+        # prose". A number in a column called median, computed from one host,
+        # is exactly what the floor exists to prevent.
+        shown = bool(g and g["meets_floor"])
         out.append({
             "role": role, "region": region, "model": model,
             "v2_n": v2["n"] if v2 else "",
             "v21_n_hosts": g["n_hosts"] if g else 0,
             "n_delta": (g["n_hosts"] if g else 0) - (v2["n"] if v2 else 0),
             "v2_median": v2_med if v2_med is not None else "",
-            "v21_median_native": v21_med if v21_med is not None else "",
-            "median_delta": delta,
-            "median_delta_pct": pct,
+            "v21_median_native": (v21_med if (shown and v21_med is not None) else ""),
+            "median_delta": delta if shown else "",
+            "median_delta_pct": pct if shown else "",
             "v21_median_hourly_usd": (g["hourly_usd"]["median"]
-                                      if g and g["hourly_usd"] else ""),
-            "v21_published": "yes" if (g and g["meets_floor"]) else "no",
+                                      if (shown and g and g["hourly_usd"]) else ""),
+            "v21_published": "yes" if shown else "no",
             "note": note,
         })
     return out
@@ -471,28 +536,309 @@ def cross_check_axes(published: list[dict]) -> dict:
 
 
 def hours_sensitivity(published: list[dict], lock: dict) -> dict:
-    """What the retainer axis would say under other hours assumptions."""
+    """What the published headline would say under other hours assumptions.
+
+    v2.1 answered a different question from the one the reader is asking. It
+    measured offer-level medians over the default-divisor rows only, so at 32.5
+    hours it printed $153.85 while the headline beside it said $169.23, and the
+    two could not be read against each other at all. This recomputes the
+    headline itself - every published host, every unit, retainers that publish
+    their own hours left alone - and the 32.5-hour column therefore reproduces
+    the headline exactly. 25h and 40h are in because they are the assumptions a
+    sceptical reader reaches for.
+    """
     import statistics
     from decimal import Decimal as D
-    from fx_rates import rate_of
-    rows = [r for r in published
-            if r.get("unit") == "per_month"
-            and (r.get("hours_source") or "").startswith("default")]
     out = {}
-    for hours in ("12", "20", "32.5", "40"):
+    for hours in ("12", "20", "25", "32.5", "40", "52"):
+        divisor = float(D(hours))
         per_host: dict[str, list[float]] = {}
-        for r in rows:
-            value = D(r.get("value_published") or "0")
-            usd = value * rate_of(lock, r.get("currency", ""))
-            per_host.setdefault(r.get("host", ""), []).append(float(usd / D(hours)))
+        for r in published:
+            hourly = gs.hourly_usd(r)
+            if hourly is None:
+                continue
+            if (r.get("unit") == "per_month"
+                    and (r.get("hours_source") or "").startswith("default")):
+                try:
+                    used = float(r.get("hours_per_month_used") or 0)
+                except ValueError:
+                    used = 0.0
+                if used > 0:
+                    hourly = hourly * used / divisor
+            per_host.setdefault(r.get("host", ""), []).append(hourly)
         v = sorted(statistics.median(sorted(x)) for x in per_host.values())
         out[f"{hours}h"] = round(statistics.median(v), 2) if v else None
+    repriced = sum(1 for r in published
+                   if r.get("unit") == "per_month"
+                   and (r.get("hours_source") or "").startswith("default"))
     return {
-        "rows": len(rows),
+        "basis": ("the published hourly headline, recomputed at each divisor. "
+                  "Only the retainers with no published hours of their own move."),
+        "hosts": len({r.get("host") for r in published}),
+        "records_repriced": repriced,
         "median_usd_per_hour_at": out,
         "note": ("12h was the median of the raw hours_included column before "
                  "the audit, when hours per week and days per month were being "
-                 "read as hours per month"),
+                 "read as hours per month. 52h is the median of every host "
+                 "whose text states a commitment once the v2.1.1 evidence scan "
+                 "is counted, and is the number the divisor would move to if "
+                 "the wider pool were adopted."),
+    }
+
+
+QUARANTINE_FIELDS = [
+    "host", "offer_seq", "role", "currency", "unit",
+    "price_low", "price_high", "rate_hourly_usd",
+    "hours_per_month_used", "hours_source", "reason", "evidence_quote",
+]
+
+
+def build_quarantine(rows: list[dict]) -> list[dict]:
+    """Rows the evidence rules accept and a plausibility band rejects.
+
+    Published as a file rather than dropped quietly: a reader who counts the
+    records and finds fewer than the funnel promised is owed the list.
+    """
+    out = []
+    for r in rows:
+        if not is_priced(r):
+            continue
+        if r.get("scope_verdict") not in ("include", "", None):
+            continue
+        if (r.get("dup_keep") or "keep") != "keep":
+            continue
+        v = verify_row(r)
+        if gate_pass(v) or not v.quarantines:
+            continue
+        blocking = [x for x in v.reasons
+                    if x not in CONFIDENCE_REASONS and x not in v.quarantines]
+        if blocking:
+            continue          # excluded on the evidence, not on plausibility
+        out.append({
+            "host": r.get("host", ""),
+            "offer_seq": r.get("offer_seq", ""),
+            "role": r.get("role", ""),
+            "currency": r.get("currency", ""),
+            "unit": r.get("unit", ""),
+            "price_low": r.get("price_low", ""),
+            "price_high": r.get("price_high", ""),
+            "rate_hourly_usd": r.get("rate_hourly_usd", ""),
+            "hours_per_month_used": r.get("hours_per_month_used", ""),
+            "hours_source": r.get("hours_source", ""),
+            "reason": ";".join(v.quarantines),
+            "evidence_quote": repair_mojibake(" || ".join(evidence_quotes(r)))[:300],
+        })
+    out.sort(key=lambda d: (d["reason"], d["host"], str(d["offer_seq"])))
+    return out
+
+
+def numeric_changes(groups: dict, base_rates: dict, base_metrics: dict,
+                    portal: dict, baseline_version: str) -> dict:
+    """Every published median that moved, with its size, and the headline moves.
+
+    v2.1's changelog listed six method changes and not one result. A reader who
+    had quoted "$7,000 for a fractional CPO" two days earlier could not learn
+    from it that the figure was now $8,000, by how much, or why. A dataset
+    published for citation owes that reader a restatement notice.
+    """
+    moved, held, withdrawn = [], [], []
+
+    # A group that fell below the floor did not move; it is gone. Every delta
+    # table measures "what changed" and therefore cannot see it. COO/US/Monthly
+    # went from n=8 at $3,938 to n=7 and out of the release, and the first
+    # version of this block listed six of the previous edition's seven
+    # published groups without saying where the seventh went. A reader who
+    # quoted the withdrawn figure two days earlier has to be able to find it
+    # here, which means listing it by name, with the figure that was published.
+    for key, base in sorted(base_rates.items()):
+        if not base or not base.get("median"):
+            continue
+        g = groups.get(key)
+        if g and g["meets_floor"] and g["native"]:
+            continue
+        withdrawn.append({
+            "group": "/".join(key),
+            "n_hosts_before": base["n"],
+            "n_hosts_now": g["n_hosts"] if g else 0,
+            "median_before": base["median"],
+            "median_now": None,
+            "reason": (
+                f"fell below the n>={gs.REPORTING_FLOOR} reporting floor and is "
+                f"not published in this edition. The group is still counted and "
+                f"named in the groups file; it carries no figure."
+            ),
+        })
+
+    for key, g in sorted(groups.items()):
+        if not g["meets_floor"] or not g["native"]:
+            continue
+        base = base_rates.get(key)
+        if not base or not base.get("median"):
+            continue
+        now, before = g["native"]["median"], base["median"]
+        entry = {
+            "group": "/".join(key),
+            "n_hosts_before": base["n"], "n_hosts_now": g["n_hosts"],
+            "median_before": before, "median_now": now,
+            "change_pct": round(100.0 * (now - before) / before, 1),
+        }
+        (moved if abs(entry["change_pct"]) >= 0.05 else held).append(entry)
+
+    bp = base_metrics.get("portal", base_metrics)
+    headline = {}
+    for key, label in (("us_monthly_median", "US monthly median"),
+                       ("hourly_usd_median", "hourly median, USD"),
+                       ("published", "providers published"),
+                       ("tracked", "hosts tracked")):
+        before, now = bp.get(key), portal.get(key)
+        if before in (None, 0) or now is None:
+            continue
+        headline[key] = {
+            "label": label, "before": before, "now": now,
+            "change_pct": round(100.0 * (now - before) / before, 1),
+        }
+    return {
+        "previous_version": baseline_version,
+        "published_group_medians_moved": moved,
+        "published_group_medians_unchanged": held,
+        "published_group_withdrawn": withdrawn,
+        "groups_published_in_previous_edition": len(base_rates),
+        "groups_accounted_for": len(moved) + len(held) + len(withdrawn),
+        "headline": headline,
+        "continuity_note": (
+            "measured only on the groups that clear the reporting floor in "
+            "both editions. A group of one or two hosts that did not move has "
+            "not demonstrated continuity of a market; it has demonstrated that "
+            "one provider did not edit a page."
+        ),
+    }
+
+
+def confidence_flagged_groups(groups: dict) -> list[dict]:
+    """Published groups that rest on no high-confidence record at all.
+
+    Sivan's ruling of 2026-09-03 turned strict_pass and dual_agreement from a
+    veto into a confidence tier. A tier nobody can see is a veto given up for
+    nothing, so the release has to name the groups the reader should treat with
+    the most caution, and the table has to mark them. `(none)/US/Hourly` is
+    published on 0 high, 1 medium and 7 low records: it is the clearest case
+    the rule exists for.
+    """
+    out = []
+    for key, g in sorted(groups.items()):
+        if not g["meets_floor"] or not g["native"]:
+            continue
+        c = g["confidence"]
+        high = int(c.get("high", 0))
+        if high:
+            continue
+        out.append({
+            "group": "/".join(key),
+            "n_hosts": g["n_hosts"],
+            "high": high,
+            "medium": int(c.get("medium", 0)),
+            "low": int(c.get("low", 0)),
+            "note": ("no record in this group had two independent extractions "
+                     "agree and the strict parse pass. The figures are "
+                     "published and counted; the table marks the group."),
+        })
+    return out
+
+
+PUBLISHER_HOST = "saasfractionalcpo.com"
+
+
+def self_inclusion(published: list[dict]) -> str:
+    """Where the publisher sits in its own index, said with the number.
+
+    v2.1 said "one host out of 175" and left out where. It was at the 89th
+    percentile, on two records that were both wrong: 22.5 hours where the page
+    says 25, and the measured default where the page says three to four days a
+    week. Both are corrected in v2.1.1, and the sentence now carries the
+    percentile so a reader does not have to compute it to check us.
+    """
+    import statistics
+    per_host: dict[str, list[float]] = {}
+    for r in published:
+        v = gs.hourly_usd(r)
+        if v is not None:
+            per_host.setdefault(r.get("host", ""), []).append(v)
+    values = sorted(statistics.median(sorted(v)) for v in per_host.values())
+    ours = per_host.get(PUBLISHER_HOST)
+    if not values or not ours:
+        return (f"{PUBLISHER_HOST}, the publisher of this index, is not in the "
+                "published set of this edition.")
+    mine = statistics.median(sorted(ours))
+    pct = round(100.0 * sum(1 for v in values if v < mine) / len(values))
+    suffix = "th" if 10 <= pct % 100 <= 20 else {1: "st", 2: "nd", 3: "rd"}.get(pct % 10, "th")
+    offers = "; ".join(
+        f"${float(r.get('price_low') or r.get('price_high')):,.0f}/month at "
+        f"{r.get('hours_per_month_used')} hours"
+        for r in sorted(published, key=lambda x: str(x.get("offer_seq")))
+        if r.get("host") == PUBLISHER_HOST and r.get("unit") == "per_month"
+    )
+    return (
+        f"{PUBLISHER_HOST}, the publisher of this index, is one of the sampled "
+        f"providers ({offers}). It is one host out of {len(values)}, it is not "
+        f"excluded, and its median of ${mine:,.2f} an hour sits at the "
+        f"{pct}{suffix} percentile of the index."
+    )
+
+
+def hours_evidence_flags(all_rows: list[dict], published: list[dict]) -> dict:
+    """How much of the hourly divisor is read off the page, and how much assumed."""
+    import hours_evidence as he
+    monthly = [r for r in published if r.get("unit") == "per_month"]
+    src = Counter((r.get("hours_source") or "") for r in monthly)
+    from_evidence = sum(v for k, v in src.items() if k in gs.HOURS_FROM_EVIDENCE)
+    pool = gs.evidence_divisor_pool(published)
+    import statistics
+    return {
+        "monthly_records": len(monthly),
+        "hours_read_from_the_page": from_evidence,
+        "hours_from_the_measured_default": len(monthly) - from_evidence,
+        "by_source": dict(src.most_common()),
+        "recall_note": (
+            "v2.1 read hours only out of the collector's hours_included field "
+            "and only where a manual audit had accepted the reading. v2.1.1 "
+            "also reads a time commitment out of the offer's own price and "
+            "cadence quotes, which recovered "
+            f"{src.get('evidence_offer', 0) + src.get('evidence_host_cadence', 0)} "
+            "further records whose published hourly figure had contradicted "
+            "the provider's own words."
+        ),
+        "divisor_used": str(rh.default_hours_per_month()),
+        "divisor_estimated_on_hosts": len(rh.host_level_hours()),
+        "all_hosts_stating_hours": len(pool),
+        "median_of_all_hosts_stating_hours": (
+            round(statistics.median(pool), 2) if pool else None),
+        "open_question": (
+            "the divisor in use is the median of the hosts the manual audit "
+            "read. Across every host whose text states a commitment, including "
+            "the ones the v2.1.1 scan recovered, the median is higher. Moving "
+            "the divisor onto the wider pool restates the hourly headline and "
+            "is a decision, not a repair, so this edition does not make it."
+        ),
+    }
+
+
+def changes_vs_previous(groups: dict, published: list[dict], hl: dict) -> dict:
+    """What moved, in numbers, so a reader who quoted us can find their figure.
+
+    A CC BY dataset that shifts a group median by a fifth between editions and
+    lists only the method changes has issued a restatement without a
+    restatement notice. This block is that notice.
+    """
+    return {
+        "previous_version": "v2.1",
+        "why": ("method, not market. The snapshot is byte-identical to v2.1's; "
+                "every difference below comes from three repairs: hours read "
+                "out of the offer's own words instead of a default, a "
+                "plausibility band enforced on the derived hourly axis as well "
+                "as the captured one, and the publisher's own record corrected "
+                "against its live page."),
+        "note": ("figures for groups below the reporting floor are not listed "
+                 "here for the same reason they are not listed anywhere else."),
     }
 
 
@@ -507,7 +853,7 @@ def build_metrics(all_rows, published, groups, lock, input_path, version,
     priced = [r for r in all_rows if is_priced(r)]
     gate = [r for r in priced if gate_pass(verify_row(r))]
     in_scope = [r for r in gate if r.get("scope_verdict") in ("include", "", None)]
-    strict_also = [r for r in published if verify_row(r).status == PASS]
+    strict_also = [r for r in published if clean_pass(verify_row(r))]
 
     hl = gs.headline(published)
     at_floor = {k: g for k, g in groups.items() if g["meets_floor"]}
@@ -559,10 +905,15 @@ def build_metrics(all_rows, published, groups, lock, input_path, version,
         "publish_rate": pub_rate,
         "methodology": {
             "publication_gate": (
-                "evidence and plausibility. Every published number is found "
-                "word for word in a quote captured from the provider's own "
-                "page, together with its currency and its cadence, and sits "
-                "inside a per-unit plausibility band."
+                "evidence and plausibility. The price, its currency and its "
+                "cadence are found word for word in a quote captured from the "
+                "provider's own page, and the price sits inside a per-unit "
+                "plausibility band. Where the provider states how many hours "
+                "the retainer buys, the divisor behind the USD-per-hour column "
+                "is quoted too; on the rest it is the measured default of 32.5 "
+                "hours a month, and no published record contradicts its own "
+                "words. The word-for-word guarantee is a guarantee about the "
+                "captured price, not about the derived hourly figure."
             ),
             "confidence_columns": (
                 "strict_pass and dual_agreement are reported as a confidence "
@@ -612,14 +963,11 @@ def build_metrics(all_rows, published, groups, lock, input_path, version,
             "interval": "percentile bootstrap over hosts, 10,000 iterations",
         },
         "quality_flags": {
-            "self_inclusion": (
-                "saasfractionalcpo.com, the publisher of this index, is one of "
-                "the sampled providers ($8,000/month, 20-25 hours). It is one "
-                f"host out of {len(published_hosts)} and is not excluded."
-            ),
+            "self_inclusion": self_inclusion(published),
             "role_unspecified_groups_published": sorted(
                 "/".join(k) for k in at_floor if k[0] == "(none)"),
             "confidence_mix": dict(Counter(confidence_tier(r) for r in published)),
+            "groups_without_high_confidence": confidence_flagged_groups(groups),
             "hours_default_applies_to_rows": sum(
                 1 for r in published
                 if r.get("hours_source", "").startswith("default")),
@@ -630,14 +978,22 @@ def build_metrics(all_rows, published, groups, lock, input_path, version,
                 "in euros lands in EU."
             ),
             "known_limitations": [
-                "the hours default is measured on 21 hosts that publish hours; "
-                "providers that publish hours may not be typical of those that "
-                "do not",
+                "the hours default is measured on the "
+                f"{len(rh.host_level_hours())} hosts whose published hours the "
+                "manual audit accepted; providers that publish hours may not be "
+                "typical of those that do not, and on this snapshot they are "
+                "not: they are the more expensive tail",
                 "a monthly retainer is not literally a block of hours, so the "
                 "hourly equivalent is a comparison device, not a quotable rate",
+                "the quartile spread of the hourly axis partly measures "
+                "engagement size rather than price: across the offers that "
+                "state both a price and their hours, hours rise almost in step "
+                "with the retainer",
                 "ccTLD resolves a country for roughly one host in ten",
             ],
+            "hours_evidence": hours_evidence_flags(all_rows, published),
         },
+        "changes_vs_previous": changes_vs_previous(groups, published, hl),
         "v2_baseline": {
             "generated": v2_metrics.get("generated"),
             "us_monthly_median": v2_metrics.get("us_monthly_median"),
@@ -651,7 +1007,15 @@ def build_metrics(all_rows, published, groups, lock, input_path, version,
 # --------------------------------------------------------------------------
 
 def _write(path: Path, fields: list[str], records: list[dict]) -> None:
-    with path.open("w", newline="", encoding="utf-8") as fh:
+    """Released CSVs carry a UTF-8 BOM.
+
+    records-v2.1.csv holds 112 pound and euro signs. Excel on Windows opens a
+    BOM-less UTF-8 CSV as cp1252 and renders every one of them as mojibake, so
+    the first thing a journalist saw when checking a quote was a broken file.
+    Every CSV reader that matters accepts the BOM; Excel is the only one that
+    needs it.
+    """
+    with path.open("w", newline="", encoding="utf-8-sig") as fh:
         w = csv.DictWriter(fh, fieldnames=fields, lineterminator="\n",
                            extrasaction="ignore")
         w.writeheader()
@@ -659,7 +1023,8 @@ def _write(path: Path, fields: list[str], records: list[dict]) -> None:
 
 
 def run(input_path: Path, fx_lock_path: Path, outdir: Path, version: str,
-        repo_data: Path) -> dict:
+        repo_data: Path, baseline: Path | None = None,
+        baseline_version: str = "v2.1") -> dict:
     lock = load_lock(fx_lock_path)
     rows = list(csv.DictReader(input_path.open(newline="", encoding="utf-8")))
     published = gs.publishable_rows(rows)
@@ -677,28 +1042,57 @@ def run(input_path: Path, fx_lock_path: Path, outdir: Path, version: str,
 
     distribution = build_distribution(published)
 
+    quarantine_p = outdir / f"quarantine-{version}.csv"
+    hours_ev_p = outdir / f"hours-evidence-{version}.csv"
+
     _write(portal, PORTAL_FIELDS, build_portal(groups))
     _write(records_p, RECORD_FIELDS, build_records(published))
     _write(delta_p, DELTA_FIELDS, build_delta(groups, v2_rates))
     _write(dist_p, DISTRIBUTION_FIELDS, distribution)
     _write(hours_p, list(rh.AUDIT[0].as_dict().keys()),
            [r.as_dict() for r in rh.AUDIT])
+    quarantined = build_quarantine(rows)
+    _write(quarantine_p, QUARANTINE_FIELDS, quarantined)
+    _write(hours_ev_p, he.AUDIT_FIELDS, he.audit(rows))
+
+    outputs = {
+        "portal_rates": str(portal), "portal_metrics": str(metrics_p),
+        "records": str(records_p), "delta": str(delta_p),
+        "hours_audit": str(hours_p), "distribution": str(dist_p),
+        "quarantine": str(quarantine_p), "hours_evidence": str(hours_ev_p),
+    }
 
     metrics = build_metrics(rows, published, groups, lock, input_path, version,
                             v2_metrics, distribution)
+    metrics["quarantine"] = {
+        "records": len(quarantined),
+        "reasons": dict(Counter(q["reason"] for q in quarantined).most_common()),
+        "file": quarantine_p.name,
+        "note": ("rows that clear the evidence rules and then fall outside a "
+                 "plausibility band. Named and counted here rather than "
+                 "dropped in silence."),
+    }
+
+    if baseline is not None:
+        base_rates, base_metrics = load_v2(baseline, baseline_version)
+        base_delta_p = outdir / f"delta-vs-{baseline_version}-{version}.csv"
+        _write(base_delta_p, DELTA_FIELDS, build_delta(groups, base_rates))
+        outputs["delta_vs_baseline"] = str(base_delta_p)
+        metrics["changes_vs_previous"].update(
+            numeric_changes(groups, base_rates, base_metrics,
+                            metrics["portal"], baseline_version))
+
     metrics_p.write_text(json.dumps(metrics, ensure_ascii=False, indent=2) + "\n",
                          encoding="utf-8")
 
     return {
-        "outputs": {
-            "portal_rates": str(portal), "portal_metrics": str(metrics_p),
-            "records": str(records_p), "delta": str(delta_p),
-            "hours_audit": str(hours_p), "distribution": str(dist_p),
-        },
+        "outputs": outputs,
         "portal": metrics["portal"],
         "funnel": metrics["funnel"],
         "headline": metrics["headline"],
         "groups": metrics["groups"],
+        "quarantine": metrics["quarantine"],
+        "changes_vs_previous": metrics["changes_vs_previous"],
     }
 
 
@@ -710,9 +1104,13 @@ def main(argv=None) -> int:
     ap.add_argument("--version", default="v2.1")
     ap.add_argument("--repo-data", type=Path,
                     default=Path(__file__).resolve().parent.parent / "data")
+    ap.add_argument("--baseline", type=Path,
+                    help="directory holding the previous release, for a "
+                         "like-for-like delta and a restatement notice")
+    ap.add_argument("--baseline-version", default="v2.1")
     args = ap.parse_args(argv)
     json.dump(run(args.input, args.fx_lock, args.outdir, args.version,
-                  args.repo_data),
+                  args.repo_data, args.baseline, args.baseline_version),
               sys.stdout, ensure_ascii=False, indent=2)
     sys.stdout.write("\n")
     return 0

@@ -264,20 +264,32 @@ def test_widening_the_reported_currencies_without_the_lock_raises(monkeypatch, l
 # the publication gate
 # --------------------------------------------------------------------------
 
-def test_the_gate_ignores_the_own_price_rule():
+def test_the_gate_ignores_the_two_confidence_checks():
+    # v2.1.1: they are reported one by one and no longer sit under a
+    # `not_own_price` label that says a check failed which never ran.
     r = row(strict_pass="false", dual_agreement="disagree")
     v = verify_row(r)
-    assert v.status == "REJECT" and "not_own_price" in v.reasons
+    assert v.status == "PASS"
+    assert sorted(v.reasons) == ["dual_not_agree", "strict_pass_false"]
+    assert "not_own_price" not in v.reasons
     assert gate_pass(v) is True
 
 
+def test_a_price_that_is_not_the_providers_own_is_still_rejected():
+    # The third sub-check is not a confidence signal. A market commentary is
+    # not this provider's price, whatever the extraction flags say.
+    v = verify_row(row(context_verdict="market_commentary"))
+    assert v.status == "REJECT" and "context_not_own" in v.reasons
+    assert gate_pass(v) is False
+
+
 def test_the_gate_still_fails_a_row_that_is_out_of_band():
-    # $100/month is below the 500 floor; it also fails rule 6, and verdict
-    # precedence hides the quarantine behind the reject. The gate must see it.
+    # $100/month is below the 500 floor; it also has a confidence flag down,
+    # and verdict precedence used to hide the quarantine. The gate must see it.
     r = row(price_low="100", strict_pass="false",
             evidence_json=json.dumps({"price_low": "$100 per month"}))
     v = verify_row(r)
-    assert v.reasons == ["not_own_price"]
+    assert "strict_pass_false" in v.reasons
     assert v.quarantines == ["implausible_below_floor"]
     assert gate_pass(v) is False
 

@@ -187,20 +187,27 @@ def test_unit_must_be_in_the_quote(rows):
 
 
 def test_own_price_gate(rows):
-    """Rule 6: publish only own + agree + strict."""
+    """Rule 6, split in v2.1.1: each sub-check reports under its own name.
+
+    The single `not_own_price` label used to cover all three, and after two of
+    them stopped being enforced it was telling 215 of 362 published records
+    that they had failed a check every one of them passed.
+    """
     base = pick(rows, "512financial.com", "9000", "21000", "USD", "per_month")
     assert V.own_price_gate(base) == []
-    for field_, bad, expected in [
-        ("context_verdict", "market", "context_not_own"),
-        ("dual_agreement", "disagree:2offers", "dual_not_agree"),
-        ("strict_pass", "false", "strict_pass_false"),
+    for field_, bad, expected, blocks in [
+        ("context_verdict", "market", "context_not_own", True),
+        ("dual_agreement", "disagree:2offers", "dual_not_agree", False),
+        ("strict_pass", "false", "strict_pass_false", False),
     ]:
         broken = dict(base)
         broken[field_] = bad
         v = V.verify_row(broken)
-        assert v.status == V.REJECT
-        assert "not_own_price" in v.reasons
+        assert expected in v.reasons
+        assert "not_own_price" not in v.reasons
         assert expected in v.details["own_price_gate_failed"]
+        assert (v.status == V.REJECT) is blocks
+        assert V.gate_pass(v) is not blocks
 
 
 # --------------------------------------------------------------------------
@@ -293,14 +300,33 @@ def test_population_definition(rows):
 # --------------------------------------------------------------------------
 
 # RELEASE-V21-CHECKPOINT sec 6b confirmed these six groups reproduce exactly
-# from the raw data. Freezing the verdict split makes any future change to the
-# rules visible as a diff instead of a silent shift in what publishes.
+# from the raw data. Freezing them makes any future change to the rules visible
+# as a diff instead of a silent shift in what publishes.
+#
+# GOLDEN_GATE is the invariant that matters: which rows are publishable. It has
+# not changed since v2.1 and must not change without a ruling.
+#
+# GOLDEN_VERDICT is the label, and it did change in v2.1.1. Splitting rule 6
+# moved every row whose only fault was `dual_agreement` or `strict_pass` from
+# REJECT to PASS-with-a-confidence-flag, which is what those rows always were
+# once Sivan's ruling of 2026-09-03 stopped enforcing the two checks. Note that
+# GOLDEN_GATE is identical on both sides of that change: nothing was let in or
+# thrown out, a false label was removed.
+GOLDEN_GATE = {
+    ("CFO", "US", "Hourly"): {True: 11},
+    ("CMO", "US", "Hourly"): {True: 6, False: 2},
+    ("COO", "US", "Hourly"): {True: 8, False: 1},
+    ("CPO", "US", "Hourly"): {True: 1},
+    ("CTO", "UK", "Day"): {True: 4, False: 2},
+    ("CPO", "UK", "Day"): {True: 2},
+}
+
 GOLDEN = {
-    ("CFO", "US", "Hourly"): {"PASS": 1, "REJECT": 10},
-    ("CMO", "US", "Hourly"): {"PASS": 2, "REJECT": 6},
-    ("COO", "US", "Hourly"): {"PASS": 6, "REJECT": 3},
-    ("CPO", "US", "Hourly"): {"REJECT": 1},
-    ("CTO", "UK", "Day"): {"PASS": 1, "REJECT": 5},
+    ("CFO", "US", "Hourly"): {"PASS": 11},
+    ("CMO", "US", "Hourly"): {"PASS": 6, "REJECT": 2},
+    ("COO", "US", "Hourly"): {"PASS": 8, "REJECT": 1},
+    ("CPO", "US", "Hourly"): {"PASS": 1},
+    ("CTO", "UK", "Day"): {"PASS": 4, "REJECT": 2},
     ("CPO", "UK", "Day"): {"PASS": 2},
 }
 
@@ -312,6 +338,15 @@ def test_regression_on_reproduced_groups(rows, group):
         V.verify_row(r).status for r in rows if group_of(r) == group
     )
     assert dict(counts) == GOLDEN[group]
+
+
+@pytest.mark.parametrize("group", sorted(GOLDEN_GATE))
+def test_the_publishable_set_did_not_move(rows, group):
+    from collections import Counter
+    counts = Counter(
+        V.gate_pass(V.verify_row(r)) for r in rows if group_of(r) == group
+    )
+    assert dict(counts) == GOLDEN_GATE[group]
 
 
 def test_regression_groups_are_all_present(rows):

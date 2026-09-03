@@ -1,0 +1,28 @@
+﻿host,offer_seq,role,currency,unit,price_low,price_high,rate_hourly_usd,hours_per_month_used,hours_source,reason,evidence_quote
+fractionalcoo.net,2,,USD,per_hour,2500,2500,2500.00,,,implausible_above_ceiling;implausible_hourly_derived_above_ceiling,"$2,500 / 8 hours"
+fractionalcoo.net,6,,USD,per_hour,6000,6000,6000.00,,,implausible_above_ceiling;implausible_hourly_derived_above_ceiling,"Operational Audit $6,000 / 20 hours / Blueprint"
+symbicore.com,0,,USD,per_hour,1500,,1500.00,,,implausible_above_ceiling;implausible_hourly_derived_above_ceiling,"$1,500 · 72H Most agencies pitch. We diagnose first. $1,500. 72 hours."
+acceleratingproduct.com,3,CPO,USD,per_month,425,,13.08,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,2 Sessions / Month - $425
+axveer.com,0,CTO,USD,per_month,300,,9.23,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,$300 USD/mo
+beyondcto.com,1,,USD,per_month,495,,15.23,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,"$495 /month, flat rate"
+fractionalctoexperts.com,0,CTO,USD,per_month,499,499,15.35,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,$499 / month
+growthexpert.io,4,CPO,USD,per_month,400,,12.31,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,$400 /mo
+haystackapp.io,0,,USD,per_month,349,,10.74,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,From $349 /month
+mentorcruise.com,0,CTO,USD,per_month,300,,9.23,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,Starting from $300 /month
+t2d3.pro,0,,USD,per_month,499,,15.35,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,"$499 /mo · 1 editable workspace · 15,000 AI credits/mo · +$ 149 /mo per extra client org"
+tajaccountants.co.uk,2,,GBP,per_month,300,,12.46,32.5,default,implausible_below_floor;implausible_hourly_derived_below_floor,£300 /month
+chameleoncollective.com,0,CPO,USD,per_month,25000,50000,1153.85,32.5,default,implausible_hourly_derived_above_ceiling,$25K-$50K per month
+cojoyrevgen.com,1,,USD,per_month,35000,,1076.92,32.5,default,implausible_hourly_derived_above_ceiling,$35k / MONTH
+eclipticideas.com,1,,USD,per_month,50000,,1538.46,32.5,default,implausible_hourly_derived_above_ceiling,$50k+ / month
+accretive.marketing,1,CMO,USD,per_month,500,,15.38,32.5,default,implausible_hourly_derived_below_floor,$500 / month
+axveer.com,1,CTO,USD,per_month,700,,21.54,32.5,default,implausible_hourly_derived_below_floor,$700 USD/mo
+bubblegummarketing.com,4,CMO,USD,per_month,725,,22.31,32.5,default,implausible_hourly_derived_below_floor,ASK ME ABOUT $725/MO fractional cmo boardroom
+c4solutionsllc.com,0,,USD,per_month,599,,18.43,32.5,default,implausible_hourly_derived_below_floor,$599 /month starting
+f.institute,1,,EUR,per_month,599,,21.41,32.5,default,implausible_hourly_derived_below_floor,From €599 / month
+fractionalpros.com,0,,USD,per_month,500,,15.38,32.5,default,implausible_hourly_derived_below_floor,$ 500 / Month
+hirefractional.io,2,,USD,per_month,599,599,18.43,32.5,default,implausible_hourly_derived_below_floor,Elite $ 599 /mo
+like-sunday.com,2,COO,USD,per_month,500,,15.38,32.5,default,implausible_hourly_derived_below_floor,Founder's Program $500/month
+ljbops.com,0,COO,USD,per_month,500,1000,23.08,32.5,default,implausible_hourly_derived_below_floor,"$500-$1,000/month"
+redeagle.tech,1,CTO,GBP,per_month,500,,20.76,32.5,default,implausible_hourly_derived_below_floor,see our dedicated Local SEO plan from £500/mo for service-area businesses
+sackermanconsulting.com,3,CFO,USD,per_month,800,,24.62,32.5,default,implausible_hourly_derived_below_floor,$ 800 / Month Prepare monthly financial budget for the year Quart
+stranded.me,3,CMO,USD,per_month,695,,21.38,32.5,default,implausible_hourly_derived_below_floor,$695 /mo

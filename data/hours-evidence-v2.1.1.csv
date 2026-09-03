@@ -1,0 +1,37 @@
+﻿host,offer_seq,currency,unit,price_low,price_high,status,basis,hours_per_month,matched_quote,matched_field,hours_source_v21,hours_used_v21,note
+breakwaterdigital.co,0,USD,per_month,500,,ambiguous,,,,,default_after_ambiguous_evidence,32.5,the offer's own text states more than one commitment: 1 day/week = 34.66666666666666666666666666h; 3 days/week = 104h
+digitalapplied.com,0,EUR,per_month,2000,,audit_rejected,,,,,default_after_rejected_reading,32.5,'units' is never defined on the page; not hours
+digitalapplied.com,1,EUR,per_month,3000,,audit_rejected,,,,,default_after_rejected_reading,32.5,'units' is never defined on the page; not hours
+digitalapplied.com,2,EUR,per_month,4000,,audit_rejected,,,,,default_after_rejected_reading,32.5,'units' is never defined on the page; not hours
+lucrumconsulting.com,1,USD,per_month,899,,audit_rejected,,,,,default_after_rejected_reading,32.5,same SLA column as offer 3
+lucrumconsulting.com,2,USD,per_month,1599,,audit_rejected,,,,,default_after_rejected_reading,32.5,same SLA column as offer 3
+lucrumconsulting.com,3,USD,per_month,3400,,audit_rejected,,,,,default_after_rejected_reading,32.5,"comparison-table cell. Price rises as the number falls across the three plans ($899/24h, $1,599/8h, $3,400/4h): this is a support response-time SLA"
+marketingeyedallas.com,0,USD,per_month,3500,,audit_rejected,,,,,default_after_rejected_reading,32.5,"the 3 hours belong to a free graphic-design intern bundled with the plan, not to the fractional CMO"
+scaleupexec.com,0,USD,per_month,5000,,audit_rejected,,,,,default_after_rejected_reading,32.5,"plan name, not a monthly allowance; the page never states hours per month"
+talpaperin.com,1,USD,per_month,6000,,audit_rejected,,,,,default_after_rejected_reading,32.5,intensity per working day. Converting needs a days-per-month assumption the page does not give
+talpaperin.com,2,USD,per_month,12000,,audit_rejected,,,,,default_after_rejected_reading,32.5,"intensity per working day, as offer 1"
+941consulting.com,0,GBP,per_month,2499,,found,days_per_month,16.00,2 days/month,unit,evidence_offer,16,
+941consulting.com,4,GBP,per_month,4799,,found,days_per_week,34.67,1 Day/Week,unit,evidence_offer,34.67,
+941consulting.com,5,GBP,per_month,9599,,found,days_per_week,69.33,2 Days/Week,unit,evidence_offer,69.33,
+ctoondemand.co.uk,0,GBP,per_month,8000,16000,found,days_per_week,86.67,1 to 4 days per week,unit,evidence_offer,86.67,
+exxan.nl,0,EUR,per_month,8000,,found,days_per_week,60.67,1.5 to 2 days per week,offering_type,evidence_offer,60.67,
+fractionalchiefs.com,0,USD,per_month,6000,15000,found,days_per_week,52.00,1-2 days/week,cadence_published,evidence_offer,52,
+fractionalcxo.to,0,USD,per_month,7000,16000,found,hours_per_week,65.00,10-20 hrs/week,cadence_published,evidence_offer,65,
+golosnichenko.com,0,USD,per_month,4400,,found,hours_per_week,26.00,6 hours per week,cadence_published,evidence_offer,26,
+kompella.io,3,USD,per_month,8000,,found,days_per_week,34.67,1 day/week,offering_type,evidence_offer,34.67,
+kompella.io,4,USD,per_month,15000,,found,days_per_week,69.33,2 days/week,offering_type,evidence_offer,69.33,
+kompella.io,5,USD,per_month,25000,,found,days_per_week,104.00,3+ days/week,offering_type,evidence_offer,104,
+kompella.io,8,USD,per_month,14000,,found,days_per_week,69.33,2 days/week,unit,evidence_offer,69.33,
+kompella.io,9,USD,per_month,20000,,found,days_per_week,104.00,3+ days/week,unit,evidence_offer,104,
+markcmo.com,0,USD,per_month,8000,,found,hours_per_week,65.00,10-20 hrs/week,cadence_published,evidence_offer,65,
+oshricohen.me,0,USD,per_month,10000,,found,days_per_week,34.67,1 day a week,unit,evidence_offer,34.67,
+saasfractionalcpo.com,1,USD,per_month,15000,,found,days_per_week,121.33,3 to 4 days a week,offering_type,evidence_offer,121.33,
+scalewithcfo.com,0,GBP,per_month,2000,5000,found,days_per_week,121.33,2 to 5 days per week,cadence_published,evidence_offer,121.33,
+theedwardspractice.com,1,GBP,per_month,4000,,found,days_per_week,52.00,1-2 days a week,offering_type,evidence_offer,52,
+wavect.io,0,EUR,per_month,2500,,found,hours_per_month,6.00,4 to 8 hours per month,offering_type,evidence_offer,6,
+wavect.io,1,EUR,per_month,12000,,found,days_per_week,52.00,1 to 2 days per week,offering_type,evidence_offer,52,
+coofractional.com,0,EUR,per_month,6000,,found_host_cadence,days_per_month,32.00,4 days / month,offering_type,evidence_host_cadence,32,the host publishes one monthly retainer and one cadence for it
+fractionalcoo.net,0,USD,per_month,15000,40000,found_host_cadence,days_per_week,86.67,2-3 days per week,offering_type,evidence_host_cadence,86.67,the host publishes one monthly retainer and one cadence for it
+fractionalcoo.net,5,USD,per_month,15000,40000,found_host_cadence,days_per_week,86.67,2-3 days per week,offering_type,evidence_host_cadence,86.67,the host publishes one monthly retainer and one cadence for it
+marketri.com,0,USD,per_month,7500,,found_host_cadence,hours_per_month,40.00,40 hours per month,cadence_published,evidence_host_cadence,40,the host publishes one monthly retainer and one cadence for it
+marketri.com,1,USD,per_month,7500,,found_host_cadence,hours_per_month,40.00,40 hours per month,cadence_published,evidence_host_cadence,40,the host publishes one monthly retainer and one cadence for it

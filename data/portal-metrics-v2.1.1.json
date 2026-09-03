@@ -1,0 +1,419 @@
+{
+  "version": "v2.1.1",
+  "portal": {
+    "version": "v2.1.1",
+    "reporting_floor_n": 8,
+    "tracked": 1774,
+    "published": 168,
+    "share_pct": 9.5,
+    "us_monthly_median": 5750,
+    "us_monthly_p25": 3000,
+    "us_monthly_p75": 10000,
+    "us_monthly_median_exact": 5750.0,
+    "us_monthly_p25_exact": 3000.0,
+    "us_monthly_p75_exact": 10000.0,
+    "us_monthly_providers": 107,
+    "us_monthly_ci_low": 5000,
+    "us_monthly_ci_high": 8000,
+    "hourly_usd_median": 172.18,
+    "hourly_usd_p25": 92.31,
+    "hourly_usd_p75": 278.6,
+    "hourly_usd_ci_low": 124.99,
+    "hourly_usd_ci_high": 209.07,
+    "hourly_usd_ci_sampling_only_low": 153.85,
+    "hourly_usd_ci_sampling_only_high": 194.66,
+    "hourly_usd_divisor": 32.5,
+    "hourly_usd_divisor_ci_low": 25.0,
+    "hourly_usd_divisor_ci_high": 60.0,
+    "hourly_usd_providers": 168,
+    "uk_providers": 25,
+    "uk_monthly_providers": 18,
+    "uk_day_providers": 9,
+    "uk_day_median": 0,
+    "uk_groups_published": 0,
+    "roles_tracked": 7,
+    "roles_priced": 6,
+    "table_groups": 6,
+    "table_records": 106,
+    "table_offers": 195,
+    "groups_ge8": 6,
+    "groups_total": 38,
+    "groups_below_floor": 32,
+    "regions": 1,
+    "table_hosts_unique": 99,
+    "table_group_entries": 106,
+    "currencies": [
+      "EUR",
+      "GBP",
+      "USD"
+    ],
+    "currencies_count": 3,
+    "regions_all": [
+      "EU",
+      "UK",
+      "US"
+    ],
+    "dist_n": 107,
+    "dist_median_band": "5-6k",
+    "publish_rate_overall_pct": 10.7,
+    "publish_rate_hosts_read": 1577,
+    "publish_rate_by_role": {
+      "CPO": 53.1,
+      "CTO": 28.4,
+      "CMO": 25.4,
+      "COO": 19.7,
+      "CFO": 8.2,
+      "CRO": 6.7
+    },
+    "date_first_capture": "2026-08-31",
+    "date_last_capture": "2026-09-03"
+  },
+  "generated": "2026-09-03T22:04:10Z",
+  "generator": "tools/generate_release.py",
+  "snapshot": {
+    "file": "snapshot-normalized-7a45392c27bfe11b1d80fae1a4b33872.csv",
+    "md5": "21507077c41917b09b5cd3a31f7e3241",
+    "rows": 2397,
+    "hosts": 1774
+  },
+  "fx_lock": {
+    "file": "fx-lock-20260903.json",
+    "source": "European Central Bank reference rates via frankfurter.app",
+    "rate_date": "2026-09-03",
+    "fetched_at_utc": "2026-09-03T15:44:39Z",
+    "usd_per_unit": {
+      "USD": "1",
+      "GBP": "1.349718203474522107954215327",
+      "EUR": "1.1615",
+      "AUD": "0.7193286678639995045519291509",
+      "SGD": "0.7887945670628183361629881154",
+      "CHF": "1.236954206602768903088391906",
+      "NZD": "0.5872093023255813953488372093",
+      "SEK": "0.1044091869297496516697379658",
+      "CAD": "0.7250764716898682814158187153",
+      "INR": "0.01058314350797266514806378132"
+    }
+  },
+  "funnel": {
+    "rows_total": 2397,
+    "rows_priced": 579,
+    "passes_evidence_and_plausibility": 404,
+    "and_in_scope": 378,
+    "and_deduplicated": 347,
+    "of_which_also_pass_strict_and_dual": 139
+  },
+  "headline": {
+    "hourly_usd_all": {
+      "unit": "USD/hour",
+      "n_hosts": 168,
+      "median": 172.18,
+      "p25": 92.31,
+      "p75": 278.6,
+      "ci95_low": 124.99,
+      "ci95_high": 209.07,
+      "ci_method": "joint percentile bootstrap: each of 10000 iterations draws a divisor from the 21 hosts that publish their hours, reprices every retainer that publishes none, and then resamples the hosts. Seed 20260903.",
+      "ci95_sampling_only_low": 153.85,
+      "ci95_sampling_only_high": 194.66,
+      "divisor": {
+        "divisor_pool_hosts": 21,
+        "divisor_point": 32.5,
+        "divisor_ci95_low": 25.0,
+        "divisor_ci95_high": 60.0,
+        "hosts_on_the_default_divisor": 119
+      }
+    },
+    "us_monthly_native": {
+      "unit": "USD/month",
+      "n_hosts": 107,
+      "median": 5750.0,
+      "p25": 3000.0,
+      "p75": 10000.0,
+      "ci95_low": 5000.0,
+      "ci95_high": 8000.0,
+      "ci_method": "percentile bootstrap over hosts, 10000 iterations, seed 20260903"
+    }
+  },
+  "cross_check_axes": {
+    "stated_hourly": {
+      "n_hosts": 30,
+      "median_usd_per_hour": 200.0
+    },
+    "from_day_rate": {
+      "n_hosts": 18,
+      "median_usd_per_hour": 250.0
+    },
+    "from_retainer": {
+      "n_hosts": 139,
+      "median_usd_per_hour": 169.23
+    }
+  },
+  "hours_sensitivity": {
+    "basis": "the published hourly headline, recomputed at each divisor. Only the retainers with no published hours of their own move.",
+    "hosts": 168,
+    "records_repriced": 222,
+    "median_usd_per_hour_at": {
+      "12h": 287.02,
+      "20h": 204.13,
+      "25h": 200.0,
+      "32.5h": 172.18,
+      "40h": 153.5,
+      "52h": 150.0
+    },
+    "note": "12h was the median of the raw hours_included column before the audit, when hours per week and days per month were being read as hours per month. 52h is the median of every host whose text states a commitment once the v2.1.1 evidence scan is counted, and is the number the divisor would move to if the wider pool were adopted."
+  },
+  "groups": {
+    "total": 38,
+    "published": 6,
+    "below_reporting_floor": 32,
+    "reporting_floor_n": 8,
+    "published_keys": [
+      "(none)/US/Hourly",
+      "(none)/US/Monthly",
+      "CMO/US/Monthly",
+      "CPO/US/Monthly",
+      "CTO/US/Hourly",
+      "CTO/US/Monthly"
+    ]
+  },
+  "publish_rate": {
+    "hosts_read": 1577,
+    "definition": "hosts with a publishable rate for the role, over hosts whose captured pages mention that role",
+    "by_role": {
+      "CPO": {
+        "hosts_read_for_role": 32,
+        "hosts_published": 17,
+        "publish_pct": 53.1
+      },
+      "CTO": {
+        "hosts_read_for_role": 109,
+        "hosts_published": 31,
+        "publish_pct": 28.4
+      },
+      "CMO": {
+        "hosts_read_for_role": 134,
+        "hosts_published": 34,
+        "publish_pct": 25.4
+      },
+      "CFO": {
+        "hosts_read_for_role": 110,
+        "hosts_published": 9,
+        "publish_pct": 8.2
+      },
+      "COO": {
+        "hosts_read_for_role": 66,
+        "hosts_published": 13,
+        "publish_pct": 19.7
+      },
+      "CRO": {
+        "hosts_read_for_role": 15,
+        "hosts_published": 1,
+        "publish_pct": 6.7
+      }
+    },
+    "overall_pct": 10.7,
+    "hosts_published_any": 168
+  },
+  "methodology": {
+    "publication_gate": "evidence and plausibility. The price, its currency and its cadence are found word for word in a quote captured from the provider's own page, and the price sits inside a per-unit plausibility band. Where the provider states how many hours the retainer buys, the divisor behind the USD-per-hour column is quoted too; on the rest it is the measured default of 32.5 hours a month, and no published record contradicts its own words. The word-for-word guarantee is a guarantee about the captured price, not about the derived hourly figure.",
+    "confidence_columns": "strict_pass and dual_agreement are reported as a confidence tier per record (high = both, medium = one, low = neither). They no longer remove a row from the index.",
+    "value_basis": "midpoint of a published range, labelled midpoint; a single figure is labelled published",
+    "normalisation": {
+      "axis": "USD per hour",
+      "per_hour": "as captured",
+      "per_day": "divided by 8 hours",
+      "per_month": "divided by the hours the provider publishes where it publishes them, otherwise by 32.5 hours per month",
+      "hours_per_day_basis": "8. Corroborated on sackermanconsulting.com, which prices 4h as a half-day, 8h as a full day and 12h as a day and a half",
+      "default_hours_per_month": "32.5",
+      "default_hours_source": "host-level median of the 41 hours_included readings that survived the manual audit of all 51 (10 rejected: 3 SLA cells, 3 undefined 'units', 2 per-working-day intensities, 1 plan name, 1 bundled intern allowance)",
+      "hours_readings_audited": 51,
+      "hours_readings_accepted": 41,
+      "hours_readings_rejected": 10,
+      "hours_distribution_per_offer": {
+        "n": 41,
+        "min": 4.0,
+        "p25": 18.0,
+        "median": 32.5,
+        "mean": 41.96,
+        "p75": 60.0,
+        "max": 120.0
+      },
+      "hours_distribution_per_host": {
+        "n": 21,
+        "min": 8.0,
+        "p25": 20.0,
+        "median": 32.5,
+        "mean": 40.05,
+        "p75": 65.0,
+        "max": 86.67
+      },
+      "currency": "converted at the locked ECB reference rate of 2026-09-03. Both the original currency and the USD-per-hour figure are published."
+    },
+    "grouping": "region is derived from the currency the provider quotes in, not from where the provider is. A country column derived from the ccTLD is published beside it and is empty for the ~90% of hosts on a .com.",
+    "dedup": "one host contributes one value per group, the median of its own offers in that group",
+    "reporting_floor": "a group is published only at n >= 8 hosts. Smaller groups are counted and named but carry no figure.",
+    "interval": "percentile bootstrap over hosts, 10,000 iterations"
+  },
+  "quality_flags": {
+    "self_inclusion": "saasfractionalcpo.com, the publisher of this index, is one of the sampled providers ($8,000/month at 25 hours; $15,000/month at 121.33 hours). It is one host out of 168, it is not excluded, and its median of $221.81 an hour sits at the 63rd percentile of the index.",
+    "role_unspecified_groups_published": [
+      "(none)/US/Hourly",
+      "(none)/US/Monthly"
+    ],
+    "confidence_mix": {
+      "medium": 59,
+      "high": 139,
+      "low": 149
+    },
+    "groups_without_high_confidence": [
+      {
+        "group": "(none)/US/Hourly",
+        "n_hosts": 8,
+        "high": 0,
+        "medium": 1,
+        "low": 7,
+        "note": "no record in this group had two independent extractions agree and the strict parse pass. The figures are published and counted; the table marks the group."
+      }
+    ],
+    "hours_default_applies_to_rows": 222,
+    "hours_declared_rows": 37,
+    "region_is_currency": "regions US/UK/EU are currency buckets. A US provider quoting in euros lands in EU.",
+    "known_limitations": [
+      "the hours default is measured on the 21 hosts whose published hours the manual audit accepted; providers that publish hours may not be typical of those that do not, and on this snapshot they are not: they are the more expensive tail",
+      "a monthly retainer is not literally a block of hours, so the hourly equivalent is a comparison device, not a quotable rate",
+      "the quartile spread of the hourly axis partly measures engagement size rather than price: across the offers that state both a price and their hours, hours rise almost in step with the retainer",
+      "ccTLD resolves a country for roughly one host in ten"
+    ],
+    "hours_evidence": {
+      "monthly_records": 279,
+      "hours_read_from_the_page": 57,
+      "hours_from_the_measured_default": 222,
+      "by_source": {
+        "default": 213,
+        "declared": 37,
+        "evidence_offer": 19,
+        "default_after_rejected_reading": 9,
+        "evidence_host_cadence": 1
+      },
+      "recall_note": "v2.1 read hours only out of the collector's hours_included field and only where a manual audit had accepted the reading. v2.1.1 also reads a time commitment out of the offer's own price and cadence quotes, which recovered 20 further records whose published hourly figure had contradicted the provider's own words.",
+      "divisor_used": "32.5",
+      "divisor_estimated_on_hosts": 21,
+      "all_hosts_stating_hours": 33,
+      "median_of_all_hosts_stating_hours": 52.0,
+      "open_question": "the divisor in use is the median of the hosts the manual audit read. Across every host whose text states a commitment, including the ones the v2.1.1 scan recovered, the median is higher. Moving the divisor onto the wider pool restates the hourly headline and is a decision, not a repair, so this edition does not make it."
+    }
+  },
+  "changes_vs_previous": {
+    "previous_version": "v2.1",
+    "why": "method, not market. The snapshot is byte-identical to v2.1's; every difference below comes from three repairs: hours read out of the offer's own words instead of a default, a plausibility band enforced on the derived hourly axis as well as the captured one, and the publisher's own record corrected against its live page.",
+    "note": "figures for groups below the reporting floor are not listed here for the same reason they are not listed anywhere else.",
+    "published_group_medians_moved": [
+      {
+        "group": "(none)/US/Monthly",
+        "n_hosts_before": 42,
+        "n_hosts_now": 38,
+        "median_before": 4875.0,
+        "median_now": 5000.0,
+        "change_pct": 2.6
+      },
+      {
+        "group": "CMO/US/Monthly",
+        "n_hosts_before": 26,
+        "n_hosts_now": 26,
+        "median_before": 7500.0,
+        "median_now": 8250.0,
+        "change_pct": 10.0
+      },
+      {
+        "group": "CPO/US/Monthly",
+        "n_hosts_before": 13,
+        "n_hosts_now": 12,
+        "median_before": 8000.0,
+        "median_now": 7000.0,
+        "change_pct": -12.5
+      },
+      {
+        "group": "CTO/US/Monthly",
+        "n_hosts_before": 15,
+        "n_hosts_now": 14,
+        "median_before": 7500.0,
+        "median_now": 8000.0,
+        "change_pct": 6.7
+      }
+    ],
+    "published_group_medians_unchanged": [
+      {
+        "group": "(none)/US/Hourly",
+        "n_hosts_before": 8,
+        "n_hosts_now": 8,
+        "median_before": 175.0,
+        "median_now": 175.0,
+        "change_pct": 0.0
+      },
+      {
+        "group": "CTO/US/Hourly",
+        "n_hosts_before": 8,
+        "n_hosts_now": 8,
+        "median_before": 200.0,
+        "median_now": 200.0,
+        "change_pct": 0.0
+      }
+    ],
+    "published_group_withdrawn": [
+      {
+        "group": "COO/US/Monthly",
+        "n_hosts_before": 8,
+        "n_hosts_now": 7,
+        "median_before": 3938.0,
+        "median_now": null,
+        "reason": "fell below the n>=8 reporting floor and is not published in this edition. The group is still counted and named in the groups file; it carries no figure."
+      }
+    ],
+    "groups_published_in_previous_edition": 7,
+    "groups_accounted_for": 7,
+    "headline": {
+      "us_monthly_median": {
+        "label": "US monthly median",
+        "before": 5625,
+        "now": 5750,
+        "change_pct": 2.2
+      },
+      "hourly_usd_median": {
+        "label": "hourly median, USD",
+        "before": 169.23,
+        "now": 172.18,
+        "change_pct": 1.7
+      },
+      "published": {
+        "label": "providers published",
+        "before": 175,
+        "now": 168,
+        "change_pct": -4.0
+      },
+      "tracked": {
+        "label": "hosts tracked",
+        "before": 1774,
+        "now": 1774,
+        "change_pct": 0.0
+      }
+    },
+    "continuity_note": "measured only on the groups that clear the reporting floor in both editions. A group of one or two hosts that did not move has not demonstrated continuity of a market; it has demonstrated that one provider did not edit a page."
+  },
+  "v2_baseline": {
+    "generated": "2026-09-02T15:09:07Z",
+    "us_monthly_median": 5000,
+    "us_monthly_providers": 84,
+    "published": 211,
+    "share_pct": 18.7
+  },
+  "quarantine": {
+    "records": 27,
+    "reasons": {
+      "implausible_hourly_derived_below_floor": 12,
+      "implausible_below_floor;implausible_hourly_derived_below_floor": 9,
+      "implausible_above_ceiling;implausible_hourly_derived_above_ceiling": 3,
+      "implausible_hourly_derived_above_ceiling": 3
+    },
+    "file": "quarantine-v2.1.1.csv",
+    "note": "rows that clear the evidence rules and then fall outside a plausibility band. Named and counted here rather than dropped in silence."
+  }
+}

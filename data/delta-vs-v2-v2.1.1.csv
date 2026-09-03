@@ -1,0 +1,43 @@
+﻿role,region,model,v2_n,v21_n_hosts,n_delta,v2_median,v21_median_native,median_delta,median_delta_pct,v21_median_hourly_usd,v21_published,note
+(none),EU,Day,,1,1,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),EU,Monthly,,5,5,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),UK,Day,,3,3,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),UK,Hourly,,1,1,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),UK,Monthly,,5,5,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),US,Day,,3,3,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+(none),US,Hourly,,8,8,,175.0,,,175.0,yes,new group in v2.1
+(none),US,Monthly,,38,38,,5000.0,,,161.54,yes,new group in v2.1
+CFO,UK,Monthly,1,1,0,8000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CFO,US,Hourly,6,3,-3,250.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CFO,US,Monthly,15,6,-9,1499.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CMO,EU,Monthly,5,4,-1,3000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CMO,UK,Day,2,1,-1,672.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CMO,UK,Monthly,2,2,0,4750.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CMO,US,Hourly,4,4,0,288.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CMO,US,Monthly,29,26,-3,7000.0,8250.0,1250.0,17.9,181.54,yes,
+COO,EU,Day,1,1,0,1800.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+COO,EU,Monthly,1,0,-1,6000.0,,,,,no,group emptied by the evidence and scope rules
+COO,UK,Monthly,1,1,0,2750.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+COO,US,Day,1,0,-1,2000.0,,,,,no,group emptied by the evidence and scope rules
+COO,US,Hourly,4,4,0,250.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+COO,US,Monthly,12,7,-5,5000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,EU,Day,1,0,-1,1363.0,,,,,no,group emptied by the evidence and scope rules
+CPO,EU,Hourly,1,0,-1,83.0,,,,,no,group emptied by the evidence and scope rules
+CPO,EU,Monthly,1,1,0,1200.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,UK,Day,2,2,0,1675.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,UK,Monthly,1,1,0,12000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,US,Day,1,1,0,2000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,US,Hourly,1,1,0,400.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CPO,US,Monthly,12,12,0,7000.0,7000.0,0.0,0.0,180.76,yes,
+CRO,UK,Monthly,1,1,0,2500.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,EU,Hourly,1,1,0,150.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,EU,Monthly,4,5,1,4450.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,UK,Day,5,3,-2,1000.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,UK,Hourly,1,1,0,97.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,UK,Monthly,6,6,0,4324.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,US,Day,2,2,0,2875.0,,,,,no,"below the n>=8 reporting floor; counted, not published"
+CTO,US,Hourly,8,8,0,200.0,200.0,0.0,0.0,200.0,yes,
+CTO,US,Monthly,16,14,-2,7000.0,8000.0,1000.0,14.3,199.08,yes,
+multi,UK,Monthly,,1,1,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+multi,US,Day,,1,1,,,,,,no,"below the n>=8 reporting floor; counted, not published"
+multi,US,Monthly,,4,4,,,,,,no,"below the n>=8 reporting floor; counted, not published"

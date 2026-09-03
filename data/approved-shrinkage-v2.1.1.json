@@ -1,0 +1,87 @@
+{
+  "schema": "fri-approved-shrinkage/1",
+  "release": "v2.1.1",
+  "issued": "2026-09-03",
+  "authorised_by": "Sivan Kadosh (direct chat approval, 2026-09-03/04)",
+  "statement": "One metric falls in v2.1.1 by more than the theme's 5 percent gate allows, and it falls for a stated reason. v2.1.1 extends the per-unit plausibility band to the derived USD-per-hour column, which until now was checked only on the captured price. Seven US monthly retainers survive as captured prices but produce a derived hourly figure outside the $25-$1,000 band, and are quarantined by name rather than published. This manifest authorises that one drop, names the size and the cause, and expires with this release.",
+  "applies_to": {
+    "note": "The gate honours an entry only when the incoming value matches `to` within `tolerance_pct`. A manifest cannot licence an unbounded fall, and it cannot be reused by a later release: `release` must match the version in the metrics file.",
+    "tolerance_pct": 2.0
+  },
+  "approved": [
+    {
+      "metric": "us_monthly_providers",
+      "from": 114,
+      "to": 107,
+      "delta": -7,
+      "delta_pct": -6.14,
+      "reason": "the plausibility band now applies to the derived hourly axis, not the market",
+      "decomposition": [
+        {
+          "step": "US monthly providers published in v2.1",
+          "hosts": 114
+        },
+        {
+          "step": "minus retainers whose derived hourly falls below the $25 floor",
+          "hosts": 109,
+          "delta": -5,
+          "note": "axveer.com $300/mo, fractionalpros.com $500/mo, like-sunday.com $500/mo, c4solutionsllc.com $599/mo and hirefractional.io $599/mo. Each divides by the measured 32.5-hour default and lands between $9.23 and $18.43 an hour, which is not a fractional-executive retainer whatever the page calls it."
+        },
+        {
+          "step": "minus retainers whose derived hourly exceeds the $1,000 ceiling",
+          "hosts": 107,
+          "delta": -2,
+          "note": "chameleoncollective.com $25,000/mo and eclipticideas.com $50,000/mo, giving $1,153.85 and $1,538.46 an hour on the same default divisor. These are programme prices rather than one executive's retainer."
+        }
+      ],
+      "verification_note": "The set difference between the v2.1 and v2.1.1 record files on US monthly hosts is exactly these seven and nothing else: seven removed, none added. All seven appear by name in quarantine-v2.1.1.csv with their reason, so the fall is auditable from the shipped files alone."
+    },
+    {
+      "metric": "published",
+      "from": 175,
+      "to": 168,
+      "delta": -7,
+      "delta_pct": -4.0,
+      "reason": "the same seven hosts; recorded here for completeness though the fall sits inside the 5 percent gate and needs no authorisation",
+      "decomposition": [
+        {
+          "step": "providers publishing a price in v2.1",
+          "hosts": 175
+        },
+        {
+          "step": "minus the seven quarantined by the derived-hourly band",
+          "hosts": 168,
+          "delta": -7,
+          "note": "no host publishes both a US monthly retainer and a price of another kind here, so the provider count falls by the same seven."
+        }
+      ]
+    }
+  ],
+  "not_shrinkage": [
+    {
+      "metric": "tracked",
+      "from": 1774,
+      "to": 1774,
+      "note": "unchanged. The captured snapshot behind v2.1.1 is byte-identical to v2.1's, md5 4277a3006f7fafb7ce91ee3e9cdb3d50 on snapshot-hygienic-7a45392c27bfe11b1d80fae1a4b33872.csv, so nothing in this release comes from new collection. The normalised file derived from it does differ, md5 1ea919150398db3936a3fd28c21b0a26 in v2.1 against 21507077c41917b09b5cd3a31f7e3241 here, because normalisation is precisely what changed: hours read from the offer's own words, and the plausibility band extended to the derived axis."
+    },
+    {
+      "metric": "hourly_usd_median",
+      "from": 169.23,
+      "to": 172.18,
+      "note": "rises. Removing figures at $9 and at $1,538 an hour moves the median of the axis they sat on."
+    },
+    {
+      "metric": "us_monthly_median",
+      "from": 5625,
+      "to": 5750,
+      "note": "rises, and each figure sits inside the other's interval. The five sub-floor records were all under $600 a month."
+    }
+  ],
+  "related_withdrawal": {
+    "note": "COO/US/Monthly is not part of this manifest and is not a shrinkage of a gate-checked metric, but it is the change a citer is most likely to notice. It held n=8 and a median of $3,938 in v2.1; in v2.1.1 it holds n=7, falls below the n>=8 reporting floor and is published with no figure. It is counted and named in the groups file, and the withdrawal is stated in the `changes_vs_previous.published_group_withdrawn` block of portal-metrics-v2.1.1.json."
+  },
+  "verification": {
+    "acceptance_gate": "acceptance-gate-v2.1.1.json, seed 20260903. Price sample: 34 of 35 reachable records of 40 drawn, 97.1 percent, Wilson 95 percent interval 85.5-99.5. Hours citations: all 20 checked in full rather than sampled, 20 of 20, interval 83.9-100. Combined 54 of 55, 98.2 percent. The single failure is market drift, not an indexing error: adriano-junior.com published From $4,999/mo at capture and publishes $5,499 today.",
+    "reproduction": "python tools/generate_release.py --input snapshot-normalized-7a45392c27bfe11b1d80fae1a4b33872.csv --fx-lock fx-lock-20260903.json --version v2.1.1"
+  }
+}

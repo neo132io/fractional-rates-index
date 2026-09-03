@@ -44,7 +44,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from verify_evidence import (  # noqa: E402
-    PASS, confidence_tier, gate_pass, is_priced, representative_value,
+    clean_pass, confidence_tier, gate_pass, is_priced, representative_value,
     verify_row,
 )
 
@@ -96,6 +96,121 @@ def _summary(values: list[float]) -> dict:
         "median": round(statistics.median(v), 2),
         "p25": round(_quantile(v, 0.25), 2),
         "p75": round(_quantile(v, 0.75), 2),
+    }
+
+
+HOURS_FROM_EVIDENCE = ("declared", "evidence_offer", "evidence_host_cadence")
+
+
+def divisor_pool() -> list[float]:
+    """The sample the default divisor is the median of.
+
+    This is deliberately the manual audit's 21 hosts and not the wider set of
+    hosts whose hours the v2.1.1 evidence scan recovered. The interval below
+    answers "how well is 32.5 pinned down by the readings it was estimated
+    from", which is a variance question. Whether 32.5 is the right centre at
+    all once the recovered readings are counted is a bias question with a
+    different answer - see `evidence_divisor_pool` - and it is not something a
+    confidence interval can express.
+    """
+    from retainer_hours import host_level_hours
+    return [float(h) for h in host_level_hours()]
+
+
+def evidence_divisor_pool(rows: list[dict]) -> list[float]:
+    """One hours figure per host whose captured text states a commitment.
+
+    The audit's 21 hosts plus everything the evidence scan recovered. Reported
+    as a diagnostic, not used: moving the divisor onto this pool restates the
+    headline, and that is a decision, not a repair.
+    """
+    per_host: dict[str, list[float]] = defaultdict(list)
+    for r in rows:
+        if r.get("unit") != "per_month":
+            continue
+        if (r.get("hours_source") or "") not in HOURS_FROM_EVIDENCE:
+            continue
+        try:
+            h = float(r.get("hours_per_month_used") or 0)
+        except ValueError:
+            continue
+        if h > 0:
+            per_host[r.get("host", "")].append(h)
+    return sorted(statistics.median(sorted(v)) for v in per_host.values())
+
+
+def joint_bootstrap_ci(rows: list[dict], pool: list[float],
+                       iterations: int = BOOTSTRAP_ITERATIONS,
+                       seed: int = BOOTSTRAP_SEED) -> dict | None:
+    """A 95% interval that carries the divisor's uncertainty as well as the sample's.
+
+    The published v2.1 interval resampled hosts and held the 32.5-hour divisor
+    fixed, which measures the smaller of the two unknowns: 83% of the hosts in
+    the headline get their value from `retainer / divisor`, and the divisor is
+    a median of a couple of dozen readings. Resampling only the hosts produced
+    $153.85-$200.00 and invited the reader to conclude the true figure is in
+    there with 95% confidence. It is not: the divisor alone moves the headline
+    further than that interval is wide.
+
+    Each iteration draws a fresh divisor - the median of a bootstrap resample
+    of the hosts that publish their hours - reprices every retainer that has no
+    published hours of its own, and then resamples the hosts.
+    """
+    if len(pool) < 2:
+        return None
+    fixed: dict[str, list[float]] = defaultdict(list)
+    variable: dict[str, list[float]] = defaultdict(list)
+    for r in rows:
+        host = r.get("host", "")
+        hourly = hourly_usd(r)
+        if hourly is None:
+            continue
+        if r.get("unit") == "per_month" and (r.get("hours_source") or "").startswith("default"):
+            try:
+                hours = float(r.get("hours_per_month_used") or 0)
+            except ValueError:
+                hours = 0.0
+            if hours > 0:
+                variable[host].append(hourly * hours)   # back to USD per month
+                continue
+        fixed[host].append(hourly)
+
+    hosts = sorted(set(fixed) | set(variable))
+    if len(hosts) < 2:
+        return None
+
+    rng = random.Random(seed)
+    n_pool, n_hosts = len(pool), len(hosts)
+    medians, divisors = [], []
+    for _ in range(iterations):
+        divisor = statistics.median([pool[rng.randrange(n_pool)] for _ in range(n_pool)])
+        divisors.append(divisor)
+        per_host = [
+            statistics.median(sorted(
+                fixed.get(h, []) + [u / divisor for u in variable.get(h, [])]))
+            for h in hosts
+        ]
+        medians.append(statistics.median(
+            [per_host[rng.randrange(n_hosts)] for _ in range(n_hosts)]))
+    medians.sort()
+    divisors.sort()
+    lo = medians[int(0.025 * (iterations - 1))]
+    hi = medians[int(0.975 * (iterations - 1))]
+    return {
+        "ci95_low": round(lo, 2),
+        "ci95_high": round(hi, 2),
+        "divisor_pool_hosts": n_pool,
+        "divisor_point": round(statistics.median(pool), 2),
+        "divisor_ci95_low": round(divisors[int(0.025 * (iterations - 1))], 2),
+        "divisor_ci95_high": round(divisors[int(0.975 * (iterations - 1))], 2),
+        "hosts_on_the_default_divisor": len(variable),
+        "method": (
+            "joint percentile bootstrap: each of "
+            f"{iterations} iterations draws a divisor from the "
+            f"{n_pool} hosts that publish their hours, reprices every retainer "
+            "that publishes none, and then resamples the hosts. "
+            f"Seed {seed}."
+        ),
     }
 
 
@@ -263,7 +378,7 @@ def publishable_rows(rows: list[dict]) -> list[dict]:
 
 
 def strict_rows(rows: list[dict]) -> list[dict]:
-    return [r for r in publishable_rows(rows) if verify_row(r).status == PASS]
+    return [r for r in publishable_rows(rows) if clean_pass(verify_row(r))]
 
 
 # --------------------------------------------------------------------------
@@ -337,6 +452,24 @@ def headline(rows: list[dict]) -> dict:
             "ci95_high": ci[1] if ci else None,
             "ci_method": f"percentile bootstrap over hosts, "
                          f"{BOOTSTRAP_ITERATIONS} iterations, seed {BOOTSTRAP_SEED}",
+        }
+
+    # The hourly headline carries a second interval, the one that also prices
+    # in how little is known about the divisor. The sampling-only interval is
+    # kept beside it, and labelled, because they answer different questions and
+    # v2.1 published only the narrow one.
+    joint = joint_bootstrap_ci(rows, divisor_pool())
+    if out.get("hourly_usd_all") and joint:
+        out["hourly_usd_all"]["ci95_sampling_only_low"] = out["hourly_usd_all"]["ci95_low"]
+        out["hourly_usd_all"]["ci95_sampling_only_high"] = out["hourly_usd_all"]["ci95_high"]
+        out["hourly_usd_all"]["ci95_low"] = joint["ci95_low"]
+        out["hourly_usd_all"]["ci95_high"] = joint["ci95_high"]
+        out["hourly_usd_all"]["ci_method"] = joint["method"]
+        out["hourly_usd_all"]["divisor"] = {
+            k: joint[k] for k in (
+                "divisor_pool_hosts", "divisor_point",
+                "divisor_ci95_low", "divisor_ci95_high",
+                "hosts_on_the_default_divisor")
         }
     return out
 

@@ -45,6 +45,7 @@ from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import hours_evidence as he  # noqa: E402
 from fx_rates import load_lock, rate_of  # noqa: E402
 from retainer_hours import (  # noqa: E402
     DEFAULT_HOURS_SOURCE, HOURS_PER_DAY, declared_hours,
@@ -55,7 +56,12 @@ from verify_evidence import is_priced, parse_amount, representative_value  # noq
 csv.field_size_limit(2 ** 31 - 1)
 
 NORMALIZED_COLUMNS = ["rate_hourly_usd", "normalization_basis",
-                      "hours_per_month_used", "hours_source", "fx_usd_per_unit"]
+                      "hours_per_month_used", "hours_source", "fx_usd_per_unit",
+                      # v2.1.1: what the offer's own captured words say about
+                      # time, written down separately so the divisor can be
+                      # checked against the evidence the way the price already is
+                      "hours_evidence_hours", "hours_evidence_basis",
+                      "hours_evidence_quote", "hours_evidence_status"]
 
 UNIT_LABEL = {"per_hour": "per_hour", "per_day": "per_day", "per_month": "per_month"}
 
@@ -82,19 +88,42 @@ def value_and_label(row: dict) -> tuple[Decimal | None, str]:
     return v, f"published({_trim(v)})"
 
 
-def hours_for(row: dict, default: Decimal) -> tuple[Decimal, str, str]:
-    """(hours per month, short source tag, human note) for a monthly retainer."""
+def hours_for(row: dict, default: Decimal,
+              ctx: "he.HostContext" = he.EMPTY_CONTEXT) -> tuple[Decimal, str, str]:
+    """(hours per month, short source tag, human note) for a monthly retainer.
+
+    The order of precedence, and the reason for each step:
+
+      declared          the manual audit read the page and accepted a figure
+      evidence_offer    the offer's own captured words state a commitment
+      evidence_host_..  the host publishes one retainer and one cadence
+      default           nothing was published; the measured median is used
+
+    v2.1 had only the first and the last, and the review of 2026-09-03 found
+    the cost: 25 published records whose own captured words state a commitment
+    were divided by the default anyway, overstating the hourly figure by a
+    factor of two on average.
+    """
     declared, detail = declared_hours(row.get("host", ""),
                                       row.get("offer_seq", ""))
     if declared is not None and declared > 0:
         return declared, "declared", detail
+
+    outcome = he.read_offer_hours(row, ctx)
+    if outcome.status in he.USES_EVIDENCE and outcome.hours and outcome.hours > 0:
+        r = outcome.reading
+        return outcome.hours, outcome.source, f'{r.label} from "{r.quote}"'
+
     if detail:
         # the row did carry an hours reading, and the audit threw it out
         return default, "default_after_rejected_reading", detail
+    if outcome.status == he.AMBIGUOUS:
+        return default, "default_after_ambiguous_evidence", outcome.note
     return default, "default", "no hours published"
 
 
-def normalize_row(row: dict, lock: dict, default_hours: Decimal) -> dict:
+def normalize_row(row: dict, lock: dict, default_hours: Decimal,
+                  ctx: "he.HostContext" = he.EMPTY_CONTEXT) -> dict:
     """The two computed columns, plus the inputs that produced them."""
     blank = {c: "" for c in NORMALIZED_COLUMNS}
     if not is_priced(row):
@@ -120,7 +149,7 @@ def normalize_row(row: dict, lock: dict, default_hours: Decimal) -> dict:
         hourly = usd / HOURS_PER_DAY
         parts.append(f"per_day / {_trim(HOURS_PER_DAY)}h (declared 8-hour day)")
     elif unit == "per_month":
-        hours, src, note = hours_for(row, default_hours)
+        hours, src, note = hours_for(row, default_hours, ctx)
         hours_used, hours_src = _trim(_round(hours)), src
         hourly = usd / hours
         parts.append(f"per_month / {_trim(_round(hours))}h ({src}: {note})")
@@ -130,12 +159,24 @@ def normalize_row(row: dict, lock: dict, default_hours: Decimal) -> dict:
     parts.append(f"FX {currency} {_trim(fx)} USD @{lock['rate_date']}")
     parts.append(f"= {_round(hourly)} USD/h")
 
+    outcome = he.read_offer_hours(row, ctx) if unit == "per_month" else None
+    ev_hours = ev_basis = ev_quote = ""
+    ev_status = outcome.status if outcome else ""
+    if outcome and outcome.reading is not None:
+        ev_hours = _trim(_round(outcome.hours))
+        ev_basis = outcome.reading.basis
+        ev_quote = outcome.reading.quote
+
     return {
         "rate_hourly_usd": str(_round(hourly)),
         "normalization_basis": " | ".join(parts),
         "hours_per_month_used": hours_used,
         "hours_source": hours_src,
         "fx_usd_per_unit": _trim(fx),
+        "hours_evidence_hours": ev_hours,
+        "hours_evidence_basis": ev_basis,
+        "hours_evidence_quote": ev_quote,
+        "hours_evidence_status": ev_status,
     }
 
 
@@ -150,9 +191,11 @@ def run(input_path: Path, fx_lock_path: Path, out_path: Path | None) -> dict:
 
     from collections import Counter
     counts: Counter = Counter()
+    ctx_by_host = he.index_by_host(rows)
     out_rows = []
     for r in rows:
-        extra = normalize_row(r, lock, default_hours)
+        extra = normalize_row(r, lock, default_hours,
+                              ctx_by_host.get(r.get("host", ""), he.EMPTY_CONTEXT))
         if extra["rate_hourly_usd"]:
             counts[f"unit:{r.get('unit')}"] += 1
             counts[f"currency:{r.get('currency')}"] += 1

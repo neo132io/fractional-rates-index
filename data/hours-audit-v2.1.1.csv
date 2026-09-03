@@ -1,0 +1,52 @@
+﻿host,offer_seq,captured_hours_included,evidence_quote,verdict,basis,stated_low,stated_high,open_ended,hours_per_month,note
+scaleupexec.com,0,1.0,The 1-hour plan is strategy-focused,reject,,,,no,,"plan name, not a monthly allowance; the page never states hours per month"
+marketingeyedallas.com,0,3.0,Free 3 Hours Per Month Intern Graphic Design & Web,reject,,,,no,,"the 3 hours belong to a free graphic-design intern bundled with the plan, not to the fractional CMO"
+lucrumconsulting.com,3,4.0,"Starting at $ 3,400 / Month ... Comprehensive 4 Hours Unlimited",reject,,,,no,,"comparison-table cell. Price rises as the number falls across the three plans ($899/24h, $1,599/8h, $3,400/4h): this is a support response-time SLA"
+lucrumconsulting.com,2,8.0,"$ 1,599 / Month ... Advanced 8 Hours 3",reject,,,,no,,same SLA column as offer 3
+lucrumconsulting.com,1,24.0,$ 899 / Month ... Basic 24 Hours 1,reject,,,,no,,same SLA column as offer 3
+digitalapplied.com,0,20.0,20 units,reject,,,,no,,'units' is never defined on the page; not hours
+digitalapplied.com,1,30.0,30 units,reject,,,,no,,'units' is never defined on the page; not hours
+digitalapplied.com,2,40.0,40 units,reject,,,,no,,'units' is never defined on the page; not hours
+talpaperin.com,1,2.0,about 2 hours a day,reject,,,,no,,intensity per working day. Converting needs a days-per-month assumption the page does not give
+talpaperin.com,2,4.0,about 4-5 hours a day,reject,,,,no,,"intensity per working day, as offer 1"
+sackermanconsulting.com,0,4.0,Block of hours for ad hoc work - 4 hours/month (half-day),accept,hours_per_month,4,,no,4.00,"also fixes the day length: half-day = 4h, so a day is 8h"
+trailmarktech.com,0,4.0,4-8 hrs/month,accept,hours_per_month,4,8,no,6.00,
+fractionalcmopartners.com,0,8.0,8 hours per month,accept,hours_per_month,8,,no,8.00,
+sackermanconsulting.com,1,8.0,Block of hours for ad hoc work - 8 hours/month (full-day),accept,hours_per_month,8,,no,8.00,full-day = 8h
+solunapartners.com,0,10.0,10-15 hours per month,accept,hours_per_month,10,15,no,12.50,
+sackermanconsulting.com,2,12.0,Block of hours for ad hoc work - 12 hours/month (one & a half-days),accept,hours_per_month,12,,no,12.00,"1.5 days = 12h, so a day is 8h"
+trailmarktech.com,1,12.0,12-24 hrs/month,accept,hours_per_month,12,24,no,18.00,
+luminspiregroup.com,0,15.0,"Most CFO engagements: $3,000-$6,000/month (15-30 hours at $200/hour)",accept,hours_per_month,15,30,no,22.50,"the page does the arithmetic itself: $4,500 / 22.5h = $200/h"
+luminspiregroup.com,1,15.0,"Most advisory partnerships: $3,000-$4,000/month (15-20 hours at $200/hour)",accept,hours_per_month,15,20,no,17.50,"$3,500 / 17.5h = $200/h, self-consistent"
+shashankshalabh.com,0,16.0,16-20 hours per month per engagement,accept,hours_per_month,16,20,no,18.00,
+contineofy.com,0,20.0,20 hours per month,accept,hours_per_month,20,,no,20.00,
+saasfractionalcpo.com,0,25.0,25 hours a month,accept,hours_per_month,25,,no,25.00,"our own listing, re-read against the live page on 2026-09-03; kept in, and declared as self-inclusion"
+trailmarktech.com,2,20.0,20+ hrs/month,accept,hours_per_month,20,,yes,20.00,open-ended; read at the floor
+aaronzakowski.com,2,25.0,$7000/month About 25 hours per month inside your business,accept,hours_per_month,25,,no,25.00,
+solunapartners.com,1,25.0,25-40 hours per month,accept,hours_per_month,25,40,no,32.50,
+tucksoftwaregroup.com,3,35.0,Fixed hours of consultation (35 hours),accept,hours_per_month,35,,no,35.00,
+contineofy.com,1,40.0,40 hours per month,accept,hours_per_month,40,,no,40.00,
+solunapartners.com,2,50.0,Up to 50-70 hours per month,accept,hours_per_month,50,70,no,60.00,
+tucksoftwaregroup.com,4,55.0,Fixed hours of consultation (55 hours),accept,hours_per_month,55,,no,55.00,
+tucksoftwaregroup.com,5,60.0,"Unfixed, prioritized hours of consultation (60+ hours)",accept,hours_per_month,60,,yes,60.00,
+contineofy.com,2,80.0,80 hours per month,accept,hours_per_month,80,,no,80.00,
+contineofy.com,3,120.0,120 hours per month,accept,hours_per_month,120,,no,120.00,
+talpaperin.com,0,3.0,About 3 hours a week,accept,hours_per_week,3,,no,13.00,
+gofractional.com,0,5.0,5-10 hrs/week,accept,hours_per_week,5,10,no,32.50,
+hypernestlabs.com,0,5.0,5-10 hrs/week,accept,hours_per_week,5,10,no,32.50,
+hypernestlabs.com,1,5.0,Strategic Advisory $3K-$8K /month 5-10 hrs/week,accept,hours_per_week,5,10,no,32.50,
+misnomer.co,0,6.0,Board-ready 6 to 9 hrs / week,accept,hours_per_week,6,9,no,32.50,
+erikalpurcell.com,0,10.0,10 hours per week,accept,hours_per_week,10,,no,43.33,
+flexexec.io,0,10.0,10-20 hours/week typical,accept,hours_per_week,10,20,no,65.00,
+fractionalleader.io,1,10.0,10-20 h / wk,accept,hours_per_week,10,20,no,65.00,
+misnomer.co,1,10.0,10 to 15 hrs / week,accept,hours_per_week,10,15,no,54.17,
+rankedcmo.com,0,10.0,10-20 hours per week,accept,hours_per_week,10,20,no,65.00,
+thefractionalproductmanager.com,0,10.0,Approximately 10 hours per week,accept,hours_per_week,10,,no,43.33,
+hypernestlabs.com,2,15.0,Embedded CTO $8K-$15K /month 15-20 hrs/week,accept,hours_per_week,15,20,no,75.83,
+misnomer.co,2,16.0,16 to 25 hrs / week,accept,hours_per_week,16,25,no,88.83,
+thefractionalproductmanager.com,1,20.0,Approximately 20 hours per week,accept,hours_per_week,20,,no,86.67,
+kore1.com,1,25.0,15 to 25 hours per week,accept,hours_per_week,15,25,no,86.67,
+misnomer.co,3,25.0,25+ hrs / week,accept,hours_per_week,25,,yes,108.33,
+prodevel.co.uk,0,2.0,2 days/month,accept,days_per_month,2,,no,16.00,
+prodevel.co.uk,1,4.0,4 days/month,accept,days_per_month,4,,no,32.00,
+prodevel.co.uk,2,6.0,6 days/month,accept,days_per_month,6,,no,48.00,

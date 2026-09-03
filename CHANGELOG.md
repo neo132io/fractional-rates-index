@@ -10,6 +10,66 @@ quoted still holds.
 
 ---
 
+## v2.1.1 — 2026-09-03
+
+**The plausibility band now covers the derived USD-per-hour column as well as the captured price, and
+the hours behind a retainer are read from the offer's own words wherever it states them.**
+
+The snapshot behind this edition is byte-identical to v2.1's. Nothing here comes from new collection,
+so every difference below is a change in method.
+
+### Figures that changed
+
+| Group | v2.1 | v2.1.1 | Why |
+|---|---|---|---|
+| Publish a price | 175 | **168** | Seven US monthly retainers survive as captured prices but divide into a derived hourly figure outside the $25-$1,000 band |
+| Median US monthly retainer | $5,625 (n=114) | **$5,750 (n=107)** | The seven removed records were five under $600 a month and two at $25,000 and $50,000 |
+| Median rate, all regions | $169.23 | **$172.18** | Same cause, on the axis the removed figures sat on |
+| COO / US / monthly | $3,938 (n=8) | **withdrawn (n=7)** | Falls below the n=8 reporting floor. Counted and named in the groups file, carrying no figure |
+| CMO / US / monthly | $7,500 (n=26) | **$8,250 (n=26)** | Hours read from the offer's own words rather than the 32.5-hour default |
+| CPO / US / monthly | $8,000 (n=13) | **$7,000 (n=12)** | One record left on the band; hours corrected on others |
+| CTO / US / monthly | $7,500 (n=15) | **$8,000 (n=14)** | Same |
+| Role not specified / US / monthly | $4,875 (n=42) | **$5,000 (n=38)** | Four of the seven removed records sat in this group |
+
+**If you cited $3,938 as the median fractional COO retainer, that figure is withdrawn.** The group
+held eight providers in v2.1 and holds seven now, which puts it under the reporting floor. It is not
+republished at a lower n, and it carries no figure anywhere in this edition.
+
+**If you cited $5,625 or $169.23, use $5,750 and $172.18.** Both move by under 3% and each sits
+inside the other's interval, so this is the same market measured with one more rule, not a
+correction of the reading.
+
+Two published groups did not move at all: role-unspecified US hourly stays at $175 and CTO US hourly
+stays at $200, both on the same eight providers. That comparison is measured only on groups that
+clear the reporting floor in both editions — a group of one or two hosts that did not move has not
+demonstrated continuity of a market, only that one provider did not edit a page.
+
+### What changed in how the index is made
+
+Until now the plausibility band was enforced on the price as the provider published it. A $300 a
+month retainer is a plausible monthly price, so it passed; divided by the measured 32.5-hour default
+it implies $9.23 an hour, which is not a fractional executive's rate whatever the page calls it. The
+band now runs on both the captured and the derived column, and the records it stops are published by
+name in `quarantine-v2.1.1.csv` rather than disappearing.
+
+Where a provider states how many hours its retainer buys, that number is now read from the offer's
+own words and the quote is shipped beside the figure in `hours-evidence-v2.1.1.csv`. Four published
+monthly records in five still divide by the 32.5-hour default, and the record-level file says which
+is which. The word-for-word guarantee covers the captured price; it does not cover the divisor.
+
+### Verification
+
+The acceptance gate was re-run against live provider pages at seed 20260903: 34 of 35 reachable
+records from a 40-record sample carry their number, currency and cadence today, and all 20 of the
+new hours citations were checked in full rather than sampled and all 20 matched. Combined, 54 of 55,
+98.2%. The single failure is market drift rather than a reading error — one provider raised its
+published price after capture.
+
+The fall in published providers is authorised in `approved-shrinkage-v2.1.1.json`, which names the
+size of the drop, the seven hosts behind it and the rule that removed them.
+
+---
+
 ## v2.1 — 2026-09-03
 
 **Sites belonging to one operator are now one provider, every published figure has to match a quote

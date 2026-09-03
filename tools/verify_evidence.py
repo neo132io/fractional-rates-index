@@ -18,11 +18,30 @@ Rules (RATES-PIPE-V3-PLAN, layer 1):
   5. plausibility bands, coarse USD-equivalent:
      hourly 25-1000, daily 200-8000,
      monthly 500-60000                               -> QUARANTINE implausible_*
-  6. own-price gate: context_verdict own AND
-     dual_agreement == agree AND strict_pass == true -> REJECT not_own_price
+  6. own-price gate, reported as three separate
+     reasons so the label says what actually failed:
+       context_verdict is not own                    -> REJECT context_not_own
+       dual_agreement != agree                       -> dual_not_agree
+       strict_pass != true                           -> strict_pass_false
+     The last two are confidence signals, not vetoes
+     (Sivan, 2026-09-03), and are excluded from the
+     publication gate.
+  7. hours evidence gate: a monthly row whose own
+     captured words state a time commitment must be
+     divided by that commitment, not by the measured
+     default                                         -> QUARANTINE
+                                                        hours_contradict_evidence
+  8. plausibility after normalisation: the derived
+     USD-per-hour figure has to sit inside the same
+     hourly band rule 5 applies to a captured hourly
+     rate                                            -> QUARANTINE
+                                                        implausible_hourly_derived
 
 Verdict precedence: any REJECT reason -> REJECT; else any QUARANTINE reason ->
 QUARANTINE; else PASS.
+
+Rules 6 (split), 7 and 8 are v2.1.1, and all three answer the adversarial
+statistical review of 2026-09-03 (PROF-STAT-QA-V21): H3, C1 and M5.
 
 CLI:
     python verify_evidence.py --input core-staging.csv \
@@ -378,7 +397,14 @@ def plausibility_check(value: Decimal, unit: str, currency: str) -> str | None:
 # --------------------------------------------------------------------------
 
 def own_price_gate(row: dict) -> list[str]:
-    """Sub-reasons for failing the own-price gate; empty list means it passed."""
+    """Sub-reasons for failing the own-price gate; empty list means it passed.
+
+    Reported one by one since v2.1.1. Until then the three checks were rolled
+    into a single `not_own_price` reason, and because Sivan's ruling of
+    2026-09-03 stopped enforcing two of them, 215 of the 362 published records
+    shipped carrying a REJECT label for a check none of them had failed: all
+    362 are context_verdict=own*. A label has to name what actually failed.
+    """
     failed = []
     if not (row.get("context_verdict") or "").startswith("own"):
         failed.append("context_not_own")
@@ -387,6 +413,53 @@ def own_price_gate(row: dict) -> list[str]:
     if (row.get("strict_pass") or "") != "true":
         failed.append("strict_pass_false")
     return failed
+
+
+# --------------------------------------------------------------------------
+# rule 7 - the divisor has to come from the evidence too
+# --------------------------------------------------------------------------
+
+# hours are compared at the precision the normaliser writes them out with
+HOURS_TOLERANCE = Decimal("0.02")
+
+
+def hours_evidence_check(row: dict) -> str | None:
+    """Does this monthly row divide by the commitment its own words state?
+
+    Reads the two columns normalize_rates.py writes. On a snapshot that has not
+    been normalised yet, both are empty and the rule is silent: the row simply
+    has not reached the stage this rule polices.
+    """
+    if row.get("unit") != "per_month":
+        return None
+    stated = parse_amount(row.get("hours_evidence_hours"))
+    used = parse_amount(row.get("hours_per_month_used"))
+    if stated is None or used is None or stated <= 0:
+        return None
+    return "hours_contradict_evidence" if abs(stated - used) > HOURS_TOLERANCE else None
+
+
+# --------------------------------------------------------------------------
+# rule 8 - plausibility on the derived axis
+# --------------------------------------------------------------------------
+
+def derived_plausibility_check(row: dict) -> str | None:
+    """The band rule 5 enforces on a captured hourly rate, on the derived one.
+
+    v2.1 filtered a page that said "$20 an hour" as implausible and published
+    $15.38 an hour derived from a $500 retainer, and $1,538 derived from a
+    $50,000 one. A band that only guards the axis the number arrived on is not
+    a band.
+    """
+    value = parse_amount(row.get("rate_hourly_usd"))
+    if value is None:
+        return None
+    low, high = PLAUSIBILITY["per_hour"]
+    if value < low:
+        return "implausible_hourly_derived_below_floor"
+    if value > high:
+        return "implausible_hourly_derived_above_ceiling"
+    return None
 
 
 # --------------------------------------------------------------------------
@@ -421,17 +494,32 @@ GROUNDING_REASONS = (
 
 # The publication gate, as ruled by Sivan on 2026-09-03: evidence and
 # plausibility decide what gets published; `strict_pass` and `dual_agreement`
-# become confidence columns on the record rather than a veto. Rule 6 is the
-# only reason excluded here, so this is "everything the verifier found wrong
-# with the evidence itself".
-POLICY_ONLY_REASONS = frozenset({"not_own_price"})
+# become confidence columns on the record rather than a veto. Those two are the
+# only reasons excluded here, so this is "everything the verifier found wrong
+# with the evidence itself". `context_not_own` is not excluded: a market
+# commentary is not the provider's own price, whatever the confidence flags say.
+POLICY_ONLY_REASONS = frozenset({"dual_not_agree", "strict_pass_false"})
+
+# The same two, reported on the record as what they are.
+CONFIDENCE_REASONS = POLICY_ONLY_REASONS
 
 
 def gate_pass(verdict: "Verdict") -> bool:
-    """True when a row clears evidence and plausibility, ignoring rule 6."""
+    """True when a row clears evidence and plausibility, ignoring the two
+    confidence checks."""
     if verdict.quarantines:
         return False
     return not any(r not in POLICY_ONLY_REASONS for r in verdict.reasons)
+
+
+def clean_pass(verdict: "Verdict") -> bool:
+    """True when nothing at all is down, confidence flags included.
+
+    This is the "strict and dual as well" count in the funnel. It used to be
+    `status == PASS`, which stopped being the same thing in v2.1.1 once a row
+    could pass on the evidence while carrying a confidence flag.
+    """
+    return verdict.status == PASS and not verdict.reasons
 
 
 CONFIDENCE_TIERS = ("high", "medium", "low")
@@ -559,16 +647,33 @@ def verify_row(row: dict) -> Verdict:
         if bad:
             quarantines.append(bad)
 
-    # rule 6
+    # rule 6, split: each sub-check reports under its own name
     gate = own_price_gate(row)
     if gate:
-        rejects.append("not_own_price")
+        rejects.extend(gate)
         details["own_price_gate_failed"] = ",".join(gate)
 
-    if rejects:
+    # rule 7
+    hours_bad = hours_evidence_check(row)
+    if hours_bad:
+        quarantines.append(hours_bad)
+        details["hours_evidence_hours"] = row.get("hours_evidence_hours", "")
+        details["hours_per_month_used"] = row.get("hours_per_month_used", "")
+
+    # rule 8
+    derived_bad = derived_plausibility_check(row)
+    if derived_bad:
+        quarantines.append(derived_bad)
+        details["rate_hourly_usd"] = row.get("rate_hourly_usd", "")
+
+    blocking = [r for r in rejects if r not in POLICY_ONLY_REASONS]
+    if blocking:
         return Verdict(REJECT, rejects, details, quarantines)
     if quarantines:
-        return Verdict(QUARANTINE, quarantines, details, quarantines)
+        return Verdict(QUARANTINE, quarantines + rejects, details, quarantines)
+    if rejects:
+        # only confidence flags are down: the evidence itself is sound
+        return Verdict(PASS, rejects, details, [])
     return Verdict(PASS, [], details, [])
 
 
