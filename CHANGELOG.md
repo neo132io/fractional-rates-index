@@ -10,6 +10,80 @@ quoted still holds.
 
 ---
 
+## v2.1 — 2026-09-03
+
+**Sites belonging to one operator are now one provider, every published figure has to match a quote
+captured from the provider's own page, and each record ships with that quote beside it.**
+
+### Figures that changed
+
+| Group | v2.0 | v2.1 | Why |
+|---|---|---|---|
+| Providers tracked | 1,127 | **1,774** | Collection continued, and 65 sites in one operator's network folded into one provider |
+| Publish a price | 211 (18.7% of tracked) | **175 (11.1% of the 1,577 sites read)** | The gate tightened, and the denominator now counts only sites actually read |
+| Median US monthly retainer | $5,000 | **$5,625** | Sits inside the old figure's interval and the old figure inside the new one, so this is the same finding measured on more providers, not a correction |
+| CFO / US / monthly | $1,499 (n=15) | **$2,500 (n=6, below the reporting floor)** | Six outsourced-bookkeeping subscriptions were being counted as fractional CFO retainers |
+| CPO / EU / day rate | €1,363 (n=1) | **withdrawn** | Built from the sentence "day rates in Europe in 2026 range from €700 to €1,900": a market summary, not the provider's own price, with the year read as the top of the range |
+| CPO / EU / hourly | €83 (n=1) | **withdrawn** | The figure appears in no captured quote. The page said "€100-320 per hour" |
+| COO / EU / monthly, COO / US / day | €6,000, $2,000 (n=1 each) | **withdrawn** | Neither figure could be matched to a quote |
+
+**If you cited $5,000 as the median US monthly retainer, it still holds.** Its 95% interval was
+$3,250 to $6,250; the new figure is $5,625 with an interval of $4,750 to $7,750. Thirteen of the 30
+groups that exist in both releases have a median delta of exactly zero and three more move by under
+0.2%, so the collection is measuring the same market it was measuring before.
+
+**If you cited a CPO euro figure, a CFO US monthly figure, or "19% of providers publish a price",
+change it.** The first is withdrawn, the second was measuring bookkeeping subscriptions, and the
+third counted sites that were never successfully read as sites that publish nothing.
+
+### What changed in how the index is made
+
+A figure is published only when it is found word for word in a quote captured from the provider's own
+page, together with its currency and its cadence, and sits inside a plausibility band for its unit.
+All three have to appear in the *same* quote: a number in one place and the word "hour" in another do
+not, together, establish an hourly rate. That single rule is what withdrew the four groups above.
+
+A number is also no longer published just because a group exists. A group needs eight providers
+before it carries a figure. 31 of the 38 groups fall below that line; they are named and counted in
+`data/groups-v2.1.csv` with empty median cells, so a group of one can never be mistaken for a
+finding. That floor is why no UK figure appears in this release: sterling providers are in the data,
+25 of them, but no UK group reaches eight.
+
+SaaS seat pricing and outsourced bookkeeping subscriptions are excluded from the population. A $4
+per-seat licence is not a fractional executive retainer, and 26 such products were being counted.
+
+Every record now carries one comparison column: USD per hour. Hourly rates are used as captured, day
+rates divided by eight hours, monthly retainers divided by the hours the provider publishes or by
+32.5 hours where it publishes none. The 32.5 comes from reading all 51 stated hour figures in the
+data and keeping the 41 that survived: the raw column was mixing hours per month, hours per week,
+days per month, support SLA response times and plan names. The original currency and unit stay in
+every row; the hourly column sits beside them.
+
+The divisor is checked against the data rather than assumed. Providers who state an hourly rate
+publish a median of $200; day rates over eight hours give $250; retainers over 32.5 hours give
+$154. A retainer buying volume ought to price below spot, and it does. At the 12 hours the unaudited
+column suggested, retainers would imply $417 an hour, twice what the market charges by the hour.
+
+Currency conversion uses one ECB reference rate locked at release time and published with the data
+(`data/fx-lock-20260903.json`), so any figure can be recomputed exactly.
+
+### Verification
+
+Before release, 40 published records were drawn at random from `data/records-v2.1.csv` and their
+source pages re-fetched: 30 of the 30 that could be read carried the number, its currency and its
+cadence. A second draw at a different seed returned 34 of 35. Combined, 64 of 65, against a 95%
+threshold. Both reports are in `data/acceptance-gate-v2.1.json` and
+`data/acceptance-gate-v2.1-confirm.json`, listing every page checked and every page that could not be.
+
+### Reproducing this release
+
+v2.0 was generated once, by hand, on a server, and could not be reproduced afterwards. The generator
+is now a script in this repository. `tools/generate_release.py` takes one frozen snapshot and one
+locked FX rate and emits every file in `data/` that carries a v2.1 suffix. `python -m pytest
+tools/tests` covers the evidence rules, the normalisation and the release build.
+
+---
+
 ## v2.0 — 2026-09-02
 
 **The index moved from a one-off browser audit to continuous, calibrated machine collection, and the

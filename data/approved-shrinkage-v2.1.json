@@ -1,0 +1,63 @@
+{
+  "schema": "fri-approved-shrinkage/1",
+  "release": "v2.1",
+  "issued": "2026-09-03",
+  "authorised_by": "Sivan Kadosh, chat ruling 2026-09-03 [V21-STAGE5]",
+  "statement": "One metric falls in v2.1 and it falls on purpose. The theme's no-silent-shrinkage gate rejects any drop over 5 percent, which is the right default for a broken collection run and the wrong answer for a deliberate tightening of what counts as a published price. This manifest authorises that one drop, names its size, and expires with this release.",
+  "applies_to": {
+    "note": "The gate honours an entry only when the incoming value matches `to` within `tolerance_pct`. A manifest cannot licence an unbounded fall, and it cannot be reused by a later release: `release` must match the version in the metrics file.",
+    "tolerance_pct": 2.0
+  },
+  "approved": [
+    {
+      "metric": "published",
+      "from": 211,
+      "to": 175,
+      "delta": -36,
+      "delta_pct": -17.1,
+      "reason": "the publication gate changed, not the market",
+      "decomposition": [
+        {
+          "step": "hosts with at least one priced row, the v2.0 rule, measured on the v2.1 snapshot",
+          "hosts": 241,
+          "note": "the frame grew. Under v2.0's own rule this release would report 241, not 211."
+        },
+        {
+          "step": "minus rows that fail evidence or plausibility",
+          "hosts": 191,
+          "delta": -50,
+          "note": "every published number must now appear word for word in a quote captured from the provider's own page, with its currency and its cadence, inside a per-unit plausibility band. This is what removes the CPO/EU day rate built from a year read as a price, and the CPO/EU hourly figure that appeared in no quote at all."
+        },
+        {
+          "step": "minus rows outside the fractional-executive scope",
+          "hosts": 176,
+          "delta": -15,
+          "note": "SaaS seat prices and outsourced bookkeeping subscriptions. The CFO/US monthly median moves from $1,499 to $2,500 once they are out."
+        },
+        {
+          "step": "minus duplicate rows within a host",
+          "hosts": 175,
+          "delta": -1
+        }
+      ]
+    }
+  ],
+  "not_shrinkage": [
+    {
+      "metric": "tracked",
+      "from": 1127,
+      "to": 1774,
+      "note": "rises. The 65-site fractional-*.com network was consolidated to one operator, which removed 64 host rows, and collection since 2026-09-02 added more than that. All 64 consolidated hosts published no price, so the consolidation moved the provider count and left every median untouched."
+    },
+    {
+      "metric": "us_monthly_providers",
+      "from": 84,
+      "to": 114,
+      "note": "rises."
+    }
+  ],
+  "verification": {
+    "acceptance_gate": "40-record random samples drawn at seeds 20260903 and 20260904 from records-v2.1.csv, re-fetched live: 30 of 30 and 34 of 35 reachable records carry their number, currency and cadence on the provider's page today. Combined 64 of 65, 98.5 percent, against a 95 percent threshold.",
+    "reproduction": "python tools/generate_release.py --input snapshot-normalized-7a45392c27bfe11b1d80fae1a4b33872.csv --fx-lock fx-lock-20260903.json --version v2.1"
+  }
+}

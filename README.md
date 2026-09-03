@@ -1,6 +1,6 @@
 # The Fractional Rates Index
 
-**v2.0-live · collection in progress · CC BY 4.0** (v1.2, captured 2026-08-17 to 2026-08-21, remains the last fully browser-audited release below)
+**v2.1-live · collection in progress · CC BY 4.0** (v1.2, captured 2026-08-17 to 2026-08-21, remains the last fully browser-audited release below)
 
 An open dataset of **publicly published pricing for fractional executive services**. Every figure in
 this repository carries the provider's own URL and the date it was captured. Nothing is estimated,
@@ -11,32 +11,83 @@ numbers with no traceable origin. This repository takes the opposite position: a
 citing only when a reader can follow it back to the page it came from and check it. Where the data
 cannot support a claim, this repository says so rather than filling the gap.
 
-Website: **https://saasfractionalcpo.com** — the `/data/` page goes live **24 August 2026**.
+Website: **https://saasfractionalcpo.com/data** — the same snapshot, rendered.
 
 
 ---
 
-## v2.0 — the live index (collection in progress)
+## v2.1 — the live index (collection in progress)
 
-As of 2 September 2026 the index is collected by a calibrated extraction pipeline rather than a
-one-off browser audit. The live snapshot in this repository is the same one that renders
-**https://saasfractionalcpo.com/data** — the site and this repository update together.
+The index is collected by a calibrated extraction pipeline rather than a one-off browser audit. The
+live snapshot in this repository is the same one that renders **https://saasfractionalcpo.com/data**
+— the site and this repository update together.
 
-Current snapshot: **1,127 providers tracked · 211 publish a price (18.7%) · median published US
-monthly retainer $5,000 · middle half $2,000 to $10,000** · 7 roles · USD, GBP, EUR.
+Current snapshot: **1,774 providers tracked · 175 publish a verifiable price (11.1% of the 1,577
+sites read) · median published US monthly retainer $5,625, middle half $2,562 to $10,000 · median
+across the whole index $169 an hour** · 7 roles · USD, GBP, EUR.
 
-Files:
+### The rule that decides what gets published
+
+A figure appears in this index only when it is found **word for word in a quote captured from the
+provider's own page**, together with its currency and its cadence, and sits inside a plausibility
+band for its unit. All three have to appear in the same quote. A number in one place and the word
+"hour" in another do not, together, establish an hourly rate.
+
+That rule is the reason four groups that v2.0 published are withdrawn in v2.1, including one built
+from a market-summary sentence whose year, 2026, had been read as the top of a euro range.
+`data/records-v2.1.csv` carries the quote beside every figure, so any row can be checked against the
+page it came from.
+
+A group needs **eight providers** before it carries a figure at all. 31 of the 38 groups fall below
+that line; they are named and counted with empty median cells rather than hidden, so a group of one
+can never be mistaken for a finding.
+
+### Files
 
 | File | What it is |
 |---|---|
-| [`data/portal-rates-v2.csv`](data/portal-rates-v2.csv) | Aggregates by role x region x pricing model: median, p25/p75, n, publish share. Deduplicated per (host, role); groups below n=8 are shown but flagged low-n |
-| [`data/portal-distribution-v2.csv`](data/portal-distribution-v2.csv) | Histogram of published US monthly retainers |
-| [`data/portal-metrics-v2.json`](data/portal-metrics-v2.json) | The pooled scalars the site renders, with the snapshot md5 and generation time |
+| **[`data/records-v2.1.csv`](data/records-v2.1.csv)** | **Record level, 362 rows.** Every published figure with its evidence quote, the page it came from, its normalisation chain and a confidence tier |
+| [`data/portal-rates-v2.1.csv`](data/portal-rates-v2.1.csv) | The 7 groups that clear the reporting floor: median, p25/p75, USD-per-hour equivalents, providers and prices counted separately |
+| [`data/groups-v2.1.csv`](data/groups-v2.1.csv) | All 38 groups, including the 31 below the floor, which carry no figures |
+| [`data/portal-metrics-v2.1.json`](data/portal-metrics-v2.1.json) | Headlines with bootstrap intervals, the publication funnel, the FX lock, the full methodology and the known limitations |
+| [`data/portal-distribution-v2.1.csv`](data/portal-distribution-v2.1.csv) | Histogram of published US monthly retainers |
+| [`data/delta-vs-v2-v2.1.csv`](data/delta-vs-v2-v2.1.csv) | Group by group against v2.0, with a reason for every move |
+| [`data/hours-audit-v2.1.csv`](data/hours-audit-v2.1.csv) | All 51 stated hour figures, each with its quote and the verdict on it |
+| [`data/fx-lock-20260903.json`](data/fx-lock-20260903.json) | The ECB reference rates this release converted with |
+| [`data/acceptance-gate-v2.1.json`](data/acceptance-gate-v2.1.json) | 40 published records re-fetched from their live pages before release |
+| [`tools/`](tools/) | The generator, the evidence verifier and their tests |
 
-Honesty notes: collection is in progress toward a 10,000-provider target, so n grows continuously;
-records extracted on any uncalibrated model rung are quarantined and excluded until re-extracted;
-the extraction gate (zero phantom values, silent-wrong rate under 0.5%) passed on 2026-09-01 and
-every record carries an evidence quote from the provider's own page.
+### The comparison column
+
+Every record keeps the currency and unit its provider published, and gains one derived column: USD
+per hour. Hourly rates as captured, day rates over eight hours, monthly retainers over the hours the
+provider publishes or over 32.5 hours where it publishes none.
+
+The 32.5 is measured, not assumed. All 51 stated hour figures in the data were read one by one; 10
+were rejected because the column was mixing hours per month, hours per week, days per month, support
+SLA response times and plan names. The 41 that survived give a host-level median of 32.5. The
+divisor is then checked against the data from outside: providers stating an hourly rate publish a
+median of $200, day rates over eight hours give $250, and retainers over 32.5 hours give $154 — a
+retainer buying volume priced below spot, which is what should happen.
+
+**A monthly retainer is not literally a block of hours.** Treat the hourly column as a device for
+comparing rows, not as a rate to quote.
+
+### Reproducing a release
+
+`tools/generate_release.py` takes one frozen snapshot and one locked FX rate and emits every v2.1
+file in `data/`. The snapshot's md5 is recorded in `data/portal-metrics-v2.1.json`. Run
+`python -m pytest tools/tests` for the evidence rules, the normalisation and the release build.
+
+### Honesty notes
+
+Collection is in progress toward a 10,000-provider target, so n grows continuously. Region is the
+currency a provider quotes in, not where the provider is: a US firm quoting in euros lands in EU. The
+hours default is measured on the 21 hosts that publish hours, and providers who publish hours may not
+be typical of those who do not — this is the largest assumption left in the index, and it is stated
+in the metrics file rather than buried in a footnote. **saasfractionalcpo.com, which publishes this
+index, is one of the sampled providers** at $8,000 a month for 20 to 25 hours; it is one host out of
+175 and is not excluded.
 
 ---
 

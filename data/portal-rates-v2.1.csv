@@ -1,0 +1,8 @@
+role,region,model,currency,median,p25,p75,median_hourly_usd,p25_hourly_usd,p75_hourly_usd,n_hosts,n_offers,confidence_high,confidence_medium,confidence_low,bar_left,bar_right,bar_median
+Role not specified,US,Hourly,USD,$175,$68,$269,$175,$68,$269,8,8,0,1,7,23.3,7.4,60.3
+Role not specified,US,Monthly retainer,USD,"$4,875","$2,500","$9,000",$154,$77,$277,42,70,19,15,36,19.3,30.5,37.6
+Fractional CMO,US,Monthly retainer,USD,"$7,500","$4,938","$10,375",$188,$156,$311,26,59,32,6,21,38.1,19.9,57.9
+Fractional COO,US,Monthly retainer,USD,"$3,938","$1,581","$9,950",$124,$49,$294,8,21,16,2,3,12.2,23.2,30.4
+Fractional CPO,US,Monthly retainer,USD,"$8,000","$3,500","$11,999",$185,$108,$354,13,24,4,5,15,27.0,7.4,61.7
+Fractional CTO,US,Hourly,USD,$200,$125,$269,$200,$125,$269,8,12,4,1,7,43.1,7.4,68.9
+Fractional CTO,US,Monthly retainer,USD,"$7,500","$2,975","$10,875",$182,$92,$373,15,32,10,6,16,23.0,16.1,57.9

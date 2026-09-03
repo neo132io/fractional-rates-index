@@ -1,0 +1,1557 @@
+{
+  "records_file": "D:\\index-v2\\staging\\release\\records-v2.1.csv",
+  "snapshot_file": "D:\\index-v2\\staging\\release\\snapshot-normalized-7a45392c27bfe11b1d80fae1a4b33872.csv",
+  "seed": 20260903,
+  "sample_size": 40,
+  "reachable": 30,
+  "unreachable": 10,
+  "passed": 30,
+  "accuracy_on_reachable": 1.0,
+  "threshold": 0.95,
+  "verdict": "PASS",
+  "unreachable_records": [
+    {
+      "host": "venturegrowthpartners.com",
+      "reason": "page did not render for a plain HTTP client (live 240 chars vs collector 30000)",
+      "pages": [
+        "https://venturegrowthpartners.com/ -> HTTP 200",
+        "https://venturegrowthpartners.com/designing-smarter-bonus-plans/ -> HTTP 200",
+        "https://venturegrowthpartners.com/services/ -> HTTP 200"
+      ]
+    },
+    {
+      "host": "internalprofits.com",
+      "reason": "page did not render for a plain HTTP client (live 320 chars vs collector 13218)",
+      "pages": [
+        "https://internalprofits.com/ -> HTTP 200",
+        "https://internalprofits.com/business-coaching-plans/ -> HTTP 200",
+        "https://internalprofits.com/fractional-cmo/internal-profits-fractional-cmo-packages/ -> HTTP 200",
+        "https://internalprofits.com/services/ -> HTTP 200"
+      ]
+    },
+    {
+      "host": "growthexpert.io",
+      "reason": "page did not render for a plain HTTP client (live 320 chars vs collector 25345)",
+      "pages": [
+        "https://growthexpert.io/fractional-chief-product-officers/ -> HTTP 200",
+        "http://growthexpert.io/pricing/ -> HTTP 200",
+        "https://growthexpert.io/pricing/ -> HTTP 200",
+        "https://www.growthexpert.io/pricing -> HTTP 200"
+      ]
+    },
+    {
+      "host": "growthexpert.io",
+      "reason": "page did not render for a plain HTTP client (live 320 chars vs collector 25345)",
+      "pages": [
+        "https://growthexpert.io/fractional-chief-product-officers/ -> HTTP 200",
+        "http://growthexpert.io/pricing/ -> HTTP 200",
+        "https://growthexpert.io/pricing/ -> HTTP 200",
+        "https://www.growthexpert.io/pricing -> HTTP 200"
+      ]
+    },
+    {
+      "host": "fractionalpros.com",
+      "reason": "page did not render for a plain HTTP client (live 608 chars vs collector 4847)",
+      "pages": [
+        "https://fractionalpros.com/plans/membership/ -> HTTP 200"
+      ]
+    },
+    {
+      "host": "vertamarketing.com",
+      "reason": "page did not render for a plain HTTP client (live 240 chars vs collector 13232)",
+      "pages": [
+        "https://vertamarketing.com/ -> HTTP 200",
+        "https://vertamarketing.com/pricing-packages/ -> HTTP 200",
+        "https://vertamarketing.com/vertas-token-pricing-model-what-are-the-benefits-and-does-it-reshape-the-traditional-agency-pricing-model-for-the-better/ -> HTTP 200"
+      ]
+    },
+    {
+      "host": "fractionalctos.com.au",
+      "reason": "all pages errored/blocked",
+      "pages": [
+        "https://fractionalctos.com.au/fractional-cto-cost-australia/ -> HTTP 202",
+        "https://fractionalctos.com.au/pricing -> HTTP 202",
+        "https://fractionalctos.com.au/pricing/ -> HTTP 202",
+        "https://fractionalctos.com.au/cto-as-a-service-pricing/ -> HTTP 202"
+      ]
+    },
+    {
+      "host": "punchfinancial.com",
+      "reason": "all pages errored/blocked",
+      "pages": [
+        "https://punchfinancial.com/pricing/ -> HTTP 202",
+        "https://punchfinancial.com/ -> HTTP 202",
+        "https://punchfinancial.com/outsourced-cfo-rates-2024/ -> HTTP 202",
+        "https://punchfinancial.com/how-todays-high-interest-rates-are-impacting-business-debt-financing-fo-growth/ -> HTTP 202"
+      ]
+    },
+    {
+      "host": "madelynvictoriaco.com",
+      "reason": "all pages errored/blocked",
+      "pages": [
+        "https://madelynvictoriaco.com/fractional-cmo -> HTTP 403"
+      ]
+    },
+    {
+      "host": "pwawco.com",
+      "reason": "all pages errored/blocked",
+      "pages": [
+        "https://pwawco.com/pricing/ -> HTTP 202",
+        "https://pwawco.com/ -> HTTP 202",
+        "https://pwawco.com/cost-reduction-strategies-for-small-businesses/ -> HTTP 202",
+        "https://pwawco.com/services/ -> HTTP 202"
+      ]
+    }
+  ],
+  "failures": [],
+  "results": [
+    {
+      "n": 1,
+      "host": "rockmanconsulting.net",
+      "role": "COO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "12000",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$12,000 monthly",
+      "collector_chars": 7766,
+      "live_chars": 8170,
+      "pages": [
+        {
+          "url": "https://rockmanconsulting.net/",
+          "fetch": "HTTP 200",
+          "chars": 8170,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 2,
+      "host": "growthahoy.com",
+      "role": "CMO",
+      "currency": "EUR",
+      "unit": "per_month",
+      "price_low": "2300",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "From €2,300 /month (+VAT)",
+      "collector_chars": 11004,
+      "live_chars": 7726,
+      "pages": [
+        {
+          "url": "https://www.growthahoy.com/pricing",
+          "fetch": "HTTP 200",
+          "chars": 7726,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 3,
+      "host": "oshricohen.me",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "10000",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "Advisory ($10K/mo, ~1 day a week)",
+      "collector_chars": 24394,
+      "live_chars": 13440,
+      "pages": [
+        {
+          "url": "https://oshricohen.me/services/",
+          "fetch": "HTTP 200",
+          "chars": 13440,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 4,
+      "host": "fractionalctosolutions.com",
+      "role": "CTO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1800",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "Starting at $1,800/month",
+      "collector_chars": 13815,
+      "live_chars": 9558,
+      "pages": [
+        {
+          "url": "https://fractionalctosolutions.com/",
+          "fetch": "HTTP 200",
+          "chars": 9558,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 5,
+      "host": "venturegrowthpartners.com",
+      "role": "CFO",
+      "currency": "USD",
+      "unit": "per_hour",
+      "price_low": "270",
+      "price_high": "330",
+      "confidence_tier": "high",
+      "evidence_quote": "Hourly rates usually range from $270 to $330 depending on expertise and scope.",
+      "collector_chars": 30000,
+      "live_chars": 240,
+      "pages": [
+        {
+          "url": "https://venturegrowthpartners.com/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://venturegrowthpartners.com/designing-smarter-bonus-plans/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://venturegrowthpartners.com/services/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 240 chars vs collector 30000)",
+      "pass": null
+    },
+    {
+      "n": 6,
+      "host": "rossboardman.com",
+      "role": "CPO",
+      "currency": "GBP",
+      "unit": "per_month",
+      "price_low": "12000",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "£12,000/month",
+      "collector_chars": 10789,
+      "live_chars": 7294,
+      "pages": [
+        {
+          "url": "https://www.rossboardman.com/pricing",
+          "fetch": "HTTP 200",
+          "chars": 7294,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 7,
+      "host": "internalprofits.com",
+      "role": "CMO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "12000",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "$12,000 +/mo + Custom setup fee",
+      "collector_chars": 13218,
+      "live_chars": 320,
+      "pages": [
+        {
+          "url": "https://internalprofits.com/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://internalprofits.com/business-coaching-plans/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://internalprofits.com/fractional-cmo/internal-profits-fractional-cmo-packages/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://internalprofits.com/services/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 320 chars vs collector 13218)",
+      "pass": null
+    },
+    {
+      "n": 8,
+      "host": "sackermanconsulting.com",
+      "role": "CFO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "2500",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "Starting at $ 2,500 / Month",
+      "collector_chars": 6624,
+      "live_chars": 2212,
+      "pages": [
+        {
+          "url": "https://sackermanconsulting.com/women-founders/",
+          "fetch": "HTTP 200",
+          "chars": 2212,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 9,
+      "host": "like-sunday.com",
+      "role": "COO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "500",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "Founder's Program $500/month",
+      "collector_chars": 6099,
+      "live_chars": 7353,
+      "pages": [
+        {
+          "url": "https://www.like-sunday.com/services",
+          "fetch": "HTTP 200",
+          "chars": 7353,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 10,
+      "host": "geisheker.com",
+      "role": "CMO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1000",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "Starting at $1,000/month",
+      "collector_chars": 6883,
+      "live_chars": 7200,
+      "pages": [
+        {
+          "url": "https://www.geisheker.com/fractional-cmo-pricing/",
+          "fetch": "HTTP 200",
+          "chars": 7200,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 11,
+      "host": "kledigital.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1800",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "From $1,800/mo",
+      "collector_chars": 21111,
+      "live_chars": 10557,
+      "pages": [
+        {
+          "url": "https://kledigital.com/",
+          "fetch": "HTTP 200",
+          "chars": 10557,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 12,
+      "host": "growthexpert.io",
+      "role": "CPO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1200",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "$1200 /mo",
+      "collector_chars": 25345,
+      "live_chars": 320,
+      "pages": [
+        {
+          "url": "https://growthexpert.io/fractional-chief-product-officers/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "http://growthexpert.io/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://growthexpert.io/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://www.growthexpert.io/pricing",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 320 chars vs collector 25345)",
+      "pass": null
+    },
+    {
+      "n": 13,
+      "host": "growthexpert.io",
+      "role": "CPO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "3200",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "$3200 /mo",
+      "collector_chars": 25345,
+      "live_chars": 320,
+      "pages": [
+        {
+          "url": "https://growthexpert.io/fractional-chief-product-officers/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "http://growthexpert.io/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://growthexpert.io/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://www.growthexpert.io/pricing",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 320 chars vs collector 25345)",
+      "pass": null
+    },
+    {
+      "n": 14,
+      "host": "fractionalpros.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "500",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "$ 500 / Month",
+      "collector_chars": 4847,
+      "live_chars": 608,
+      "pages": [
+        {
+          "url": "https://fractionalpros.com/plans/membership/",
+          "fetch": "HTTP 200",
+          "chars": 608,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 608 chars vs collector 4847)",
+      "pass": null
+    },
+    {
+      "n": 15,
+      "host": "trailmarktech.com",
+      "role": "CTO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "6500",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "Embedded Partner Close-in leadership to move an initiative forward. Starting at $6,500/month",
+      "collector_chars": 13932,
+      "live_chars": 6754,
+      "pages": [
+        {
+          "url": "https://trailmarktech.com/services",
+          "fetch": "HTTP 200",
+          "chars": 6754,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 16,
+      "host": "vertamarketing.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "2500",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "starting at just $2500 per month",
+      "collector_chars": 13232,
+      "live_chars": 240,
+      "pages": [
+        {
+          "url": "https://vertamarketing.com/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://vertamarketing.com/pricing-packages/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        },
+        {
+          "url": "https://vertamarketing.com/vertas-token-pricing-model-what-are-the-benefits-and-does-it-reshape-the-traditional-agency-pricing-model-for-the-better/",
+          "fetch": "HTTP 200",
+          "chars": 80,
+          "value_ok": false,
+          "value_fields_found": [],
+          "currency_ok": false,
+          "unit_ok": false
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "page did not render for a plain HTTP client (live 240 chars vs collector 13232)",
+      "pass": null
+    },
+    {
+      "n": 17,
+      "host": "fractionalctos.com.au",
+      "role": "CTO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "5000",
+      "price_high": "15000",
+      "confidence_tier": "low",
+      "evidence_quote": "Monthly retainer $5,000-$15,000+ /month",
+      "collector_chars": 16602,
+      "live_chars": 0,
+      "pages": [
+        {
+          "url": "https://fractionalctos.com.au/fractional-cto-cost-australia/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://fractionalctos.com.au/pricing",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://fractionalctos.com.au/pricing/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://fractionalctos.com.au/cto-as-a-service-pricing/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "all pages errored/blocked",
+      "pass": null
+    },
+    {
+      "n": 18,
+      "host": "launchindustries.biz",
+      "role": "CFO",
+      "currency": "USD",
+      "unit": "per_hour",
+      "price_low": "100",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "20 - 40 hours $100 / hr Up to $4,000",
+      "collector_chars": null,
+      "live_chars": 11681,
+      "pages": [
+        {
+          "url": "https://www.launchindustries.biz/Pricing",
+          "fetch": "HTTP 200",
+          "chars": 11681,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 19,
+      "host": "kompella.io",
+      "role": "CTO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "20000",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "Embedded $20,000 / month 3+ days/week",
+      "collector_chars": null,
+      "live_chars": 11573,
+      "pages": [
+        {
+          "url": "https://kompella.io/services/fractional-cpo",
+          "fetch": "HTTP 200",
+          "chars": 11573,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 20,
+      "host": "coofractional.com",
+      "role": "COO",
+      "currency": "EUR",
+      "unit": "per_day",
+      "price_low": "1800",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "€1,800 / day",
+      "collector_chars": 2173,
+      "live_chars": 3354,
+      "pages": [
+        {
+          "url": "https://coofractional.com/cost",
+          "fetch": "HTTP 200",
+          "chars": 3354,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 21,
+      "host": "letsrocc.com",
+      "role": "(none)",
+      "currency": "EUR",
+      "unit": "per_month",
+      "price_low": "15000",
+      "price_high": "20000",
+      "confidence_tier": "low",
+      "evidence_quote": "Germany, Austria, Switzerland and Ireland: €15k to €20k monthly.",
+      "collector_chars": 9392,
+      "live_chars": 10466,
+      "pages": [
+        {
+          "url": "https://letsrocc.com/",
+          "fetch": "HTTP 200",
+          "chars": 10466,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low",
+            "price_high"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low",
+        "price_high"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 22,
+      "host": "o-cmo.com",
+      "role": "CMO",
+      "currency": "EUR",
+      "unit": "per_month",
+      "price_low": "3000",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "Essential €3,000 per month",
+      "collector_chars": 30000,
+      "live_chars": 8415,
+      "pages": [
+        {
+          "url": "https://o-cmo.com/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 8415,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 23,
+      "host": "wildfigcmo.com",
+      "role": "CMO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "10000",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "Investment: Starting at $10,000/month",
+      "collector_chars": 5217,
+      "live_chars": 2044,
+      "pages": [
+        {
+          "url": "https://www.wildfigcmo.com/services",
+          "fetch": "HTTP 200",
+          "chars": 2044,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 24,
+      "host": "o-cmo.com",
+      "role": "CMO",
+      "currency": "EUR",
+      "unit": "per_month",
+      "price_low": "4000",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "Professional €4,000 per month",
+      "collector_chars": 30000,
+      "live_chars": 8415,
+      "pages": [
+        {
+          "url": "https://o-cmo.com/pricing/",
+          "fetch": "HTTP 200",
+          "chars": 8415,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 25,
+      "host": "kledigital.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_hour",
+      "price_low": "150",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "From $150/hr",
+      "collector_chars": 21111,
+      "live_chars": 10557,
+      "pages": [
+        {
+          "url": "https://kledigital.com/",
+          "fetch": "HTTP 200",
+          "chars": 10557,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 26,
+      "host": "fractionalcoo.net",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "15000",
+      "price_high": "40000",
+      "confidence_tier": "low",
+      "evidence_quote": "$15K-$40K/month Pricing based on company stage, team size, and scope.",
+      "collector_chars": 5527,
+      "live_chars": 3340,
+      "pages": [
+        {
+          "url": "https://fractionalcoo.net/",
+          "fetch": "HTTP 200",
+          "chars": 3340,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low",
+            "price_high"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low",
+        "price_high"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 27,
+      "host": "digitalapplied.com",
+      "role": "CMO",
+      "currency": "EUR",
+      "unit": "per_month",
+      "price_low": "3000",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "€3,000 / month",
+      "collector_chars": 28753,
+      "live_chars": 8198,
+      "pages": [
+        {
+          "url": "https://www.digitalapplied.com/services",
+          "fetch": "HTTP 200",
+          "chars": 8198,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 28,
+      "host": "punchfinancial.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "4500",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$4,500 /Month",
+      "collector_chars": 8066,
+      "live_chars": 0,
+      "pages": [
+        {
+          "url": "https://punchfinancial.com/pricing/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://punchfinancial.com/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://punchfinancial.com/outsourced-cfo-rates-2024/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://punchfinancial.com/how-todays-high-interest-rates-are-impacting-business-debt-financing-fo-growth/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "all pages errored/blocked",
+      "pass": null
+    },
+    {
+      "n": 29,
+      "host": "sackermanconsulting.com",
+      "role": "CFO",
+      "currency": "USD",
+      "unit": "per_hour",
+      "price_low": "200",
+      "price_high": "",
+      "confidence_tier": "medium",
+      "evidence_quote": "$200.00/hour Contact  Strategy I can be a sounding board to discus",
+      "collector_chars": null,
+      "live_chars": 5176,
+      "pages": [
+        {
+          "url": "https://sackermanconsulting.com/services/",
+          "fetch": "HTTP 200",
+          "chars": 5176,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 30,
+      "host": "madelynvictoriaco.com",
+      "role": "CMO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "4500",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$4,500/month",
+      "collector_chars": 18719,
+      "live_chars": 0,
+      "pages": [
+        {
+          "url": "https://madelynvictoriaco.com/fractional-cmo",
+          "fetch": "HTTP 403",
+          "chars": 0
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "all pages errored/blocked",
+      "pass": null
+    },
+    {
+      "n": 31,
+      "host": "lemniscategrowth.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "4000",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$4000 /month · 6-month engagement",
+      "collector_chars": 25255,
+      "live_chars": 27213,
+      "pages": [
+        {
+          "url": "https://lemniscategrowth.com/",
+          "fetch": "HTTP 200",
+          "chars": 27213,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 32,
+      "host": "epfsllc.com",
+      "role": "multi",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "2499",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$2,499 USD /month",
+      "collector_chars": 3262,
+      "live_chars": 6675,
+      "pages": [
+        {
+          "url": "https://www.epfsllc.com/pricing",
+          "fetch": "HTTP 200",
+          "chars": 6675,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 33,
+      "host": "arc.dev",
+      "role": "CTO",
+      "currency": "USD",
+      "unit": "per_hour",
+      "price_low": "60",
+      "price_high": "100",
+      "confidence_tier": "low",
+      "evidence_quote": "between $60-100+/hour (USD)",
+      "collector_chars": 18900,
+      "live_chars": 28533,
+      "pages": [
+        {
+          "url": "https://arc.dev/hire-developers/coffeescript",
+          "fetch": "HTTP 200",
+          "chars": 28533,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low",
+            "price_high"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low",
+        "price_high"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 34,
+      "host": "chameleoncollective.com",
+      "role": "CPO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "25000",
+      "price_high": "50000",
+      "confidence_tier": "high",
+      "evidence_quote": "$25K-$50K per month",
+      "collector_chars": 8818,
+      "live_chars": 9834,
+      "pages": [
+        {
+          "url": "https://chameleoncollective.com/skill/fractional-cpo-chief-product-officer/",
+          "fetch": "HTTP 200",
+          "chars": 9834,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low",
+            "price_high"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low",
+        "price_high"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 35,
+      "host": "boardman.com",
+      "role": "CTO",
+      "currency": "GBP",
+      "unit": "per_day",
+      "price_low": "1500",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "£1,500 a day",
+      "collector_chars": 4565,
+      "live_chars": 4483,
+      "pages": [
+        {
+          "url": "https://www.boardman.com/pricing",
+          "fetch": "HTTP 200",
+          "chars": 4483,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 36,
+      "host": "interim.quest",
+      "role": "(none)",
+      "currency": "GBP",
+      "unit": "per_day",
+      "price_low": "1000",
+      "price_high": "1800",
+      "confidence_tier": "high",
+      "evidence_quote": "£1,000-£1,800 /DAY",
+      "collector_chars": 3462,
+      "live_chars": 4262,
+      "pages": [
+        {
+          "url": "https://interim.quest/",
+          "fetch": "HTTP 200",
+          "chars": 4262,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low",
+            "price_high"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low",
+        "price_high"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 37,
+      "host": "dnaleads.com",
+      "role": "CMO",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "5500",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "$5,500* per month*",
+      "collector_chars": 4991,
+      "live_chars": 5966,
+      "pages": [
+        {
+          "url": "https://dnaleads.com/pricing-plans/",
+          "fetch": "HTTP 200",
+          "chars": 5966,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 38,
+      "host": "fractional.quest",
+      "role": "CPO",
+      "currency": "GBP",
+      "unit": "per_day",
+      "price_low": "1350",
+      "price_high": "",
+      "confidence_tier": "high",
+      "evidence_quote": "£1,350 median day rate",
+      "collector_chars": 9048,
+      "live_chars": 10232,
+      "pages": [
+        {
+          "url": "https://fractional.quest/fractional-cpo-jobs-uk",
+          "fetch": "HTTP 200",
+          "chars": 10232,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    },
+    {
+      "n": 39,
+      "host": "pwawco.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1000",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "Prices start as low as $1,000 per month",
+      "collector_chars": 16156,
+      "live_chars": 0,
+      "pages": [
+        {
+          "url": "https://pwawco.com/pricing/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://pwawco.com/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://pwawco.com/cost-reduction-strategies-for-small-businesses/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        },
+        {
+          "url": "https://pwawco.com/services/",
+          "fetch": "HTTP 202",
+          "chars": 0
+        }
+      ],
+      "reachable": false,
+      "unreachable_reason": "all pages errored/blocked",
+      "pass": null
+    },
+    {
+      "n": 40,
+      "host": "houstonitdevelopers.com",
+      "role": "(none)",
+      "currency": "USD",
+      "unit": "per_month",
+      "price_low": "1500",
+      "price_high": "",
+      "confidence_tier": "low",
+      "evidence_quote": "$1,500/mo for dedicated developers",
+      "collector_chars": 29482,
+      "live_chars": 6661,
+      "pages": [
+        {
+          "url": "https://houstonitdevelopers.com/pricing",
+          "fetch": "HTTP 200",
+          "chars": 6661,
+          "value_ok": true,
+          "value_fields_found": [
+            "price_low"
+          ],
+          "currency_ok": true,
+          "unit_ok": true
+        }
+      ],
+      "reachable": true,
+      "value_ok": true,
+      "value_fields_found": [
+        "price_low"
+      ],
+      "currency_ok": true,
+      "unit_ok": true,
+      "pass": true
+    }
+  ]
+}
