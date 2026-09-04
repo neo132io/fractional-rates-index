@@ -465,6 +465,15 @@ def build_delta(groups: dict, v2_rates: dict) -> list[dict]:
         delta = round(v21_med - v2_med, 2) if (v21_med is not None and v2_med) else ""
         pct = (round(100 * (v21_med - v2_med) / v2_med, 1)
                if (v21_med is not None and v2_med) else "")
+        # The floor applies to the comparison column too. A prior edition's
+        # median is worth carrying only where that edition itself cleared the
+        # floor, because that is the figure a reader could have cited. Where
+        # v2.0 printed a median off one or two providers the number never had
+        # standing, and reprinting it here is the same failure in a second
+        # file: this column shipped CPO/EU/Hourly at 83 euros and CPO/EU/Day at
+        # 1,363 euros, the two figures v2.1 withdrew for being a phantom and a
+        # year read as a price, and CPO/UK/Monthly off a single provider.
+        v2_shown = bool(v2 and v2.get("n") and int(v2["n"]) >= gs.REPORTING_FLOOR)
         if g is None:
             note = "group emptied by the evidence and scope rules"
         elif not g["meets_floor"]:
@@ -473,6 +482,10 @@ def build_delta(groups: dict, v2_rates: dict) -> list[dict]:
             note = "new group in v2.1"
         else:
             note = ""
+        if v2 is not None and not v2_shown:
+            suffix = ("prior median withheld: the group was below the "
+                      f"n>={gs.REPORTING_FLOOR} floor in that edition too")
+            note = f"{note}; {suffix}" if note else suffix
         # The reporting floor has to hold in every file of the release, not
         # just in the one the page renders. v2.1 shipped this table with
         # v21_median_native and v21_median_hourly_usd filled in for all 31
@@ -486,10 +499,10 @@ def build_delta(groups: dict, v2_rates: dict) -> list[dict]:
             "v2_n": v2["n"] if v2 else "",
             "v21_n_hosts": g["n_hosts"] if g else 0,
             "n_delta": (g["n_hosts"] if g else 0) - (v2["n"] if v2 else 0),
-            "v2_median": v2_med if v2_med is not None else "",
+            "v2_median": v2_med if (v2_shown and v2_med is not None) else "",
             "v21_median_native": (v21_med if (shown and v21_med is not None) else ""),
-            "median_delta": delta if shown else "",
-            "median_delta_pct": pct if shown else "",
+            "median_delta": delta if (shown and v2_shown) else "",
+            "median_delta_pct": pct if (shown and v2_shown) else "",
             "v21_median_hourly_usd": (g["hourly_usd"]["median"]
                                       if (shown and g and g["hourly_usd"]) else ""),
             "v21_published": "yes" if shown else "no",

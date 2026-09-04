@@ -486,7 +486,13 @@ def run(input_path: Path, out_path: Path | None,
 
     records = [_record(k, groups[k]) for k in sorted(groups)]
     if out_path:
-        with out_path.open("w", newline="", encoding="utf-8") as fh:
+        # utf-8-sig, like every other released CSV. groups-v2.1.1.csv was the
+        # one file in the release that shipped without the BOM. It happens to
+        # hold no non-ASCII character today, so nothing was mojibaked, but the
+        # groups file names every currency bucket and the first sub-floor group
+        # that carries a pound or euro sign would have broken in Excel while
+        # the other eight files opened cleanly.
+        with out_path.open("w", newline="", encoding="utf-8-sig") as fh:
             w = csv.DictWriter(fh, fieldnames=OUT_FIELDS, lineterminator="\n")
             w.writeheader()
             w.writerows(records)
